@@ -1,0 +1,60 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: main
+    reviewers:
+      - mprins
+    assignees:
+      - mprins
+    labels:
+      - infrastucture
+      - dependency
+    # stay on springboot 3.x / spring-security 6.x / hibernate 6.x
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-starter-parent
+        versions:
+          - '>= 4'
+      - dependency-name: org.springframework.security:spring-security-test
+        versions:
+          - '>= 7'
+      - dependency-name: org.hibernate.orm.tooling:hibernate-enhance-maven-plugin
+        versions:
+          - '>= 7'
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: monday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    assignees:
+      - mprins
+    labels:
+      - infrastucture
+
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    target-branch: main
+    reviewers:
+      - mprins
+    assignees:
+      - mprins
+    labels:
+      - infrastucture
+    ignore:
+      # stay on Java 17 for now
+      - dependency-name: "eclipse-temurin"
+        versions:
+          - ">= 18"

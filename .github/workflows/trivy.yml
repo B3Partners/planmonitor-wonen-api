@@ -1,0 +1,57 @@
+name: Trivy Security Scan
+on:
+  # use pull request so this workflow dos not fail when triggered by dependabot PR's
+  pull_request:
+  schedule:
+    - cron: "17 23 * * 0"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Trivy Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: 'maven'
+
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
+      - name: Build
+        run: mvn -U package -DskipTests -DskipITs -Dmaven.javadoc.skip=true
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.19.0
+        # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image docker.b3p.nl/b3partners/planmonitor-wonen-api:snapshot
+        with:
+          image-ref: 'docker.b3p.nl/b3partners/planmonitor-wonen-api:snapshot'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'HIGH,CRITICAL'
+          limit-severities-for-sarif: true
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v3
+        with:
+          files: 'trivy-results.sarif'
+
+#      Not supported on private repositories without a license
+#      - name: Upload Trivy scan results to GitHub Security tab
+#        uses: github/codeql-action/upload-sarif@v3
+#        if: steps.check_files.outputs.files_exists == 'true'
+#        with:
+#          sarif_file: 'trivy-results.sarif'
+
+      - name: Cleanup cached snapshots
+        if: always()
+        run: |
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
