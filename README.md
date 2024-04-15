@@ -1,2 +1,2 @@
 # planmonitor-wonen-api
-Rest API voor Planmonitor Wonen
+Rest API voor Planmonitor Wonen. Planmonitor Wonen is een webapplicatie die inzicht geeft in de voortgang van de woningbouwopgave in Nederland. De applicatie is ontwikkeld in opdracht van het Ministerie van Binnenlandse Zaken en Koninkrijksrelaties en is bedoeld voor beleidsmakers, bestuurders, onderzoekers en andere geïnteresseerden die inzicht willen in de voortgang van de woningbouwopgave in Nederland.

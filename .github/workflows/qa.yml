@@ -1,0 +1,45 @@
+name: 'Ubuntu QA Maven build'
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true
+
+concurrency:
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.workflow }}-${{ ( github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release' ) && format('ci-master-{0}', github.sha) || format('ci-master-{0}', github.ref) }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 'QA check'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+#      Not supported on private repositories without a license
+#      - name: 'Dependency Review'
+#        uses: actions/dependency-review-action@v4
+
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: '3.9.6'
+
+      - name: 'QA build with Maven'
+        run: mvn -B -V -fae -DskipQA=false -Dfmt.action=check -Dpom.fmt.action=verify -Ddocker.skip=true -DskipTests -DskipITs clean install
+
+      - name: 'Cleanup snapshots'
+        run: |
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
