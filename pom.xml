@@ -11,7 +11,7 @@ SPDX-License-Identifier: MIT
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.4</version>
     </parent>
-    <groupId>nl.b3p.tailormap</groupId>
+    <groupId>nl.b3p.pmw</groupId>
     <artifactId>planmonitor-wonen-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -193,20 +193,12 @@ SPDX-License-Identifier: MIT
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-micrometer</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -217,36 +209,6 @@ SPDX-License-Identifier: MIT
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit-pioneer</groupId>
-            <artifactId>junit-pioneer</artifactId>
-            <version>2.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- provides @SuppressModernizer that can be used on method to suppress the Modernizer plugin -->
-            <groupId>org.gaul</groupId>
-            <artifactId>modernizer-maven-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>checker-qual</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
     <repositories>
@@ -265,7 +227,6 @@ SPDX-License-Identifier: MIT
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/resources</directory>
                 <includes>
-                    <include>**/index.html</include>
                     <include>**/application*.properties</include>
                     <include>**/git.properties</include>
                 </includes>
@@ -273,7 +234,6 @@ SPDX-License-Identifier: MIT
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
                 <excludes>
-                    <exclude>**/index.html</exclude>
                     <exclude>**/application*.properties</exclude>
                     <exclude>**/git.properties</exclude>
                 </excludes>
@@ -370,8 +330,7 @@ SPDX-License-Identifier: MIT
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>nl/b3p/planmonitor-wonen/api/viewer/model/**</exclude>
-                        <exclude>nl/b3p/planmonitor-wonen/api/persistence/json/**</exclude>
+                        <exclude>nl/b3p/planmonitor-wonen/api/model/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -719,8 +678,6 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.springframework.boot:spring-boot-starter-actuator</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-test</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-validation</exclude>
-                                        <exclude>org.springframework.boot:spring-boot-starter-security</exclude>
-                                        <exclude>org.springframework.security:spring-security-test</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-aop</exclude>
                                         <exclude>io.micrometer:micrometer-registry-prometheus</exclude>
                                         <exclude>org.hibernate.orm:hibernate-micrometer</exclude>
