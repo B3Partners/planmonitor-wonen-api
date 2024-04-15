@@ -77,12 +77,12 @@ SPDX-License-Identifier: MIT
         <repository>
             <id>repo.b3p.nl</id>
             <name>B3Partners releases repository</name>
-            <url>https://repo.b3p.nl/nexus/repository/releases/</url>
+            <url>https://repo.b3p.nl/nexus/repository/privatereleases/</url>
         </repository>
         <snapshotRepository>
             <id>repo.b3p.nl</id>
             <name>B3Partners snapshots repository</name>
-            <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
+            <url>https://repo.b3p.nl/nexus/repository/privatesnapshots/</url>
         </snapshotRepository>
         <site>
             <id>gh-pages</id>
@@ -160,8 +160,8 @@ SPDX-License-Identifier: MIT
         <javadoc.doclint>all,-missing</javadoc.doclint>
         <!-- docker.b3p.nl or alternatively ghcr.io  -->
         <docker.deploy.repo>docker.b3p.nl</docker.deploy.repo>
-        <docker.skip>true</docker.skip>
-        <docker.pull.policy>Always</docker.pull.policy>
+        <docker.skip>false</docker.skip>
+        <docker.pull.policy>ALWAYS</docker.pull.policy>
         <!-- skip QA checks -->
         <skipQA>false</skipQA>
         <skipSBOM>false</skipSBOM>
@@ -220,8 +220,6 @@ SPDX-License-Identifier: MIT
     </repositories>
     <build>
         <defaultGoal>install</defaultGoal>
-        <!-- no version number on jar makes building docker image easier -->
-        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -274,11 +272,6 @@ SPDX-License-Identifier: MIT
                     <groupId>com.spotify.fmt</groupId>
                     <artifactId>fmt-maven-plugin</artifactId>
                     <version>2.23</version>
-                </plugin>
-                <plugin>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.44.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
@@ -400,10 +393,30 @@ SPDX-License-Identifier: MIT
                     <cleanCache>true</cleanCache>
                     <!--suppress UnresolvedMavenProperty -->
                     <jvmArguments>${surefireArgLine}</jvmArguments>
-                    <!-- wait between attempts, default 500 ms -->
+                    <!--wait between attempts, default 500 ms -->
                     <wait>1000</wait>
-                    <!-- max attempts to check if application is up, default 60 -->
+                    <!--max attempts to check if application is up, default 60 -->
                     <maxAttempts>120</maxAttempts>
+                    <image>
+                        <name>${docker.deploy.repo}/b3partners/${project.artifactId}:${project.version}</name>
+                        <!-- TODO setup in release profile -->
+                        <!--<tags>${docker.deploy.repo}/b3partners/${project.artifactId}:latest</tags>-->
+                        <!-- TODO setup w/ true inrelease profile to push image -->
+                        <publish>false</publish>
+                        <env />
+                        <pullPolicy>${docker.pull.policy}</pullPolicy>
+                    </image>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                    <createdDate>now</createdDate>
+                    <docker>
+                        <publishRegistry>
+                            <!-- TODO setup in release profile; it seems this plugin cannot use a pre-existing repo login/session from the user profile-->
+                            <!--    <username>${docker.publish.username}</username>-->
+                            <!--    <password>${docker.publish.password}</password>-->
+                        </publishRegistry>
+                    </docker>
                 </configuration>
                 <executions>
                     <execution>
@@ -418,7 +431,6 @@ SPDX-License-Identifier: MIT
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <!-- <skip>${skipQA}</skip> -->
                             <!--suppress UnresolvedMavenProperty -->
                             <skip>${skipTests}</skip>
                             <profiles>
@@ -435,8 +447,16 @@ SPDX-License-Identifier: MIT
                             <goal>stop</goal>
                         </goals>
                         <phase>post-integration-test</phase>
+                        <configuration />
+                    </execution>
+                    <execution>
+                        <id>build-docker-image</id>
+                        <goals>
+                            <goal>build-image-no-fork</goal>
+                        </goals>
+                        <phase>package</phase>
                         <configuration>
-                            <!-- <skip>${skipQA}</skip> -->
+                            <skip>${docker.skip}</skip>
                         </configuration>
                     </execution>
                 </executions>
@@ -449,14 +469,7 @@ SPDX-License-Identifier: MIT
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>-Xplugin:ErrorProne -XepExcludedPaths:${errorProneExcludePaths} ${errorProneFlags}</arg>
                         <arg>-Xlint:${compiler.lint}</arg>
-                        <!--
-                          Disabled because of this warning after adding sse-eventbus dependency:
-                          java: unknown enum constant org.immutables.value.Value.Style.ImplementationVisibility.PACKAGE
-                            reason: class file for org.immutables.value.Value$Style$ImplementationVisibility not found
-                          Maybe add this dependency? https://stackoverflow.com/questions/64433666/java-immutable-builder-classes-not-detected-by-intellij
-                          Only a problem when running from IntelliJ, not using spring-boot:run
-                        -->
-                        <!--<arg>-Werror</arg>-->
+                        <arg>-Werror</arg>
                         <arg>-Xmaxwarns</arg>
                         <arg>1000</arg>
                         <!-- see https://errorprone.info/docs/installation -->
@@ -516,7 +529,7 @@ SPDX-License-Identifier: MIT
             </plugin>
             <plugin>
                 <!-- not bound to any lifecycle, but can be run from commandline using:
-                mvn -U install -DskipTests -DskipITs -Ddocker.skip=true org.owasp:dependency-check-maven:check -->
+                mvn -U install -DskipTests -DskipITs org.owasp:dependency-check-maven:check -->
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <configuration>
@@ -654,7 +667,6 @@ SPDX-License-Identifier: MIT
                         </goals>
                         <configuration>
                             <rules>
-                                <!-- see https://maven.apache.org/enforcer/enforcer-rules/index.html -->
                                 <requireMavenVersion>
                                     <version>3.9.5</version>
                                     <message>Requires Maven 3.9.5 or higher</message>
@@ -686,57 +698,6 @@ SPDX-License-Identifier: MIT
                                 </banTransitiveDependencies>
                             </rules>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <skip>${docker.skip}</skip>
-                    <verbose>true</verbose>
-                    <imagePullPolicy>${docker.pull.policy}</imagePullPolicy>
-                    <images>
-                        <image>
-                            <!-- deploy snapshot tag -->
-                            <name>${docker.deploy.repo}/b3partners/%a:snapshot</name>
-                            <build>
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                <args>
-                                    <TAILORMAP_API_VERSION>${project.version}</TAILORMAP_API_VERSION>
-                                    <BUILD_DATE>${maven.build.timestamp}</BUILD_DATE>
-                                </args>
-                                <buildx>
-                                    <platforms>
-                                        <platform>linux/amd64</platform>
-                                        <platform>linux/arm64</platform>
-                                    </platforms>
-                                    <attestations>
-                                        <provenance>false</provenance>
-                                    </attestations>
-                                </buildx>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>docker-build</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                    <execution>
-                        <id>docker-push</id>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <!-- NB for deploy/push login is required on ghcr.io or docker.b3p.nl repository with
-                 docker - whatever value is ${docker.deploy.repo}
-                 see: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
-                        <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -918,7 +879,7 @@ SPDX-License-Identifier: MIT
                     <title>Aggregate Test Coverage</title>
                     <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
                     <dataFileIncludes>
-                        <!-- this has merged u-test and i-test coverage -->
+                        <!-- this has merged test and integrationtest coverage -->
                         <dataFileInclude>${project.build.directory}/jacoco.exec</dataFileInclude>
                         <!-- NO! <dataFileInclude>${project.build.directory}/jacoco-it.exec</dataFileInclude>-->
                     </dataFileIncludes>
