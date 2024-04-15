@@ -159,7 +159,7 @@ SPDX-License-Identifier: MIT
         <!-- suppress missing javadoc warnings -->
         <javadoc.doclint>all,-missing</javadoc.doclint>
         <!-- docker.b3p.nl or alternatively ghcr.io  -->
-        <docker.deploy.repo>ghcr.io</docker.deploy.repo>
+        <docker.deploy.repo>docker.b3p.nl</docker.deploy.repo>
         <docker.skip>true</docker.skip>
         <docker.pull.policy>Always</docker.pull.policy>
         <!-- skip QA checks -->
