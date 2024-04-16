@@ -1,7 +1,11 @@
+/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
 package nl.b3p.planmonitorwonen.api.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -21,11 +25,12 @@ public class HelloController {
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private record HelloResponse(String message) implements Serializable {}
-
-  @RequestMapping(method = {GET, POST})
-  public ResponseEntity<Serializable> index() {
+  @RequestMapping(method = {GET})
+  public ResponseEntity<Serializable> hello() {
     logger.debug("Hello, World!");
+
+    record HelloResponse(String message) implements Serializable {}
+
     return ResponseEntity.status(HttpStatus.OK).body(new HelloResponse("Hello, World!"));
   }
 }

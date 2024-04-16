@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (C) 2024 B3Partners B.V.
+Copyright (C) 2024 Provincie Zeeland
 
 SPDX-License-Identifier: MIT
 -->
@@ -20,8 +20,8 @@ SPDX-License-Identifier: MIT
     <url>https://github.com/B3Partners/planmonitor-wonen-api/</url>
     <inceptionYear>2024</inceptionYear>
     <organization>
-        <name>B3Partners B.V.</name>
-        <url>https://www.b3partners.nl/</url>
+        <name>Provincie Zeeland</name>
+        <url>https://zeeland.nl/</url>
     </organization>
     <licenses>
         <license>
