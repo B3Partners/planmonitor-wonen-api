@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"nl.b3p.planmonitorwonen.api.controller","l":"HelloController"},{"p":"nl.b3p.planmonitorwonen.api.configuration","l":"MonitoringConfiguration"},{"p":"nl.b3p.planmonitorwonen.api","l":"PlanmonitorWonenApiApplication"}];updateSearchResults();
