@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
 package nl.b3p.planmonitorwonen.api.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

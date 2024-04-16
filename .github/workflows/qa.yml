@@ -21,9 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-#      Not supported on private repositories without a license
-#      - name: 'Dependency Review'
-#        uses: actions/dependency-review-action@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
 
       - name: 'Set up JDK'
         uses: actions/setup-java@v4

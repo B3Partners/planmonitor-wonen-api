@@ -39,11 +39,10 @@ jobs:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: mvn -U package -DskipTests -DskipITs -Ddocker.skip=true org.owasp:dependency-check-maven:check -fae -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -DfailBuildOnCVSS=5
 
-#      Not supported on private repositories without a license
-#      - name: Upload result to GitHub Code Scanning
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: target/dependency-check-report.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: target/dependency-check-report.sarif
 
       - name: Cleanup snapshots
         if: always()
