@@ -140,7 +140,7 @@ jobs:
   cleanup:
     name: Maven cache cleanup
     if: ${{ always() }}
-    needs: [ build, publish, postgresql-test ]
+    needs: [ build, publish ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/cache@v4
