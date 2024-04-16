@@ -122,7 +122,7 @@ SPDX-License-Identifier: MIT
         <oracle-database.version>23.3.0.23.09</oracle-database.version>
         <postgresql.version>42.7.3</postgresql.version>
         <!-- <snakeyaml.version>2.2</snakeyaml.version>-->
-        <spring-security.version>6.2.3</spring-security.version>
+        <spring-security.version>6.2.4</spring-security.version>
         <spring-data-bom.version>2023.1.5</spring-data-bom.version>
         <spring-hateoas.version>2.2.2</spring-hateoas.version>
         <okhttp.version>5.0.0-alpha.12</okhttp.version>
@@ -159,7 +159,7 @@ SPDX-License-Identifier: MIT
         <!-- suppress missing javadoc warnings -->
         <javadoc.doclint>all,-missing</javadoc.doclint>
         <!-- docker.b3p.nl or alternatively ghcr.io  -->
-        <docker.deploy.repo>docker.b3p.nl</docker.deploy.repo>
+        <docker.deploy.repo>ghcr.io</docker.deploy.repo>
         <docker.skip>false</docker.skip>
         <docker.pull.policy>ALWAYS</docker.pull.policy>
         <!-- skip QA checks -->
@@ -197,12 +197,21 @@ SPDX-License-Identifier: MIT
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -215,7 +224,7 @@ SPDX-License-Identifier: MIT
         <repository>
             <id>B3Partners</id>
             <name>Releases hosted by B3Partners</name>
-            <url>https://repo.b3p.nl/nexus/repository/private/</url>
+            <url>https://repo.b3p.nl/nexus/repository/public/</url>
         </repository>
     </repositories>
     <build>
@@ -398,12 +407,21 @@ SPDX-License-Identifier: MIT
                     <!--max attempts to check if application is up, default 60 -->
                     <maxAttempts>120</maxAttempts>
                     <image>
-                        <name>${docker.deploy.repo}/b3partners/${project.artifactId}:${project.version}</name>
+                        <name>${docker.deploy.repo}/b3partners/${project.artifactId}:snapshot</name>
                         <!-- TODO setup in release profile -->
                         <!--<tags>${docker.deploy.repo}/b3partners/${project.artifactId}:latest</tags>-->
-                        <!-- TODO setup w/ true inrelease profile to push image -->
+                        <!-- TODO setup w/ true in release profile to push image -->
                         <publish>false</publish>
-                        <env />
+                        <env>
+                            <BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <BP_OCI_REVISION>${git.commit.id.abbrev}</BP_OCI_REVISION>
+                            <BP_OCI_VERSION>${project.version}</BP_OCI_VERSION>
+                            <BP_OCI_CREATED>${project.build.outputTimestamp}</BP_OCI_CREATED>
+                            <BP_OCI_URL>${docker.deploy.repo}/b3partners/${project.artifactId}:${project.version}</BP_OCI_URL>
+                            <BP_OCI_DESCRIPTION>${project.description}</BP_OCI_DESCRIPTION>
+                            <BP_OCI_LICENSES>${project.licenses}</BP_OCI_LICENSES>
+                        </env>
                         <pullPolicy>${docker.pull.policy}</pullPolicy>
                     </image>
                     <layers>
@@ -685,15 +703,16 @@ SPDX-License-Identifier: MIT
                                 </bannedDependencies>
                                 <banTransitiveDependencies>
                                     <excludes>
+                                        <exclude>org.springframework.boot:spring-boot-starter</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-web</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-data-jpa</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-actuator</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-test</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-validation</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-aop</exclude>
+                                        <exclude>org.springframework.boot:spring-boot-starter-security</exclude>
+                                        <exclude>org.springframework.security:spring-security-test</exclude>
                                         <exclude>io.micrometer:micrometer-registry-prometheus</exclude>
-                                        <exclude>org.hibernate.orm:hibernate-micrometer</exclude>
-                                        <exclude>org.junit-pioneer:junit-pioneer</exclude>
                                     </excludes>
                                 </banTransitiveDependencies>
                             </rules>
@@ -908,4 +927,10 @@ SPDX-License-Identifier: MIT
             </plugin>
         </plugins>
     </reporting>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties />
+        </profile>
+    </profiles>
 </project>
