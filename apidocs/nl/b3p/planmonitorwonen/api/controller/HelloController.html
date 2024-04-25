@@ -109,7 +109,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.http.ResponseEntity&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hello()" class="member-name-link">hello</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hello(org.springframework.security.core.userdetails.UserDetails)" class="member-name-link">hello</a><wbr>(org.springframework.security.core.userdetails.UserDetails&nbsp;userDetails)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -143,10 +143,12 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="hello()">
+<section class="detail" id="hello(org.springframework.security.core.userdetails.UserDetails)">
 <h3>hello</h3>
-<div class="member-signature"><span class="annotations">@RequestMapping(method=GET)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.http.ResponseEntity&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>&gt;</span>&nbsp;<span class="element-name">hello</span>()</div>
+<div class="member-signature"><span class="annotations">@RequestMapping(method=GET,
+                produces="application/json")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.http.ResponseEntity&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>&gt;</span>&nbsp;<span class="element-name">hello</span><wbr><span class="parameters">(@AuthenticationPrincipal
+ org.springframework.security.core.userdetails.UserDetails&nbsp;userDetails)</span></div>
 </section>
 </li>
 </ul>

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"nl.b3p.planmonitorwonen.api"},{"l":"nl.b3p.planmonitorwonen.api.configuration"},{"l":"nl.b3p.planmonitorwonen.api.controller"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"nl.b3p.planmonitorwonen.api"},{"l":"nl.b3p.planmonitorwonen.api.configuration"},{"l":"nl.b3p.planmonitorwonen.api.controller"},{"l":"nl.b3p.planmonitorwonen.api.security"}];updateSearchResults();

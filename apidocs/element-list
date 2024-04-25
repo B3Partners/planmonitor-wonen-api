@@ -1,3 +1,4 @@
 nl.b3p.planmonitorwonen.api
 nl.b3p.planmonitorwonen.api.configuration
 nl.b3p.planmonitorwonen.api.controller
+nl.b3p.planmonitorwonen.api.security

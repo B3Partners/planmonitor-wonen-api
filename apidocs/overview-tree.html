@@ -53,7 +53,8 @@ loadScripts(document, 'script');</script>
 <ul class="horizontal">
 <li><a href="nl/b3p/planmonitorwonen/api/package-tree.html">nl.b3p.planmonitorwonen.api</a>, </li>
 <li><a href="nl/b3p/planmonitorwonen/api/configuration/package-tree.html">nl.b3p.planmonitorwonen.api.configuration</a>, </li>
-<li><a href="nl/b3p/planmonitorwonen/api/controller/package-tree.html">nl.b3p.planmonitorwonen.api.controller</a></li>
+<li><a href="nl/b3p/planmonitorwonen/api/controller/package-tree.html">nl.b3p.planmonitorwonen.api.controller</a>, </li>
+<li><a href="nl/b3p/planmonitorwonen/api/security/package-tree.html">nl.b3p.planmonitorwonen.api.security</a></li>
 </ul>
 </div>
 <section class="hierarchy">
@@ -61,9 +62,29 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">org.springframework.security.authentication.AbstractAuthenticationToken (implements org.springframework.security.core.Authentication, org.springframework.security.core.CredentialsContainer)
+<ul>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationToken.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIAuthenticationToken</a> (implements org.springframework.security.core.Authentication, org.springframework.security.core.CredentialsContainer)</li>
+</ul>
+</li>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/ApiSecurityConfig.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">ApiSecurityConfig</a></li>
+<li class="circle">org.springframework.web.filter.GenericFilterBean (implements org.springframework.beans.factory.BeanNameAware, org.springframework.beans.factory.DisposableBean, org.springframework.context.EnvironmentAware, org.springframework.core.env.EnvironmentCapable, jakarta.servlet.Filter, org.springframework.beans.factory.InitializingBean, org.springframework.web.context.ServletContextAware)
+<ul>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationFilter.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIAuthenticationFilter</a> (implements org.springframework.context.ApplicationEventPublisherAware)</li>
+</ul>
+</li>
 <li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/HelloController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">HelloController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/MonitoringConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">MonitoringConfiguration</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.<a href="nl/b3p/planmonitorwonen/api/PlanmonitorWonenApiApplication.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api">PlanmonitorWonenApiApplication</a></li>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationProvider.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIAuthenticationProvider</a> (implements org.springframework.security.authentication.AuthenticationProvider, org.springframework.beans.factory.InitializingBean, org.springframework.core.Ordered)</li>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIUserDetails.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIUserDetails</a> (implements org.springframework.security.core.userdetails.UserDetails)</li>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIUserDetailsService.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIUserDetailsService</a> (implements org.springframework.security.core.userdetails.AuthenticationUserDetailsService&lt;T&gt;)</li>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMASPIAuthenticationDetailsSource.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMASPIAuthenticationDetailsSource</a> (implements org.springframework.security.authentication.AuthenticationDetailsSource&lt;C,<wbr>T&gt;)</li>
+<li class="circle">org.springframework.security.web.authentication.WebAuthenticationDetails (implements java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
+<ul>
+<li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationDetails.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">TMAPIAuthenticationDetails</a> (implements org.springframework.security.core.authority.GrantedAuthoritiesContainer)</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
