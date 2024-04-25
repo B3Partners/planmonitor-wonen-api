@@ -141,7 +141,6 @@ SPDX-License-Identifier: MIT
         <maven-install-plugin.version>3.1.0</maven-install-plugin.version>
         <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
         <!-- end version overrides -->
-        <!-- when updating the version of the maven-pmd-plugin, some dependencies should be removed, see below -->
         <maven-pmd-plugin.version>3.22.0</maven-pmd-plugin.version>
         <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
@@ -576,36 +575,6 @@ SPDX-License-Identifier: MIT
                         <excludeRoot>target/generated-sources</excludeRoot>
                     </excludeRoots>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <!-- can be removed after maven-pmd-plugin upgrade, see https://github.com/pmd/pmd/discussions/4478#discussioncomment-8052410 -->
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-compat6</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-core</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-java</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <!-- can be removed after maven-pmd-plugin upgrade, see https://github.com/pmd/pmd/discussions/4478#discussioncomment-8052410 -->
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-javascript</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                    <dependency>
-                        <!-- can be removed after maven-pmd-plugin upgrade, see https://github.com/pmd/pmd/discussions/4478#discussioncomment-8052410 -->
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd-jsp</artifactId>
-                        <version>${pmd.version}</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <goals>
