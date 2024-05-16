@@ -696,8 +696,13 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.springframework.boot:spring-boot-starter-validation</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-aop</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-security</exclude>
+                                        <exclude>org.springframework.boot:spring-boot-starter-jdbc</exclude>
                                         <exclude>org.springframework.security:spring-security-test</exclude>
                                         <exclude>io.micrometer:micrometer-registry-prometheus</exclude>
+                                        <!-- basically each and every geotools module has a load of transitive dependencies -->
+                                        <exclude>org.geotools:*</exclude>
+                                        <exclude>org.flywaydb:flyway-core</exclude>
+                                        <exclude>org.postgresql:postgresql</exclude>
                                     </excludes>
                                 </banTransitiveDependencies>
                             </rules>
