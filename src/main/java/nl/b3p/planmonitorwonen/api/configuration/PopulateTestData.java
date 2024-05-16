@@ -12,9 +12,11 @@ import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.locationtech.jts.io.ParseException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 @ConditionalOnProperty(name = "planmonitor-wonen-api.populate-testdata", havingValue = "true")
+@Profile("!test")
 public class PopulateTestData {
 
   private final PlanmonitorWonenDatabaseService pmwDb;
