@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(
-    path = "${planmonitorwonen-api.base-path}/hello",
+    path = "${planmonitor-wonen-api.base-path}/hello",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelloController {
   private static final Logger logger =

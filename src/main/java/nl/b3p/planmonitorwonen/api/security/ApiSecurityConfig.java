@@ -41,7 +41,7 @@ public class ApiSecurityConfig {
     this.applicationEventPublisher = applicationEventPublisher;
   }
 
-  @Value("${planmonitorwonen-api.base-path}")
+  @Value("${planmonitor-wonen-api.base-path}")
   private String apiBasePath;
 
   @Bean
