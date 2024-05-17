@@ -36,7 +36,7 @@ class HelloControllerTest {
 
   private MockMvc mockMvc;
 
-  @Value("${planmonitorwonen-api.base-path}")
+  @Value("${planmonitor-wonen-api.base-path}")
   private String basePath;
 
   @BeforeAll

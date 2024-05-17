@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
+
 package nl.b3p.planmonitorwonen.api.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(
-    path = "${planmonitorwonen-api.base-path}/hello",
+    path = "${planmonitor-wonen-api.base-path}/hello",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelloController {
   private static final Logger logger =

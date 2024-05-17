@@ -118,8 +118,6 @@ SPDX-License-Identifier: MIT
         <micrometer.version>1.12.5</micrometer.version>
         <hibernate.version>6.4.4.Final</hibernate.version>
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
-        <mssql-jdbc.version>12.6.1.jre11</mssql-jdbc.version>
-        <oracle-database.version>23.3.0.23.09</oracle-database.version>
         <postgresql.version>42.7.3</postgresql.version>
         <!-- <snakeyaml.version>2.2</snakeyaml.version>-->
         <spring-security.version>6.2.4</spring-security.version>
@@ -202,6 +200,24 @@ SPDX-License-Identifier: MIT
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>${geotools.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -680,8 +696,13 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.springframework.boot:spring-boot-starter-validation</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-aop</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-security</exclude>
+                                        <exclude>org.springframework.boot:spring-boot-starter-jdbc</exclude>
                                         <exclude>org.springframework.security:spring-security-test</exclude>
                                         <exclude>io.micrometer:micrometer-registry-prometheus</exclude>
+                                        <!-- basically each and every geotools module has a load of transitive dependencies -->
+                                        <exclude>org.geotools:*</exclude>
+                                        <exclude>org.flywaydb:flyway-core</exclude>
+                                        <exclude>org.postgresql:postgresql</exclude>
                                     </excludes>
                                 </banTransitiveDependencies>
                             </rules>
