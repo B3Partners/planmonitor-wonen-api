@@ -163,7 +163,7 @@ create type pmw_sloop as enum (
 create table plancategorie
 (
     id                  uuid not null primary key default gen_random_uuid(),
-    planregistratie_id  uuid not null references planregistratie (id),
+    planregistratie_id  uuid not null references planregistratie (id) on delete cascade,
     creator             varchar,
     created_at          timestamp with time zone  default now(),
     editor              varchar,
@@ -181,7 +181,7 @@ create table plancategorie
 create table detailplanning
 (
     id               uuid not null primary key default gen_random_uuid(),
-    plancategorie_id uuid not null references plancategorie (id),
+    plancategorie_id uuid not null references plancategorie (id) on delete cascade,
     creator          varchar,
     created_at       timestamp with time zone  default now(),
     editor           varchar,

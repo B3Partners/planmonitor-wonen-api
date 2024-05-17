@@ -9,7 +9,6 @@ package nl.b3p.planmonitorwonen.api;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
@@ -26,6 +25,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SimplePropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Profile("!test")
@@ -75,13 +75,27 @@ public class PlanmonitorWonenDatabaseService {
     return jdbcClient.sql("select * from planregistratie").query(planregistratieRowMapper).set();
   }
 
-  public void insertPlanregistratie(Planregistratie planregistratie) throws ParseException {
+  @Transactional
+  public void deletePlanregistratie(String id) {
+    jdbcClient.sql("delete from planregistratie where id = ?").param(1, id, Types.OTHER).update();
+  }
+
+  @Transactional
+  public void insertPlanregistratie(
+      Planregistratie planregistratie,
+      Plancategorie[] plancategorieen,
+      Detailplanning[] detailplanningen)
+      throws ParseException {
+    this.deletePlanregistratie(planregistratie.getId());
     String insertPlanregistratie =
             """
 insert into planregistratie(
   id,
   geometrie,
   creator,
+  created_at,
+  editor,
+  edited_at,
   plan_naam,
   provincie,
   gemeente,
@@ -110,81 +124,81 @@ insert into planregistratie(
   toelichting_kwalitatief
   )
 values (%s)"""
-            .formatted(sqlQuestionMarks(29));
-
+            .formatted(sqlQuestionMarks(32));
     this.jdbcClient
         .sql(insertPlanregistratie)
         .param(1, planregistratie.getId(), Types.OTHER)
-        .param(2, wktToWkb(planregistratie.getGeometrie()))
-        .param(3, planregistratie.getCreator())
-        .param(4, planregistratie.getPlanNaam())
-        .param(5, planregistratie.getProvincie())
-        .param(6, planregistratie.getGemeente())
-        .param(7, planregistratie.getRegio())
-        .param(8, planregistratie.getPlaatsnaam())
-        .param(9, planregistratie.getVertrouwelijkheid(), Types.OTHER)
-        .param(10, planregistratie.getOpdrachtgeverType(), Types.OTHER)
-        .param(11, planregistratie.getOpdrachtgeverNaam())
-        .param(12, planregistratie.getJaarStartProject())
-        .param(13, planregistratie.getOpleveringEerste())
-        .param(14, planregistratie.getOpleveringLaatste())
-        .param(15, planregistratie.getOpmerkingen())
-        .param(16, planregistratie.getPlantype(), Types.OTHER)
-        .param(17, planregistratie.getBestemmingsplan())
-        .param(18, planregistratie.getStatusProject(), Types.OTHER)
-        .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)
-        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
-        .param(21, planregistratie.getRegionalePlanlijst(), Types.OTHER)
-        .param(22, planregistratie.getToelichtingKnelpunten(), Types.OTHER)
-        .param(23, planregistratie.getFlexwoningen())
-        .param(24, planregistratie.getLevensloopbestendigJa())
-        .param(25, planregistratie.getLevensloopbestendigNee())
-        .param(26, planregistratie.getBeoogdWoonmilieuAbf5(), Types.OTHER)
-        .param(27, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
-        .param(28, planregistratie.getAantalStudentenwoningen())
-        .param(29, planregistratie.getToelichtingKwalitatief())
+        .param(wktToWkb(planregistratie.getGeometrie()))
+        .param(planregistratie.getCreator())
+        .param(planregistratie.getCreatedAt())
+        .param(planregistratie.getEditor())
+        .param(planregistratie.getEditedAt())
+        .param(planregistratie.getPlanNaam())
+        .param(planregistratie.getProvincie())
+        .param(planregistratie.getGemeente())
+        .param(planregistratie.getRegio())
+        .param(planregistratie.getPlaatsnaam())
+        .param(12, planregistratie.getVertrouwelijkheid(), Types.OTHER)
+        .param(13, planregistratie.getOpdrachtgeverType(), Types.OTHER)
+        .param(planregistratie.getOpdrachtgeverNaam())
+        .param(planregistratie.getJaarStartProject())
+        .param(planregistratie.getOpleveringEerste())
+        .param(planregistratie.getOpleveringLaatste())
+        .param(planregistratie.getOpmerkingen())
+        .param(19, planregistratie.getPlantype(), Types.OTHER)
+        .param(planregistratie.getBestemmingsplan())
+        .param(21, planregistratie.getStatusProject(), Types.OTHER)
+        .param(22, planregistratie.getStatusPlanologisch(), Types.OTHER)
+        .param(23, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
+        .param(24, planregistratie.getRegionalePlanlijst(), Types.OTHER)
+        .param(25, planregistratie.getToelichtingKnelpunten(), Types.OTHER)
+        .param(planregistratie.getFlexwoningen())
+        .param(planregistratie.getLevensloopbestendigJa())
+        .param(planregistratie.getLevensloopbestendigNee())
+        .param(29, planregistratie.getBeoogdWoonmilieuAbf5(), Types.OTHER)
+        .param(30, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
+        .param(planregistratie.getAantalStudentenwoningen())
+        .param(planregistratie.getToelichtingKwalitatief())
         .update();
-  }
 
-  public void insertOrReplacePlandetails(String planregistratieId, Plancategorie[] plancategorieen, Detailplanning[] detailplanningen) {
-    this.jdbcClient.sql("delete from detailplanning where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)")
-        .param(1, planregistratieId, Types.OTHER)
-        .update();
-    this.jdbcClient.sql("delete from plancategorie where planregistratie_id = ?")
-        .param(1, planregistratieId, Types.OTHER)
-        .update();
-    for(Plancategorie p : plancategorieen) {
-      this.jdbcClient.sql("""
+    for (Plancategorie p : plancategorieen) {
+      this.jdbcClient
+          .sql(
+                  """
             insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
-            values (%s)""".formatted(sqlQuestionMarks(14)))
+            values (%s)"""
+                  .formatted(sqlQuestionMarks(14)))
           .param(1, p.id(), Types.OTHER)
           .param(2, p.planregistratieId(), Types.OTHER)
-          .param(3, p.creator())
-          .param(4, p.createdAt())
-          .param(5, p.editor())
-          .param(6, p.editedAt())
+          .param(p.creator())
+          .param(p.createdAt())
+          .param(p.editor())
+          .param(p.editedAt())
           .param(7, p.nieuwbouw(), Types.OTHER)
           .param(8, p.woningType(), Types.OTHER)
           .param(9, p.wonenEnZorg(), Types.OTHER)
           .param(10, p.flexwoningen(), Types.OTHER)
           .param(11, p.betaalbaarheid(), Types.OTHER)
           .param(12, p.sloop(), Types.OTHER)
-          .param(13, p.totaalGepland())
-          .param(14, p.totaalGerealiseerd())
+          .param(p.totaalGepland())
+          .param(p.totaalGerealiseerd())
           .update();
     }
-    for(Detailplanning d : detailplanningen) {
-      this.jdbcClient.sql("""
+    for (Detailplanning d : detailplanningen) {
+      this.jdbcClient
+          .sql(
+                  """
             insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
-            values (%s)""".formatted(sqlQuestionMarks(8)))
+            values (%s)"""
+                  .formatted(sqlQuestionMarks(8)))
           .param(1, d.id(), Types.OTHER)
           .param(2, d.plancategorieId(), Types.OTHER)
-          .param(3, d.creator())
-          .param(4, d.createdAt())
-          .param(5, d.editor())
-          .param(6, d.editedAt())
-          .param(7, d.jaartal())
-          .param(8, d.aantalGepland())
+          .param(d.creator())
+          .param(d.createdAt())
+          .param(d.editor())
+          .param(d.editedAt())
+          .param(d.jaartal())
+          .param(d.aantalGepland())
           .update();
     }
   }
