@@ -9,6 +9,7 @@ package nl.b3p.planmonitorwonen.api;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
@@ -78,6 +79,7 @@ public class PlanmonitorWonenDatabaseService {
     String insertPlanregistratie =
             """
 insert into planregistratie(
+  id,
   geometrie,
   creator,
   plan_naam,
@@ -108,39 +110,83 @@ insert into planregistratie(
   toelichting_kwalitatief
   )
 values (%s)"""
-            .formatted(sqlQuestionMarks(28));
+            .formatted(sqlQuestionMarks(29));
 
     this.jdbcClient
         .sql(insertPlanregistratie)
-        .param(1, wktToWkb(planregistratie.getGeometrie()))
-        .param(2, planregistratie.getCreator())
-        .param(3, planregistratie.getPlanNaam())
-        .param(4, planregistratie.getProvincie())
-        .param(5, planregistratie.getGemeente())
-        .param(6, planregistratie.getRegio())
-        .param(7, planregistratie.getPlaatsnaam())
-        .param(8, planregistratie.getVertrouwelijkheid(), Types.OTHER)
-        .param(9, planregistratie.getOpdrachtgeverType(), Types.OTHER)
-        .param(10, planregistratie.getOpdrachtgeverNaam())
-        .param(11, planregistratie.getJaarStartProject())
-        .param(12, planregistratie.getOpleveringEerste())
-        .param(13, planregistratie.getOpleveringLaatste())
-        .param(14, planregistratie.getOpmerkingen())
-        .param(15, planregistratie.getPlantype(), Types.OTHER)
-        .param(16, planregistratie.getBestemmingsplan())
-        .param(17, planregistratie.getStatusProject(), Types.OTHER)
-        .param(18, planregistratie.getStatusPlanologisch(), Types.OTHER)
-        .param(19, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
-        .param(20, planregistratie.getRegionalePlanlijst(), Types.OTHER)
-        .param(21, planregistratie.getToelichtingKnelpunten(), Types.OTHER)
-        .param(22, planregistratie.getFlexwoningen())
-        .param(23, planregistratie.getLevensloopbestendigJa())
-        .param(24, planregistratie.getLevensloopbestendigNee())
-        .param(25, planregistratie.getBeoogdWoonmilieuAbf5(), Types.OTHER)
-        .param(26, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
-        .param(27, planregistratie.getAantalStudentenwoningen())
-        .param(28, planregistratie.getToelichtingKwalitatief())
+        .param(1, planregistratie.getId(), Types.OTHER)
+        .param(2, wktToWkb(planregistratie.getGeometrie()))
+        .param(3, planregistratie.getCreator())
+        .param(4, planregistratie.getPlanNaam())
+        .param(5, planregistratie.getProvincie())
+        .param(6, planregistratie.getGemeente())
+        .param(7, planregistratie.getRegio())
+        .param(8, planregistratie.getPlaatsnaam())
+        .param(9, planregistratie.getVertrouwelijkheid(), Types.OTHER)
+        .param(10, planregistratie.getOpdrachtgeverType(), Types.OTHER)
+        .param(11, planregistratie.getOpdrachtgeverNaam())
+        .param(12, planregistratie.getJaarStartProject())
+        .param(13, planregistratie.getOpleveringEerste())
+        .param(14, planregistratie.getOpleveringLaatste())
+        .param(15, planregistratie.getOpmerkingen())
+        .param(16, planregistratie.getPlantype(), Types.OTHER)
+        .param(17, planregistratie.getBestemmingsplan())
+        .param(18, planregistratie.getStatusProject(), Types.OTHER)
+        .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)
+        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
+        .param(21, planregistratie.getRegionalePlanlijst(), Types.OTHER)
+        .param(22, planregistratie.getToelichtingKnelpunten(), Types.OTHER)
+        .param(23, planregistratie.getFlexwoningen())
+        .param(24, planregistratie.getLevensloopbestendigJa())
+        .param(25, planregistratie.getLevensloopbestendigNee())
+        .param(26, planregistratie.getBeoogdWoonmilieuAbf5(), Types.OTHER)
+        .param(27, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
+        .param(28, planregistratie.getAantalStudentenwoningen())
+        .param(29, planregistratie.getToelichtingKwalitatief())
         .update();
+  }
+
+  public void insertOrReplacePlandetails(String planregistratieId, Plancategorie[] plancategorieen, Detailplanning[] detailplanningen) {
+    this.jdbcClient.sql("delete from detailplanning where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)")
+        .param(1, planregistratieId, Types.OTHER)
+        .update();
+    this.jdbcClient.sql("delete from plancategorie where planregistratie_id = ?")
+        .param(1, planregistratieId, Types.OTHER)
+        .update();
+    for(Plancategorie p : plancategorieen) {
+      this.jdbcClient.sql("""
+            insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
+            values (%s)""".formatted(sqlQuestionMarks(14)))
+          .param(1, p.id(), Types.OTHER)
+          .param(2, p.planregistratieId(), Types.OTHER)
+          .param(3, p.creator())
+          .param(4, p.createdAt())
+          .param(5, p.editor())
+          .param(6, p.editedAt())
+          .param(7, p.nieuwbouw(), Types.OTHER)
+          .param(8, p.woningType(), Types.OTHER)
+          .param(9, p.wonenEnZorg(), Types.OTHER)
+          .param(10, p.flexwoningen(), Types.OTHER)
+          .param(11, p.betaalbaarheid(), Types.OTHER)
+          .param(12, p.sloop(), Types.OTHER)
+          .param(13, p.totaalGepland())
+          .param(14, p.totaalGerealiseerd())
+          .update();
+    }
+    for(Detailplanning d : detailplanningen) {
+      this.jdbcClient.sql("""
+            insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
+            values (%s)""".formatted(sqlQuestionMarks(8)))
+          .param(1, d.id(), Types.OTHER)
+          .param(2, d.plancategorieId(), Types.OTHER)
+          .param(3, d.creator())
+          .param(4, d.createdAt())
+          .param(5, d.editor())
+          .param(6, d.editedAt())
+          .param(7, d.jaartal())
+          .param(8, d.aantalGepland())
+          .update();
+    }
   }
 
   public boolean planregistratieExists(String id) {
