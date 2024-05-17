@@ -1,3 +1,7 @@
+-- Copyright (C) 2024 Provincie Zeeland
+--
+-- SPDX-License-Identifier: MIT
+
 create type pmw_vertrouwelijkheid as enum (
     'Gemeente',
     'Openbaar',

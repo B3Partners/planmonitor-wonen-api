@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 B3Partners B.V.
+ * Copyright (C) 2024 Provincie Zeeland
  *
  * SPDX-License-Identifier: MIT
  */

@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
+
 package nl.b3p.planmonitorwonen.api.configuration;
 
 import io.micrometer.core.aop.TimedAspect;

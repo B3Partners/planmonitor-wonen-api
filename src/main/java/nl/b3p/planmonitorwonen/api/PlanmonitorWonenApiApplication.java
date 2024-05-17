@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
+
 package nl.b3p.planmonitorwonen.api;
 
 import org.springframework.boot.SpringApplication;
