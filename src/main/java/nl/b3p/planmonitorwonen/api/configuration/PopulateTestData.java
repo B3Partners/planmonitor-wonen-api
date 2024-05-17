@@ -71,45 +71,29 @@ public class PopulateTestData {
             .setBeoogdWoonmilieuAbf13("Centrum-dorps")
             .setAantalStudentenwoningen(70)
             .setToelichtingKwalitatief("Kwalitatieve toelichting");
-    Plancategorie[] plancategorieen =
-        new Plancategorie[] {
-          new Plancategorie(
-              UUID.randomUUID().toString(),
-              planregistratie.getId(),
-              null,
-              null,
-              null,
-              null,
-              "Nieuwbouw",
-              null,
-              null,
-              null,
-              null,
-              null,
-              20,
-              0)
-        };
-    Detailplanning[] detailplanningen =
-        new Detailplanning[] {
-          new Detailplanning(
-              UUID.randomUUID().toString(),
-              plancategorieen[0].id(),
-              null,
-              null,
-              null,
-              null,
-              2025,
-              10),
-          new Detailplanning(
-              UUID.randomUUID().toString(),
-              plancategorieen[0].id(),
-              null,
-              null,
-              null,
-              null,
-              2028,
-              10)
-        };
+    Plancategorie[] plancategorieen = {
+      new Plancategorie(
+          UUID.randomUUID().toString(),
+          planregistratie.getId(),
+          null,
+          null,
+          null,
+          null,
+          "Nieuwbouw",
+          null,
+          null,
+          null,
+          null,
+          null,
+          20,
+          0)
+    };
+    Detailplanning[] detailplanningen = {
+      new Detailplanning(
+          UUID.randomUUID().toString(), plancategorieen[0].id(), null, null, null, null, 2025, 10),
+      new Detailplanning(
+          UUID.randomUUID().toString(), plancategorieen[0].id(), null, null, null, null, 2028, 10)
+    };
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
   }
 }
