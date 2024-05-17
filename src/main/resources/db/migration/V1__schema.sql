@@ -127,3 +127,65 @@ create table planregistratie
     aantal_studentenwoningen integer,
     toelichting_kwalitatief  varchar
 );
+
+create type pmw_nieuwbouw as enum (
+    'Nieuwbouw');
+
+create type pmw_woning_type as enum (
+    'Eengezins',
+    'Meergezins',
+    'Onbekend');
+
+create type pmw_wonen_en_zorg as enum (
+    'Geclusterd',
+    'Nultreden',
+    'Onbekend',
+    'Regulier',
+    'Zorggeschikt');
+
+create type pmw_flexwoningen as enum (
+    'Flexwoningen',
+    'Regulier permanent');
+
+create type pmw_betaalbaarheid as enum (
+    'Sociale huur',
+    'Huur middenhuur',
+    'Huur dure huur',
+    'Huur onbekend',
+    'Koop betaalbare koop',
+    'Koop dure koop',
+    'Koop onbekend',
+    'Onbekend koop of huur');
+
+create type pmw_sloop as enum (
+    'Sloop');
+
+create table plancategorie
+(
+    id                  uuid not null primary key default gen_random_uuid(),
+    planregistratie_id  uuid not null references planregistratie (id),
+    creator             varchar,
+    created_at          timestamp with time zone  default now(),
+    editor              varchar,
+    edited_at           timestamp with time zone,
+    nieuwbouw           pmw_nieuwbouw,
+    woning_type         pmw_woning_type,
+    wonen_en_zorg       pmw_wonen_en_zorg,
+    flexwoningen        pmw_flexwoningen,
+    betaalbaarheid      pmw_betaalbaarheid,
+    sloop               pmw_sloop,
+    totaal_gepland      integer,
+    totaal_gerealiseerd integer
+);
+
+create table detailplanning
+(
+    id               uuid not null primary key default gen_random_uuid(),
+    plancategorie_id uuid not null references plancategorie (id),
+    creator          varchar,
+    created_at       timestamp with time zone  default now(),
+    editor           varchar,
+    edited_at        timestamp with time zone,
+    jaartal          integer,
+    aantal_gepland   integer
+);

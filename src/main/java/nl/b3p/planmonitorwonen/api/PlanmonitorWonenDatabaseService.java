@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.Set;
+import nl.b3p.planmonitorwonen.api.model.Detailplanning;
+import nl.b3p.planmonitorwonen.api.model.Plancategorie;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -139,5 +141,33 @@ values (%s)"""
         .param(27, planregistratie.getAantalStudentenwoningen())
         .param(28, planregistratie.getToelichtingKwalitatief())
         .update();
+  }
+
+  public boolean planregistratieExists(String id) {
+    return !this.jdbcClient
+        .sql("select 1 from planregistratie where id = ?")
+        .param(1, id, Types.OTHER)
+        .query()
+        .singleColumn()
+        .isEmpty();
+  }
+
+  public Set<Plancategorie> getPlancategorieen(String planregistratieId) {
+    return this.jdbcClient
+        .sql("select * from plancategorie where planregistratie_id = ?")
+        .param(1, planregistratieId, Types.OTHER)
+        .query(Plancategorie.class)
+        .set();
+  }
+
+  public Set<Detailplanning> getDetailplanningen(String planregistratieId) {
+    return this.jdbcClient
+        .sql(
+            """
+            select * from detailplanning
+            where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
+        .param(1, planregistratieId, Types.OTHER)
+        .query(Detailplanning.class)
+        .set();
   }
 }
