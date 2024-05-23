@@ -2,6 +2,14 @@
 --
 -- SPDX-License-Identifier: MIT
 
+create table gemeente
+(
+    identificatie varchar primary key,
+    naam          varchar unique            not null,
+    provincie     varchar                   not null,
+    geometry      Geometry(Geometry, 28992) not null
+);
+
 create type pmw_vertrouwelijkheid as enum (
     'Gemeente',
     'Openbaar',
@@ -106,7 +114,7 @@ create table planregistratie
     edited_at                timestamp with time zone,
     plan_naam                varchar                  not null unique,
     provincie                varchar,
-    gemeente                 varchar,
+    gemeente                 varchar references gemeente (naam),
     regio                    varchar,
     plaatsnaam               varchar,
     vertrouwelijkheid        pmw_vertrouwelijkheid,

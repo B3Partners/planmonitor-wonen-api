@@ -7,33 +7,56 @@
 package nl.b3p.planmonitorwonen.api.configuration;
 
 import jakarta.annotation.PostConstruct;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.UUID;
+import nl.b3p.planmonitorwonen.api.ImportGemeentesApplication;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
 import nl.b3p.planmonitorwonen.api.model.Plancategorie;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.locationtech.jts.io.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.simple.JdbcClient;
 
 @Configuration
 @ConditionalOnProperty(name = "planmonitor-wonen-api.populate-testdata", havingValue = "true")
 @Profile("!test")
 public class PopulateTestData {
+  private static final Logger logger =
+      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final PlanmonitorWonenDatabaseService pmwDb;
 
-  public PopulateTestData(PlanmonitorWonenDatabaseService pmwDb) {
+  private final JdbcClient jdbcClient;
+
+  public PopulateTestData(PlanmonitorWonenDatabaseService pmwDb, JdbcClient jdbcClient) {
     this.pmwDb = pmwDb;
+    this.jdbcClient = jdbcClient;
   }
 
   @PostConstruct
   public void init() throws ParseException {
     if (!pmwDb.getPlanregistraties().isEmpty()) {
       return;
+    }
+
+    boolean gemeentesLoaded = false;
+    try {
+      logger.info("Laden gemeentes WFS...");
+      populateGemeentes();
+      logger.info(
+          "Succes, {} gemeentes geladen",
+          this.jdbcClient.sql("select count(*) from gemeente").query().singleValue());
+      gemeentesLoaded = true;
+    } catch (Exception e) {
+      logger.error("Fout bij laden van gemeentes", e);
     }
 
     String wkt =
@@ -47,7 +70,7 @@ public class PopulateTestData {
             .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
             .setPlanNaam("Plan 1")
             .setProvincie("Zeeland")
-            .setGemeente("Middelburg")
+            .setGemeente(gemeentesLoaded ? "Middelburg (Z.)" : null)
             .setRegio("Walcheren")
             .setPlaatsnaam("Middelburg")
             .setVertrouwelijkheid("Openbaar")
@@ -95,5 +118,10 @@ public class PopulateTestData {
           UUID.randomUUID().toString(), plancategorieen[0].id(), null, null, null, null, 2028, 10)
     };
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
+  }
+
+  private void populateGemeentes() throws IOException {
+    String sql = ImportGemeentesApplication.getGemeentesSql();
+    this.jdbcClient.sql(sql).update();
   }
 }
