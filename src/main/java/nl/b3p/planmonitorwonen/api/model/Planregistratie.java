@@ -23,24 +23,14 @@ public final class Planregistratie {
   private String vertrouwelijkheid;
   private String opdrachtgeverType;
   private String opdrachtgeverNaam;
-  private Integer jaarStartProject;
-  private Integer opleveringEerste;
-  private Integer opleveringLaatste;
   private String opmerkingen;
   private String plantype;
   private String bestemmingsplan;
   private String statusProject;
   private String statusPlanologisch;
   private String knelpuntenMeerkeuze;
-  private String regionalePlanlijst;
-  private String toelichtingKnelpunten;
-  private Integer flexwoningen;
-  private Integer levensloopbestendigJa;
-  private Integer levensloopbestendigNee;
-  private String beoogdWoonmilieuAbf5;
   private String beoogdWoonmilieuAbf13;
   private Integer aantalStudentenwoningen;
-  private String toelichtingKwalitatief;
 
   public String getId() {
     return id;
@@ -168,33 +158,6 @@ public final class Planregistratie {
     return this;
   }
 
-  public Integer getJaarStartProject() {
-    return jaarStartProject;
-  }
-
-  public Planregistratie setJaarStartProject(Integer jaarStartProject) {
-    this.jaarStartProject = jaarStartProject;
-    return this;
-  }
-
-  public Integer getOpleveringEerste() {
-    return opleveringEerste;
-  }
-
-  public Planregistratie setOpleveringEerste(Integer opleveringEerste) {
-    this.opleveringEerste = opleveringEerste;
-    return this;
-  }
-
-  public Integer getOpleveringLaatste() {
-    return opleveringLaatste;
-  }
-
-  public Planregistratie setOpleveringLaatste(Integer opleveringLaatste) {
-    this.opleveringLaatste = opleveringLaatste;
-    return this;
-  }
-
   public String getOpmerkingen() {
     return opmerkingen;
   }
@@ -249,60 +212,6 @@ public final class Planregistratie {
     return this;
   }
 
-  public String getRegionalePlanlijst() {
-    return regionalePlanlijst;
-  }
-
-  public Planregistratie setRegionalePlanlijst(String regionalePlanlijst) {
-    this.regionalePlanlijst = regionalePlanlijst;
-    return this;
-  }
-
-  public String getToelichtingKnelpunten() {
-    return toelichtingKnelpunten;
-  }
-
-  public Planregistratie setToelichtingKnelpunten(String toelichtingKnelpunten) {
-    this.toelichtingKnelpunten = toelichtingKnelpunten;
-    return this;
-  }
-
-  public Integer getFlexwoningen() {
-    return flexwoningen;
-  }
-
-  public Planregistratie setFlexwoningen(Integer flexwoningen) {
-    this.flexwoningen = flexwoningen;
-    return this;
-  }
-
-  public Integer getLevensloopbestendigJa() {
-    return levensloopbestendigJa;
-  }
-
-  public Planregistratie setLevensloopbestendigJa(Integer levensloopbestendigJa) {
-    this.levensloopbestendigJa = levensloopbestendigJa;
-    return this;
-  }
-
-  public Integer getLevensloopbestendigNee() {
-    return levensloopbestendigNee;
-  }
-
-  public Planregistratie setLevensloopbestendigNee(Integer levensloopbestendigNee) {
-    this.levensloopbestendigNee = levensloopbestendigNee;
-    return this;
-  }
-
-  public String getBeoogdWoonmilieuAbf5() {
-    return beoogdWoonmilieuAbf5;
-  }
-
-  public Planregistratie setBeoogdWoonmilieuAbf5(String beoogdWoonmilieuAbf5) {
-    this.beoogdWoonmilieuAbf5 = beoogdWoonmilieuAbf5;
-    return this;
-  }
-
   public String getBeoogdWoonmilieuAbf13() {
     return beoogdWoonmilieuAbf13;
   }
@@ -318,15 +227,6 @@ public final class Planregistratie {
 
   public Planregistratie setAantalStudentenwoningen(Integer aantalStudentenwoningen) {
     this.aantalStudentenwoningen = aantalStudentenwoningen;
-    return this;
-  }
-
-  public String getToelichtingKwalitatief() {
-    return toelichtingKwalitatief;
-  }
-
-  public Planregistratie setToelichtingKwalitatief(String toelichtingKwalitatief) {
-    this.toelichtingKwalitatief = toelichtingKwalitatief;
     return this;
   }
 }

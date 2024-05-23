@@ -65,7 +65,9 @@ create type pmw_knelpunten_meerkeuze as enum (
     'Maatschappelijk draagvlak',
     'Onrendabele top',
     'Stikstof',
-    'Vervuilde grond');
+    'Vervuilde grond',
+    'Flora/fauna',
+    'Netcongestie');
 
 create type pmw_eigendom as enum (
     'Koopwoning',
@@ -120,24 +122,14 @@ create table planregistratie
     vertrouwelijkheid        pmw_vertrouwelijkheid,
     opdrachtgever_type       pmw_opdrachtgever,
     opdrachtgever_naam       varchar,
-    jaar_start_project       integer,
-    oplevering_eerste        integer,
-    oplevering_laatste       integer,
     opmerkingen              text,
     plantype                 pmw_plantype,
     bestemmingsplan          varchar,
     status_project           pmw_project_status,
     status_planologisch      pmw_planologisch_status,
     knelpunten_meerkeuze     pmw_knelpunten_meerkeuze,
-    regionale_planlijst      pmw_eigendom,
-    toelichting_knelpunten   pmw_knelpunten_plantype,
-    flexwoningen             integer,
-    levensloopbestendig_ja   integer,
-    levensloopbestendig_nee  integer,
-    beoogd_woonmilieu_abf5   pmw_woonmilieu_abf5,
     beoogd_woonmilieu_abf13  pmw_woonmilieu_abf13,
-    aantal_studentenwoningen integer,
-    toelichting_kwalitatief  varchar
+    aantal_studentenwoningen integer
 );
 
 create type pmw_nieuwbouw as enum (

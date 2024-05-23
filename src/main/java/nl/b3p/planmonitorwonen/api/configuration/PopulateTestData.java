@@ -76,24 +76,14 @@ public class PopulateTestData {
             .setVertrouwelijkheid("Openbaar")
             .setOpdrachtgeverType("Gemeente")
             .setOpdrachtgeverNaam("De opdrachtgever")
-            .setJaarStartProject(2026)
-            .setOpleveringEerste(2027)
-            .setOpleveringLaatste(2030)
             .setOpmerkingen("Opmerking\nTweede regel")
             .setPlantype("Herstructurering")
             .setBestemmingsplan("Een bestemmingsplan")
             .setStatusProject("Voorbereiding")
             .setStatusPlanologisch("3. In voorbereiding")
             .setKnelpuntenMeerkeuze("Bereikbaarheid")
-            .setRegionalePlanlijst("Koopwoning")
-            .setToelichtingKnelpunten("Herstructurering")
-            .setFlexwoningen(50)
-            .setLevensloopbestendigJa(10)
-            .setLevensloopbestendigNee(40)
-            .setBeoogdWoonmilieuAbf5("Buitencentrum")
             .setBeoogdWoonmilieuAbf13("Centrum-dorps")
-            .setAantalStudentenwoningen(70)
-            .setToelichtingKwalitatief("Kwalitatieve toelichting");
+            .setAantalStudentenwoningen(70);
     Plancategorie[] plancategorieen = {
       new Plancategorie(
           UUID.randomUUID().toString(),

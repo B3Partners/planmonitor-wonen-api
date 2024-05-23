@@ -104,27 +104,17 @@ insert into planregistratie(
   vertrouwelijkheid,
   opdrachtgever_type,
   opdrachtgever_naam,
-  jaar_start_project,
-  oplevering_eerste,
-  oplevering_laatste,
   opmerkingen,
   plantype,
   bestemmingsplan,
   status_project,
   status_planologisch,
   knelpunten_meerkeuze,
-  regionale_planlijst,
-  toelichting_knelpunten,
-  flexwoningen,
-  levensloopbestendig_ja,
-  levensloopbestendig_nee,
-  beoogd_woonmilieu_abf5,
   beoogd_woonmilieu_abf13,
-  aantal_studentenwoningen,
-  toelichting_kwalitatief
+  aantal_studentenwoningen
   )
 values (%s)"""
-            .formatted(sqlQuestionMarks(32));
+            .formatted(sqlQuestionMarks(22));
     this.jdbcClient
         .sql(insertPlanregistratie)
         .param(1, planregistratie.getId(), Types.OTHER)
@@ -141,24 +131,14 @@ values (%s)"""
         .param(12, planregistratie.getVertrouwelijkheid(), Types.OTHER)
         .param(13, planregistratie.getOpdrachtgeverType(), Types.OTHER)
         .param(planregistratie.getOpdrachtgeverNaam())
-        .param(planregistratie.getJaarStartProject())
-        .param(planregistratie.getOpleveringEerste())
-        .param(planregistratie.getOpleveringLaatste())
         .param(planregistratie.getOpmerkingen())
-        .param(19, planregistratie.getPlantype(), Types.OTHER)
+        .param(16, planregistratie.getPlantype(), Types.OTHER)
         .param(planregistratie.getBestemmingsplan())
-        .param(21, planregistratie.getStatusProject(), Types.OTHER)
-        .param(22, planregistratie.getStatusPlanologisch(), Types.OTHER)
-        .param(23, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
-        .param(24, planregistratie.getRegionalePlanlijst(), Types.OTHER)
-        .param(25, planregistratie.getToelichtingKnelpunten(), Types.OTHER)
-        .param(planregistratie.getFlexwoningen())
-        .param(planregistratie.getLevensloopbestendigJa())
-        .param(planregistratie.getLevensloopbestendigNee())
-        .param(29, planregistratie.getBeoogdWoonmilieuAbf5(), Types.OTHER)
-        .param(30, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
+        .param(18, planregistratie.getStatusProject(), Types.OTHER)
+        .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)
+        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
+        .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
         .param(planregistratie.getAantalStudentenwoningen())
-        .param(planregistratie.getToelichtingKwalitatief())
         .update();
 
     for (Plancategorie p : plancategorieen) {
