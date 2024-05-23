@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 package nl.b3p.planmonitorwonen.api;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
