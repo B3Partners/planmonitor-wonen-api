@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>ImportGemeentesApplication xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/nl/b3p/planmonitorwonen/api/ImportGemeentesApplication.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.nio.charset.StandardCharsets.UTF_8;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.io.FileOutputStream;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.io.OutputStreamWriter;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.io.PrintWriter;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.io.StringWriter;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.geotools.api.data.DataStore;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.geotools.api.data.DataStoreFinder;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.geotools.api.data.SimpleFeatureSource;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.geotools.api.feature.simple.SimpleFeature;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.geotools.data.simple.SimpleFeatureIterator;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.geotools.data.wfs.WFSDataStoreFactory;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.Geometry;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.geom.PrecisionModel;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.WKBWriter;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.precision.GeometryPrecisionReducer;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.simplify.TopologyPreservingSimplifier;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ImportGemeentesApplication" href="../../../../nl/b3p/planmonitorwonen/api/ImportGemeentesApplication.html#ImportGemeentesApplication">ImportGemeentesApplication</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> main(String[] args) <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      System.out.println(<span class="jxr_string">"Loading gemeentes from WFS..."</span>);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      String sql = getGemeentesSql();
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">new</strong> OutputStreamWriter(<strong class="jxr_keyword">new</strong> FileOutputStream(<span class="jxr_string">"gemeentes.sql"</span>), UTF_8).append(sql).close();
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      System.out.println(<span class="jxr_string">"Done"</span>);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>    }
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getGemeentesSql() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      String wfs = <span class="jxr_string">"https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0"</span>;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      String typename = <span class="jxr_string">"bestuurlijkegebieden:Gemeentegebied"</span>;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      Map&lt;String, Object&gt; params = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      params.put(WFSDataStoreFactory.URL.key, wfs);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      DataStore ds = DataStoreFinder.getDataStore(params);
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      SimpleFeatureSource fs = ds.getFeatureSource(typename);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">try</strong> (SimpleFeatureIterator features = fs.getFeatures().features();
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          PrintWriter pw = <strong class="jxr_keyword">new</strong> PrintWriter(sw)) {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>        <strong class="jxr_keyword">while</strong> (features.hasNext()) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          SimpleFeature feature = features.next();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          String sql =
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <span class="jxr_string">"insert into gemeente(identificatie, naam, provincie, geometry) values('%s', '%s', '%s', '%s');\n"</span>;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          Geometry g = (Geometry) feature.getDefaultGeometry();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          g = TopologyPreservingSimplifier.simplify(g, 50);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          g = <strong class="jxr_keyword">new</strong> GeometryPrecisionReducer(<strong class="jxr_keyword">new</strong> PrecisionModel(1.0)).reduce(g);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          String wkb = WKBWriter.toHex(<strong class="jxr_keyword">new</strong> WKBWriter().write(g)).trim();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          pw.printf(
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              sql,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"identificatie"</span>)),
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"naam"</span>)),
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"ligtInProvincieNaam"</span>)),
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>              wkb);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>        }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      }
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">return</strong> sw.toString();
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>    }
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String escapeSql(Object s) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">return</strong> s.toString().replaceAll(<span class="jxr_string">"'"</span>, <span class="jxr_string">"''"</span>);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>    }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2024 <a href="https://zeeland.nl/">Provincie Zeeland</a>. All rights reserved.</div>
+</body>
+</html>
