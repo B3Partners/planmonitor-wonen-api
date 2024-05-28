@@ -29,7 +29,7 @@ jobs:
         run: mvn -U package -DskipTests -DskipITs -Dmaven.javadoc.skip=true
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.21.0
         # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image docker.b3p.nl/b3partners/planmonitor-wonen-api:snapshot
         with:
           image-ref: 'ghcr.io/b3partners/planmonitor-wonen-api:snapshot'
