@@ -129,7 +129,8 @@ create table planregistratie
     status_planologisch      pmw_planologisch_status,
     knelpunten_meerkeuze     pmw_knelpunten_meerkeuze,
     beoogd_woonmilieu_abf13  pmw_woonmilieu_abf13,
-    aantal_studentenwoningen integer
+    aantal_studentenwoningen integer,
+    sleutelproject           boolean not null
 );
 
 create type pmw_nieuwbouw as enum (

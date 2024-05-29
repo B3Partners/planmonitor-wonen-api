@@ -31,6 +31,7 @@ public final class Planregistratie {
   private String knelpuntenMeerkeuze;
   private String beoogdWoonmilieuAbf13;
   private Integer aantalStudentenwoningen;
+  private boolean sleutelproject;
 
   public String getId() {
     return id;
@@ -227,6 +228,15 @@ public final class Planregistratie {
 
   public Planregistratie setAantalStudentenwoningen(Integer aantalStudentenwoningen) {
     this.aantalStudentenwoningen = aantalStudentenwoningen;
+    return this;
+  }
+
+  public boolean isSleutelproject() {
+    return sleutelproject;
+  }
+
+  public Planregistratie setSleutelproject(boolean sleutelproject) {
+    this.sleutelproject = sleutelproject;
     return this;
   }
 }

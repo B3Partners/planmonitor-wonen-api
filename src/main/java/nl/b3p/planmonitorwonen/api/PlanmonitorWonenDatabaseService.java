@@ -111,7 +111,8 @@ insert into planregistratie(
   status_planologisch,
   knelpunten_meerkeuze,
   beoogd_woonmilieu_abf13,
-  aantal_studentenwoningen
+  aantal_studentenwoningen,
+  sleutelproject
   )
 values (%s)"""
             .formatted(sqlQuestionMarks(22));
@@ -139,6 +140,7 @@ values (%s)"""
         .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
         .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
         .param(planregistratie.getAantalStudentenwoningen())
+        .param(planregistratie.isSleutelproject())
         .update();
 
     for (Plancategorie p : plancategorieen) {

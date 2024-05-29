@@ -83,7 +83,8 @@ public class PopulateTestData {
             .setStatusPlanologisch("3. In voorbereiding")
             .setKnelpuntenMeerkeuze("Bereikbaarheid")
             .setBeoogdWoonmilieuAbf13("Centrum-dorps")
-            .setAantalStudentenwoningen(70);
+            .setAantalStudentenwoningen(70)
+            .setSleutelproject(false);
     Plancategorie[] plancategorieen = {
       new Plancategorie(
           UUID.randomUUID().toString(),
