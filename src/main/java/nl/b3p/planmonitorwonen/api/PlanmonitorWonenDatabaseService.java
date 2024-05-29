@@ -115,7 +115,7 @@ insert into planregistratie(
   sleutelproject
   )
 values (%s)"""
-            .formatted(sqlQuestionMarks(22));
+            .formatted(sqlQuestionMarks(23));
     this.jdbcClient
         .sql(insertPlanregistratie)
         .param(1, planregistratie.getId(), Types.OTHER)
