@@ -14,12 +14,12 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.controller;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.springframework.http.HttpStatus.BAD_REQUEST;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.invoke.MethodHandles;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Comparator;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> java.util.Comparator.comparingDouble;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.springframework.http.HttpStatus.BAD_REQUEST;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.lang.invoke.MethodHandles;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Collection;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
@@ -153,7 +153,7 @@
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     }
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>   }
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;SimpleFeature&gt; selectFeaturesOrderedByIntersectionArea(
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;SimpleFeature&gt; getFeaturesOrderedByIntersectionAreaDescending(
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>       Geometry geometry, Collection&lt;SimpleFeature&gt; features) {
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">return</strong> features.stream()
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         .map(
@@ -166,7 +166,7 @@
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>               }
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             })
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         .filter(Objects::nonNull)
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         .sorted(Comparator.comparingDouble(Pair::getRight))
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         .sorted(comparingDouble((Pair&lt;SimpleFeature, Double&gt; p) -&gt; p.getRight()).reversed())
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         .map(Pair::getLeft)
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         .collect(Collectors.toList());
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>   }
@@ -199,12 +199,12 @@
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>             .list();
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> 
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>     List&lt;String&gt; provincies =
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         selectFeaturesOrderedByIntersectionArea(geometry, provincieFeatures).stream()
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>         getFeaturesOrderedByIntersectionAreaDescending(geometry, provincieFeatures).stream()
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>             .map(f -&gt; (String) f.getAttribute(provinciesPropertyName))
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>             .toList();
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>     List&lt;String&gt; regios =
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         selectFeaturesOrderedByIntersectionArea(geometry, regioFeatures).stream()
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         getFeaturesOrderedByIntersectionAreaDescending(geometry, regioFeatures).stream()
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             .map(f -&gt; (String) f.getAttribute(regiosPropertyName))
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             .toList();
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
