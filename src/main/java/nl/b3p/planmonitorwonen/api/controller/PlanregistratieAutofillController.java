@@ -6,12 +6,12 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
+import static java.util.Comparator.comparingDouble;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,7 +145,7 @@ public class PlanregistratieAutofillController
     }
   }
 
-  private static List<SimpleFeature> selectFeaturesOrderedByIntersectionArea(
+  private static List<SimpleFeature> getFeaturesOrderedByIntersectionAreaDescending(
       Geometry geometry, Collection<SimpleFeature> features) {
     return features.stream()
         .map(
@@ -158,7 +158,7 @@ public class PlanregistratieAutofillController
               }
             })
         .filter(Objects::nonNull)
-        .sorted(Comparator.comparingDouble(Pair::getRight))
+        .sorted(comparingDouble((Pair<SimpleFeature, Double> p) -> p.getRight()).reversed())
         .map(Pair::getLeft)
         .collect(Collectors.toList());
   }
@@ -191,12 +191,12 @@ public class PlanregistratieAutofillController
             .list();
 
     List<String> provincies =
-        selectFeaturesOrderedByIntersectionArea(geometry, provincieFeatures).stream()
+        getFeaturesOrderedByIntersectionAreaDescending(geometry, provincieFeatures).stream()
             .map(f -> (String) f.getAttribute(provinciesPropertyName))
             .toList();
 
     List<String> regios =
-        selectFeaturesOrderedByIntersectionArea(geometry, regioFeatures).stream()
+        getFeaturesOrderedByIntersectionAreaDescending(geometry, regioFeatures).stream()
             .map(f -> (String) f.getAttribute(regiosPropertyName))
             .toList();
 
