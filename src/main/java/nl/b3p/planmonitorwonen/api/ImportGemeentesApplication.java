@@ -28,6 +28,7 @@ import org.locationtech.jts.precision.GeometryPrecisionReducer;
 import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
 
 public class ImportGemeentesApplication {
+  @SuppressWarnings("PMD.SystemPrintln")
   public static void main(String[] args) throws IOException {
     System.out.println("Loading gemeentes from WFS...");
     String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
