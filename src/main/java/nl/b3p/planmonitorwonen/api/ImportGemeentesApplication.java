@@ -30,15 +30,14 @@ import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
 public class ImportGemeentesApplication {
   public static void main(String[] args) throws IOException {
     System.out.println("Loading gemeentes from WFS...");
-    String sql = getGemeentesSql();
+    String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
+    String typename = "bestuurlijkegebieden:Gemeentegebied";
+    String sql = getGemeentesSql(wfs, typename);
     new OutputStreamWriter(new FileOutputStream("gemeentes.sql"), UTF_8).append(sql).close();
     System.out.println("Done");
   }
 
-  public static String getGemeentesSql() throws IOException {
-    String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
-    String typename = "bestuurlijkegebieden:Gemeentegebied";
-
+  public static String getGemeentesSql(String wfs, String typename) throws IOException {
     Map<String, Object> params = new HashMap<>();
     params.put(WFSDataStoreFactory.URL.key, wfs);
     DataStore ds = DataStoreFinder.getDataStore(params);

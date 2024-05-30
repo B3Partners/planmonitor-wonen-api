@@ -20,6 +20,7 @@ import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.locationtech.jts.io.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -111,8 +112,15 @@ public class PopulateTestData {
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
   }
 
+  @Value("${planmonitor-wonen-api.wfs.bestuurlijke-gebieden}")
+  private String bestuurlijkeGebiedenWfs;
+
+  @Value("${planmonitor-wonen-api.wfs.bestuurlijke-gebieden.gemeentes-typename}")
+  private String gemeentesTypename;
+
   private void populateGemeentes() throws IOException {
-    String sql = ImportGemeentesApplication.getGemeentesSql();
+    String sql =
+        ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
     this.jdbcClient.sql(sql).update();
   }
 }
