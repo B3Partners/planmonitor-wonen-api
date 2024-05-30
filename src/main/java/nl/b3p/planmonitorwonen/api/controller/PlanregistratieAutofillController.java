@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 package nl.b3p.planmonitorwonen.api.controller;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -72,8 +78,8 @@ public class PlanregistratieAutofillController
     private String woonmilieuTypename;
   */
 
-  private List<SimpleFeature> provincieFeatures = new ArrayList<>();
-  private List<SimpleFeature> regioFeatures = new ArrayList<>();
+  private final List<SimpleFeature> provincieFeatures = new ArrayList<>();
+  private final List<SimpleFeature> regioFeatures = new ArrayList<>();
 
   //  private List<SimpleFeature> woonmilieuFeatures = new ArrayList<>();
 
