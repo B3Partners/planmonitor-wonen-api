@@ -679,12 +679,12 @@ SPDX-License-Identifier: MIT
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.9.5</version>
-                                    <message>Requires Maven 3.9.5 or higher</message>
+                                    <version>3.9</version>
+                                    <message>Requires Maven 3.9</message>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
-                                    <message>Requires Java ${java.version} or higher</message>
+                                    <message>Requires Java ${java.version}</message>
                                 </requireJavaVersion>
                                 <bannedDependencies>
                                     <excludes>
