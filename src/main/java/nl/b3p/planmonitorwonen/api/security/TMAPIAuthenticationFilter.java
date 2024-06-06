@@ -58,9 +58,6 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
 
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-  // use a thread local to cache the principal for each request
-  private static final ThreadLocal<TMAPIAuthenticationToken> principalThreadLocal =
-      ThreadLocal.withInitial(() -> new TMAPIAuthenticationToken(null, null));
 
   private ApplicationEventPublisher eventPublisher = null;
 
@@ -120,6 +117,7 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
   private Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
     logger.debug("requesting pre-authenticated principal for request: {}", request.getRequestURI());
 
+    Object principal = null;
     final String sessionCookieValue = getSessionCookieValue(request);
     if (null == sessionCookieValue || sessionCookieValue.isBlank()) {
       logger.debug("No session cookie found in request for {}.", request.getRequestURI());
@@ -127,14 +125,15 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
       try {
         ObjectNode authResponse = getTMAPIAuthResponse(sessionCookieValue);
         TMAPIAuthenticationToken token = getAuthenticatedPrincipal(authResponse);
-        principalThreadLocal.set(token);
+        request.setAttribute("authToken", token);
         SecurityContextHolder.getContext().setAuthentication(token);
+        logger.debug("Returning principal from token: {}", token);
+        principal = token.getPrincipal();
       } catch (JsonProcessingException e) {
         throw new RuntimeException(e);
       }
     }
-    logger.debug("Returning principal: {}", principalThreadLocal.get());
-    return principalThreadLocal.get().getPrincipal();
+    return principal;
   }
 
   public void setRequiresAuthenticationRequestMatcher(
@@ -240,7 +239,8 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
     }
     logger.debug("pre-authenticated principal = {}, trying to authenticate", principal);
     try {
-      TMAPIAuthenticationToken authenticationRequest = principalThreadLocal.get();
+      TMAPIAuthenticationToken authenticationRequest =
+          (TMAPIAuthenticationToken) request.getAttribute("authToken");
       authenticationRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
       Authentication authenticationResult =
           this.authenticationManager.authenticate(authenticationRequest);
