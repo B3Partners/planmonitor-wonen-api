@@ -1,0 +1,42 @@
+# Copyright (C) 2024 Provincie Zeeland
+#
+# SPDX-License-Identifier: MIT
+name: 'planmonitor-wonen-ci'
+
+volumes:
+  postgis-db:
+
+
+services:
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    environment:
+      POSTGRES_USER: planmonitor-wonen
+      POSTGRES_PASSWORD: planmonitor-wonen
+      POSTGRES_DB: planmonitor-wonen
+    volumes:
+      - postgis-db:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      interval: 1m
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+      test: su planmonitor-wonen -c pg_isready
+    restart: unless-stopped
+
+  tailormap:
+    image: ghcr.io/b3partners/tailormap:snapshot
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tailormap
+      - SPRING_PROFILES_ACTIVE=populate-testdata
+      - ADMIN_HASHED_PASSWORD
+      - SPATIAL_DBS_CONNECT=false
+      - SPATIAL_DBS_LOCALHOST=false
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - db
+
