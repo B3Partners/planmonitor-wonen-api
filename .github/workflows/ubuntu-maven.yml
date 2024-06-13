@@ -146,7 +146,7 @@ jobs:
           serverhostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
           apikey: ${{ secrets.DEPENDENCY_TRACK_APIKEY }}
           project: '95766e56-7bf3-4ea5-a6cc-8323ba5bf958'
-          bomfilename: 'target/bom.xml'
+          bomfilename: 'target/classes/META-INF/sbom/application.cdx.json'
 
 
   cleanup:
