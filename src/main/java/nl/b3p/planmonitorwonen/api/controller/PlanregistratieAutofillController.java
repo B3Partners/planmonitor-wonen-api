@@ -73,15 +73,15 @@ public class PlanregistratieAutofillController
   @Value("${planmonitor-wonen-api.wfs.ruimte.regios-propertyname}")
   private String regiosPropertyName;
 
-  /*
-    @Value("${planmonitor-wonen-api.wfs.ruimte.woonmilieu-typename}")
-    private String woonmilieuTypename;
-  */
+  @Value("${planmonitor-wonen-api.wfs.ruimte.woonmilieu-typename}")
+  private String woonmilieuTypename;
+
+  @Value("${planmonitor-wonen-api.wfs.ruimte.woonmilieu-propertyname}")
+  private String woonmilieuPropertyName;
 
   private final List<SimpleFeature> provincieFeatures = new ArrayList<>();
   private final List<SimpleFeature> regioFeatures = new ArrayList<>();
-
-  //  private List<SimpleFeature> woonmilieuFeatures = new ArrayList<>();
+  private final List<SimpleFeature> woonmilieuFeatures = new ArrayList<>();
 
   public PlanregistratieAutofillController(JdbcClient jdbcClient) {
     this.jdbcClient = jdbcClient;
@@ -126,16 +126,15 @@ public class PlanregistratieAutofillController
           regioFeatures.add(features.next());
         }
       }
-      /*
-            fs = ds.getFeatureSource(woonmilieuTypename);
-            query = new Query(woonmilieuTypename);
-            try (SimpleFeatureIterator features = fs.getFeatures(query).features()) {
-              while (features.hasNext()) {
-                woonmilieuFeatures.add(features.next());
-              }
-            }
-      */
       logger.info("Loaded ruimte features");
+      fs = ds.getFeatureSource(woonmilieuTypename);
+      query = new Query(woonmilieuTypename);
+      try (SimpleFeatureIterator features = fs.getFeatures(query).features()) {
+        while (features.hasNext()) {
+          woonmilieuFeatures.add(features.next());
+        }
+      }
+      logger.info("Loaded woonmilieu features");
     } catch (Exception e) {
       logger.error("Error loading features from ruimte WFS " + ruimteWfs, e);
     } finally {
@@ -200,10 +199,31 @@ public class PlanregistratieAutofillController
             .map(f -> (String) f.getAttribute(regiosPropertyName))
             .toList();
 
+    List<String> woonmilieus =
+        getFeaturesOrderedByIntersectionAreaDescending(geometry, woonmilieuFeatures).stream()
+            .map(f -> (Integer) f.getAttribute(woonmilieuPropertyName))
+            .distinct()
+            .map(PlanregistratieAutofillController::woonmilieuCodeToEnumValue)
+            .toList();
+
     return Map.of(
         "gemeentes", gemeentes,
         "provincies", provincies,
         "regios", regios,
-        "woonmilieus", new String[] {});
+        "woonmilieus", woonmilieus);
+  }
+
+  private static final Map<Integer, String> woonmilieuCodeValueMap =
+      Map.of(
+          2, "Centrum",
+          6, "Stedelijk Compact",
+          7, "Stedelijk Grondgebonden",
+          8, "Stedelijk met Groen",
+          9, "Landelijk of Dorps bij de stad",
+          10, "Dorps",
+          11, "Landelijk");
+
+  private static String woonmilieuCodeToEnumValue(Integer code) {
+    return Objects.requireNonNullElse(woonmilieuCodeValueMap.get(code), "Geen Woonmilieu");
   }
 }
