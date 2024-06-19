@@ -71,8 +71,16 @@ public class PlanmonitorWonenDatabaseService {
     return String.join(", ", qs);
   }
 
-  public Set<Planregistratie> getPlanregistraties() {
+  public Set<Planregistratie> getPlanregistratiesForProvincie() {
     return jdbcClient.sql("select * from planregistratie").query(planregistratieRowMapper).set();
+  }
+
+  public Set<Planregistratie> getPlanregistratiesForGemeente(String gemeente) {
+    return jdbcClient
+        .sql("select * from planregistratie where gemeente = ?")
+        .param(gemeente)
+        .query(planregistratieRowMapper)
+        .set();
   }
 
   @Transactional
@@ -185,13 +193,16 @@ values (%s)"""
     }
   }
 
-  public boolean planregistratieExists(String id) {
-    return !this.jdbcClient
-        .sql("select 1 from planregistratie where id = ?")
-        .param(1, id, Types.OTHER)
-        .query()
-        .singleColumn()
-        .isEmpty();
+  public String getPlanregistratieGemeente(String id) {
+    return (String)
+        this.jdbcClient
+            .sql("select gemeente from planregistratie where id = ?")
+            .param(1, id, Types.OTHER)
+            .query()
+            .singleColumn()
+            .stream()
+            .findFirst()
+            .orElse(null);
   }
 
   public Set<Plancategorie> getPlancategorieen(String planregistratieId) {
