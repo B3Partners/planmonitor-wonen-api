@@ -55,7 +55,9 @@ create type pmw_planologisch_status as enum (
     '2C. Vastgesteld, wijzigingsbevoegdheid',
     '3. In voorbereiding',
     '4A. Visie',
-    '4B. Optie');
+    '4B. Optie',
+    '5A. Ambtelijk met locatie',
+    '5B. Ambtelijk zonder locatie');
 
 create type pmw_knelpunten_meerkeuze as enum (
     'Ambtelijke capaciteit',
@@ -69,42 +71,15 @@ create type pmw_knelpunten_meerkeuze as enum (
     'Flora/fauna',
     'Netcongestie');
 
-create type pmw_eigendom as enum (
-    'Koopwoning',
-    'Huurwoning particuliere verhuurder',
-    'Huurwoning woningcorporatie',
-    'Onbekend');
-
-create type pmw_knelpunten_plantype as enum (
-    'Herstructurering',
-    'Onbekend',
-    'Transformatie gebied',
-    'Transformatie gebouw',
-    'Uitbreiding overig',
-    'Uitbreiding uitleg',
-    'Verdichting');
-
-create type pmw_woonmilieu_abf5 as enum (
-    'Buitencentrum',
-    'Centrum-stedelijk',
-    'Dorps',
-    'Groen-stedelijk',
-    'Landelijk');
-
 create type pmw_woonmilieu_abf13 as enum (
-    'Centrum-dorps',
-    'Centrum-kleinstedelijk',
-    'Centrum-stedelijk',
-    'Centrum-stedelijk-plus',
+    'Centrum',
+    'Stedelijk Compact',
+    'Stedelijk Grondgebonden',
+    'Stedelijk met Groen',
+    'Landelijk of Dorps bij de stad',
     'Dorps',
-    'Groen-kleinstedelijk',
-    'Groen-stedelijk',
-    'Kleinstedelijk',
-    'Landelijk bereikbaar',
-    'Landelijk perifeer',
-    'Stedelijk naoorlogs compact',
-    'Stedelijk naoorlogs grondgebonden',
-    'Stedelijk vooroorlogs');
+    'Landelijk',
+    'Geen Woonmilieu');
 
 create table planregistratie
 (

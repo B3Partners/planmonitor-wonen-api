@@ -83,7 +83,7 @@ public class PopulateTestData {
             .setStatusProject("Voorbereiding")
             .setStatusPlanologisch("3. In voorbereiding")
             .setKnelpuntenMeerkeuze("Bereikbaarheid")
-            .setBeoogdWoonmilieuAbf13("Centrum-dorps")
+            .setBeoogdWoonmilieuAbf13("Centrum")
             .setAantalStudentenwoningen(70)
             .setSleutelproject(false);
     Plancategorie[] plancategorieen = {
