@@ -69,7 +69,8 @@ create type pmw_knelpunten_meerkeuze as enum (
     'Stikstof',
     'Vervuilde grond',
     'Flora/fauna',
-    'Netcongestie');
+    'Netcongestie',
+    'Geen');
 
 create type pmw_woonmilieu_abf13 as enum (
     'Centrum',
