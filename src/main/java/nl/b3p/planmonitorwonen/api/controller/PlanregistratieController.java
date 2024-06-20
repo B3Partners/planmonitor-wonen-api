@@ -51,7 +51,7 @@ public class PlanregistratieController {
     if (auth.isProvincie()) {
       return pmwDb.getPlanregistratiesForProvincie();
     } else {
-      return pmwDb.getPlanregistratiesForGemeente(auth.getGemeente());
+      return pmwDb.getPlanregistratiesForGemeentes(auth.getGemeentes());
     }
   }
 
@@ -64,11 +64,11 @@ public class PlanregistratieController {
       throw new ResponseStatusException(NOT_FOUND);
     }
 
-    if (!auth.isProvincie() && !gemeente.equals(auth.getGemeente())) {
+    if (!auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeente {} tried to access plan id {} of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}",
           auth.getTmApiAuthentication().getName(),
-          auth.getGemeente(),
+          auth.getGemeentes(),
           id,
           gemeente);
       throw new ResponseStatusException(NOT_FOUND);
@@ -93,11 +93,11 @@ public class PlanregistratieController {
     PlanmonitorAuthentication auth = getFromSecurityContext();
 
     if (!auth.isProvincie()
-        && !planregistratieComplete.planregistratie().getGemeente().equals(auth.getGemeente())) {
+        && !auth.getGemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeente {} tried to save plan id {}, name \"{}\" with gemeente value {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}",
           auth.getTmApiAuthentication().getName(),
-          auth.getGemeente(),
+          auth.getGemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
           planregistratieComplete.planregistratie().getGemeente());
@@ -106,11 +106,11 @@ public class PlanregistratieController {
 
     String gemeente = pmwDb.getPlanregistratieGemeente(id);
 
-    if (!auth.isProvincie() && !gemeente.equals(auth.getGemeente())) {
+    if (gemeente != null && !auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeente {} tried to update plan id {}, name \"{}\" of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to update plan id {}, name \"{}\" of gemeente {}",
           auth.getTmApiAuthentication().getName(),
-          auth.getGemeente(),
+          auth.getGemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
           gemeente);
@@ -138,11 +138,11 @@ public class PlanregistratieController {
       throw new ResponseStatusException(NOT_FOUND);
     }
 
-    if (!auth.isProvincie() && !gemeente.equals(auth.getGemeente())) {
+    if (!auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeente {} tried to delete plan id {} of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to delete plan id {} of gemeente {}",
           auth.getTmApiAuthentication().getName(),
-          auth.getGemeente(),
+          auth.getGemeentes(),
           id,
           gemeente);
       throw new ResponseStatusException(FORBIDDEN);

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
 import nl.b3p.planmonitorwonen.api.model.Plancategorie;
@@ -75,10 +76,12 @@ public class PlanmonitorWonenDatabaseService {
     return jdbcClient.sql("select * from planregistratie").query(planregistratieRowMapper).set();
   }
 
-  public Set<Planregistratie> getPlanregistratiesForGemeente(String gemeente) {
+  public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
     return jdbcClient
-        .sql("select * from planregistratie where gemeente = ?")
-        .param(gemeente)
+        .sql(
+            "select * from planregistratie where gemeente in (%s)"
+                .formatted(sqlQuestionMarks(gemeentes.size())))
+        .params(Arrays.asList(gemeentes.toArray()))
         .query(planregistratieRowMapper)
         .set();
   }

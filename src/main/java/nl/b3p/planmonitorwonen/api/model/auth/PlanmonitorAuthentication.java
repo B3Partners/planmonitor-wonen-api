@@ -10,7 +10,9 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import nl.b3p.planmonitorwonen.api.security.TMAPIAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class PlanmonitorAuthentication {
   private TMAPIAuthenticationToken tmApiAuthentication;
   private boolean isProvincie;
-  private String gemeente;
+  private Set<String> gemeentes = new HashSet<>();
 
   public TMAPIAuthenticationToken getTmApiAuthentication() {
     return tmApiAuthentication;
@@ -28,8 +30,8 @@ public class PlanmonitorAuthentication {
     return isProvincie;
   }
 
-  public String getGemeente() {
-    return gemeente;
+  public Set<String> getGemeentes() {
+    return gemeentes;
   }
 
   public static PlanmonitorAuthentication getFromSecurityContext() throws ResponseStatusException {
@@ -39,20 +41,28 @@ public class PlanmonitorAuthentication {
       throw new ResponseStatusException(UNAUTHORIZED);
     }
 
-    Map<String, String> groupProperties = new HashMap<>();
+    Map<String, Set<String>> groupProperties = new HashMap<>();
     authentication
         .getAuthResponse()
         .get("groupProperties")
         .elements()
         .forEachRemaining(
-            n -> groupProperties.put(n.get("key").textValue(), n.get("value").textValue()));
+            n -> {
+              String key = n.get("key").textValue();
+              String value = n.get("value").textValue();
+              if (!groupProperties.containsKey(key)) {
+                groupProperties.put(key, new HashSet<>());
+              }
+              groupProperties.get(key).add(value);
+            });
 
     PlanmonitorAuthentication result = new PlanmonitorAuthentication();
     result.tmApiAuthentication = authentication;
-    result.isProvincie = "provincie".equals(groupProperties.get("typeGebruiker"));
-    result.gemeente = groupProperties.get("gemeente");
+    result.isProvincie =
+        "provincie".equals(groupProperties.get("typeGebruiker").stream().findFirst().orElse(null));
+    result.gemeentes = groupProperties.get("gemeente");
 
-    if (!result.isProvincie && result.gemeente == null) {
+    if (!result.isProvincie && result.gemeentes.isEmpty()) {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
