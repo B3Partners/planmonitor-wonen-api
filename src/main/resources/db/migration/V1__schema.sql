@@ -92,7 +92,7 @@ create table planregistratie
     edited_at                timestamp with time zone,
     plan_naam                varchar                  not null unique,
     provincie                varchar,
-    gemeente                 varchar references gemeente (naam),
+    gemeente                 varchar                  not null references gemeente (naam),
     regio                    varchar,
     plaatsnaam               varchar,
     vertrouwelijkheid        pmw_vertrouwelijkheid,
@@ -106,7 +106,7 @@ create table planregistratie
     knelpunten_meerkeuze     pmw_knelpunten_meerkeuze,
     beoogd_woonmilieu_abf13  pmw_woonmilieu_abf13,
     aantal_studentenwoningen integer,
-    sleutelproject           boolean not null
+    sleutelproject           boolean                  not null
 );
 
 create type pmw_nieuwbouw as enum (

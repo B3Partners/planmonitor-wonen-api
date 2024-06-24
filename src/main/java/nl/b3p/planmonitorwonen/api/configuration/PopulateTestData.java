@@ -44,7 +44,7 @@ public class PopulateTestData {
 
   @PostConstruct
   public void init() throws ParseException {
-    if (!pmwDb.getPlanregistraties().isEmpty()) {
+    if (!pmwDb.getPlanregistratiesForProvincie().isEmpty()) {
       return;
     }
 
