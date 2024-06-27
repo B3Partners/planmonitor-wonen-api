@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>    @PostConstruct
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> init() <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">if</strong> (!pmwDb.getPlanregistraties().isEmpty()) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">if</strong> (!pmwDb.getPlanregistratiesForProvincie().isEmpty()) {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>        <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
@@ -91,7 +91,7 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>              .setStatusProject(<span class="jxr_string">"Voorbereiding"</span>)
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>              .setStatusPlanologisch(<span class="jxr_string">"3. In voorbereiding"</span>)
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              .setKnelpuntenMeerkeuze(<span class="jxr_string">"Bereikbaarheid"</span>)
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>              .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum-dorps"</span>)
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum"</span>)
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>              .setAantalStudentenwoningen(70)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>              .setSleutelproject(false);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <a name="Plancategorie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Plancategorie.html#Plancategorie">Plancategorie</a>[] plancategorieen = {
