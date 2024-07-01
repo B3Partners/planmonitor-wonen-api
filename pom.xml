@@ -580,6 +580,7 @@ SPDX-License-Identifier: MIT
                     <hintsFile>${project.basedir}/build/qa/owasp-hints.xml</hintsFile>
                     <format>ALL</format>
                     <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
+                    <nvdApiDelay>5000</nvdApiDelay>
                 </configuration>
             </plugin>
             <plugin>
