@@ -9,6 +9,7 @@ package nl.b3p.planmonitorwonen.api.model.auth;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -59,8 +60,8 @@ public class PlanmonitorAuthentication {
     PlanmonitorAuthentication result = new PlanmonitorAuthentication();
     result.tmApiAuthentication = authentication;
     result.isProvincie =
-        "provincie".equals(groupProperties.get("typeGebruiker").stream().findFirst().orElse(null));
-    result.gemeentes = groupProperties.get("gemeente");
+        groupProperties.getOrDefault("typeGebruiker", Collections.emptySet()).contains("provincie");
+    result.gemeentes = groupProperties.getOrDefault("gemeente", Collections.emptySet());
 
     if (!result.isProvincie && result.gemeentes.isEmpty()) {
       throw new ResponseStatusException(FORBIDDEN);
