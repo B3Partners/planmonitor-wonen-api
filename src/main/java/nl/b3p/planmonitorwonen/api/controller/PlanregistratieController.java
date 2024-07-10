@@ -66,7 +66,7 @@ public class PlanregistratieController {
 
     if (!auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}, denied",
           auth.getTmApiAuthentication().getName(),
           auth.getGemeentes(),
           id,
@@ -92,10 +92,17 @@ public class PlanregistratieController {
 
     PlanmonitorAuthentication auth = getFromSecurityContext();
 
-    if (!auth.isProvincie()
-        && !auth.getGemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
+    if (auth.isProvincie()) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}",
+          "Provincie user \"{}\" tried to save plan id {}, denied",
+          auth.getTmApiAuthentication().getName(),
+          id);
+      throw new ResponseStatusException(FORBIDDEN);
+    }
+
+    if (!auth.getGemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
+      logger.warn(
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}, denied",
           auth.getTmApiAuthentication().getName(),
           auth.getGemeentes(),
           id,
@@ -108,7 +115,7 @@ public class PlanregistratieController {
 
     if (gemeente != null && !auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeentes {} tried to update plan id {}, name \"{}\" of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to update plan id {}, name \"{}\" of gemeente {}, denied",
           auth.getTmApiAuthentication().getName(),
           auth.getGemeentes(),
           id,
@@ -132,15 +139,23 @@ public class PlanregistratieController {
 
     PlanmonitorAuthentication auth = getFromSecurityContext();
 
+    if (auth.isProvincie()) {
+      logger.warn(
+          "Provincie user \"{}\" tried to delete plan id {}, denied",
+          auth.getTmApiAuthentication().getName(),
+          id);
+      throw new ResponseStatusException(FORBIDDEN);
+    }
+
     String gemeente = pmwDb.getPlanregistratieGemeente(id);
 
     if (gemeente == null) {
       throw new ResponseStatusException(NOT_FOUND);
     }
 
-    if (!auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
+    if (!auth.getGemeentes().contains(gemeente)) {
       logger.warn(
-          "Gemeente user \"{}\" with authorization for gemeentes {} tried to delete plan id {} of gemeente {}",
+          "Gemeente user \"{}\" with authorization for gemeentes {} tried to delete plan id {} of gemeente {}, denied",
           auth.getTmApiAuthentication().getName(),
           auth.getGemeentes(),
           id,
