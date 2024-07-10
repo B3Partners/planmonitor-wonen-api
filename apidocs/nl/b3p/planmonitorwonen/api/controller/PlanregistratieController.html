@@ -114,7 +114,7 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#details(java.lang.String)" class="member-name-link">details</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#planregistraties()" class="member-name-link">planregistraties</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#planregistraties(boolean)" class="member-name-link">planregistraties</a><wbr>(boolean&nbsp;details)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.http.ResponseEntity&lt;?&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#put(java.lang.String,nl.b3p.planmonitorwonen.api.model.PlanregistratieComplete)" class="member-name-link">put</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id,
@@ -152,10 +152,11 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="planregistraties()">
+<section class="detail" id="planregistraties(boolean)">
 <h3>planregistraties</h3>
 <div class="member-signature"><span class="annotations">@GetMapping(path="${planmonitor-wonen-api.base-path}/planregistraties")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">planregistraties</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">planregistraties</span><wbr><span class="parameters">(@RequestParam(required=false)
+ boolean&nbsp;details)</span></div>
 </section>
 </li>
 <li>
