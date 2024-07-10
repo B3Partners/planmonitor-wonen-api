@@ -7,6 +7,8 @@
 package nl.b3p.planmonitorwonen.api.model;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Planregistratie {
   private String id;
@@ -32,6 +34,9 @@ public final class Planregistratie {
   private String beoogdWoonmilieuAbf13;
   private Integer aantalStudentenwoningen;
   private boolean sleutelproject;
+
+  private List<Plancategorie> plancategorieList = new ArrayList<>();
+  private List<Detailplanning> detailplanningList = new ArrayList<>();
 
   public String getId() {
     return id;
@@ -237,6 +242,24 @@ public final class Planregistratie {
 
   public Planregistratie setSleutelproject(boolean sleutelproject) {
     this.sleutelproject = sleutelproject;
+    return this;
+  }
+
+  public List<Plancategorie> getPlancategorieList() {
+    return plancategorieList;
+  }
+
+  public Planregistratie setPlancategorieList(List<Plancategorie> plancategorieList) {
+    this.plancategorieList = plancategorieList;
+    return this;
+  }
+
+  public List<Detailplanning> getDetailplanningList() {
+    return detailplanningList;
+  }
+
+  public Planregistratie setDetailplanningList(List<Detailplanning> detailplanningList) {
+    this.detailplanningList = detailplanningList;
     return this;
   }
 }
