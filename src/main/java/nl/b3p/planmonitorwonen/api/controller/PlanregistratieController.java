@@ -13,9 +13,14 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
+import nl.b3p.planmonitorwonen.api.model.Detailplanning;
+import nl.b3p.planmonitorwonen.api.model.Plancategorie;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.model.PlanregistratieComplete;
 import nl.b3p.planmonitorwonen.api.model.auth.PlanmonitorAuthentication;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -46,13 +52,42 @@ public class PlanregistratieController {
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
-  public Set<Planregistratie> planregistraties() {
+  public Set<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
     PlanmonitorAuthentication auth = getFromSecurityContext();
+    Set<Planregistratie> planregistraties;
     if (auth.isProvincie()) {
-      return pmwDb.getPlanregistratiesForProvincie();
+      planregistraties = pmwDb.getPlanregistratiesForProvincie();
     } else {
-      return pmwDb.getPlanregistratiesForGemeentes(auth.getGemeentes());
+      planregistraties = pmwDb.getPlanregistratiesForGemeentes(auth.getGemeentes());
     }
+    if (details) {
+      Map<String, Planregistratie> planregistratieMap =
+          planregistraties.stream()
+              .collect(Collectors.toMap(Planregistratie::getId, Function.identity()));
+      Map<String, Planregistratie> plancategorieToPlanregistratieMap = new HashMap<>();
+      Set<Plancategorie> plancategorieen =
+          auth.isProvincie()
+              ? pmwDb.getAllPlancategorieen()
+              : pmwDb.getAllPlancategorieenForGemeentes(auth.getGemeentes());
+      plancategorieen.forEach(
+          plancategorie -> {
+            Planregistratie planregistratie =
+                planregistratieMap.get(plancategorie.planregistratieId());
+            planregistratie.getPlancategorieList().add(plancategorie);
+            plancategorieToPlanregistratieMap.put(plancategorie.id(), planregistratie);
+          });
+      Set<Detailplanning> detailplanningen =
+          auth.isProvincie()
+              ? pmwDb.getAllDetailplanningen()
+              : pmwDb.getAllDetailplanningenForGemeentes(auth.getGemeentes());
+      detailplanningen.forEach(
+          detailplanning -> {
+            Planregistratie planregistratie =
+                plancategorieToPlanregistratieMap.get(detailplanning.plancategorieId());
+            planregistratie.getDetailplanningList().add(detailplanning);
+          });
+    }
+    return planregistraties;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}/details")

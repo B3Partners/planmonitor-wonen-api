@@ -216,6 +216,20 @@ values (%s)"""
         .set();
   }
 
+  public Set<Plancategorie> getAllPlancategorieen() {
+    return this.jdbcClient.sql("select * from plancategorie").query(Plancategorie.class).set();
+  }
+
+  public Set<Plancategorie> getAllPlancategorieenForGemeentes(Collection<String> gemeentes) {
+    return this.jdbcClient
+        .sql(
+            "select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (%s))"
+                .formatted(sqlQuestionMarks(gemeentes.size())))
+        .params(Arrays.asList(gemeentes.toArray()))
+        .query(Plancategorie.class)
+        .set();
+  }
+
   public Set<Detailplanning> getDetailplanningen(String planregistratieId) {
     return this.jdbcClient
         .sql(
@@ -223,6 +237,25 @@ values (%s)"""
             select * from detailplanning
             where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
         .param(1, planregistratieId, Types.OTHER)
+        .query(Detailplanning.class)
+        .set();
+  }
+
+  public Set<Detailplanning> getAllDetailplanningen() {
+    return this.jdbcClient.sql("select * from detailplanning").query(Detailplanning.class).set();
+  }
+
+  public Set<Detailplanning> getAllDetailplanningenForGemeentes(Collection<String> gemeentes) {
+    return this.jdbcClient
+        .sql(
+                """
+            select * from detailplanning
+            where plancategorie_id in
+                (select id from plancategorie
+                 where planregistratie_id in
+                 (select id from planregistratie where gemeente in (%s)))"""
+                .formatted(sqlQuestionMarks(gemeentes.size())))
+        .params(Arrays.asList(gemeentes.toArray()))
         .query(Detailplanning.class)
         .set();
   }
