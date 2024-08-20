@@ -107,7 +107,7 @@
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>        <strong class="jxr_keyword">throws</strong> ParseException {
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>     <strong class="jxr_keyword">this</strong>.deletePlanregistratie(planregistratie.getId());
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     String insertPlanregistratie =
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>             <span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         <span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> insert into planregistratie(
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>   id,
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>   geometrie,
@@ -165,7 +165,7 @@
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>     <strong class="jxr_keyword">for</strong> (<a name="Plancategorie" href="../../../../nl/b3p/planmonitorwonen/api/model/Plancategorie.html#Plancategorie">Plancategorie</a> p : plancategorieen) {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>       <strong class="jxr_keyword">this</strong>.jdbcClient
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>           .sql(
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>                   <span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>               <span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>             values (%s)<span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>                   .formatted(sqlQuestionMarks(14)))
@@ -188,7 +188,7 @@
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">for</strong> (<a name="Detailplanning" href="../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a> d : detailplanningen) {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>       <strong class="jxr_keyword">this</strong>.jdbcClient
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>           .sql(
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>                   <span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>               <span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             values (%s)<span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                   .formatted(sqlQuestionMarks(8)))
@@ -256,7 +256,7 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>   <strong class="jxr_keyword">public</strong> Set&lt;Detailplanning&gt; getAllDetailplanningenForGemeentes(Collection&lt;String&gt; gemeentes) {
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.jdbcClient
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>         .sql(
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 <span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>             <span class="jxr_string">""</span><span class="jxr_string">"
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>             select * from detailplanning
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             where plancategorie_id in
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>                 (select id from plancategorie
