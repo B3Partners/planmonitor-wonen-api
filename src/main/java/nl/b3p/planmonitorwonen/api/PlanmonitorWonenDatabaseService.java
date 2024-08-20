@@ -99,7 +99,7 @@ public class PlanmonitorWonenDatabaseService {
       throws ParseException {
     this.deletePlanregistratie(planregistratie.getId());
     String insertPlanregistratie =
-            """
+        """
 insert into planregistratie(
   id,
   geometrie,
@@ -157,7 +157,7 @@ values (%s)"""
     for (Plancategorie p : plancategorieen) {
       this.jdbcClient
           .sql(
-                  """
+              """
             insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
             values (%s)"""
                   .formatted(sqlQuestionMarks(14)))
@@ -180,7 +180,7 @@ values (%s)"""
     for (Detailplanning d : detailplanningen) {
       this.jdbcClient
           .sql(
-                  """
+              """
             insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
             values (%s)"""
                   .formatted(sqlQuestionMarks(8)))
@@ -248,7 +248,7 @@ values (%s)"""
   public Set<Detailplanning> getAllDetailplanningenForGemeentes(Collection<String> gemeentes) {
     return this.jdbcClient
         .sql(
-                """
+            """
             select * from detailplanning
             where plancategorie_id in
                 (select id from plancategorie
