@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":disableDependencyDashboard"
+  ],
+  "packageRules": [
+    {
+      "description": "Batch and auto-merge Maven plugin updates",
+      "matchPackagePatterns": [
+        "maven",
+        "-plugin$"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "groupName": "plugins",
+      "automerge": true,
+      "labels": [
+        "infrastructure"
+      ]
+    }
+  ]
+}

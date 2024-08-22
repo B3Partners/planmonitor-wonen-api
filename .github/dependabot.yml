@@ -13,7 +13,6 @@ updates:
     assignees:
       - mprins
     labels:
-      - infrastructure
       - dependency
     # stay on springboot 3.x / spring-security 6.x / hibernate 6.x
     ignore:
