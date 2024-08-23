@@ -20,7 +20,7 @@ jobs:
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
-          container: tailormap-api
+          container: planmonitor-wonen-api
           dry-run: false
           keep-younger-than: 7
           keep-last: 1
@@ -30,7 +30,7 @@ jobs:
         with:
           token: ${{ secrets.GHCR_CLEANUP_PAT }}
           organization: B3Partners
-          container: tailormap-api
+          container: planmonitor-wonen-api
           dry-run: false
           keep-younger-than: 28
           keep-last: 0
