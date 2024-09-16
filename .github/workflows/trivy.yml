@@ -1,4 +1,4 @@
-name: Trivy Security Scan
+name: 'Trivy Security Scan'
 on:
   # use pull request so this workflow dos not fail when triggered by dependabot PR's
   pull_request:
@@ -8,16 +8,20 @@ on:
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true
-  MAVEN_VERSION: '3.9.7'
+  MAVEN_VERSION: '3.9.9'
 
 jobs:
   build:
-    name: Trivy Scan
+    name: 'Trivy Scan'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: 'Set up JDK'
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -29,12 +33,17 @@ jobs:
         with:
           maven-version: ${{ env.MAVEN_VERSION }}
 
-      - name: Build
+      - name: 'Trivy Cache'
+        uses: yogeshlonkar/trivy-cache-action@v0
+        with:
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Build'
         run: mvn -U package -DskipTests -DskipITs -Dmaven.javadoc.skip=true
 
-      - name: Run Trivy vulnerability scanner
+      - name: 'Run Trivy vulnerability scanner'
         uses: aquasecurity/trivy-action@0.24.0
-        # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image docker.b3p.nl/b3partners/planmonitor-wonen-api:snapshot
+        # docker run --rm -v trivy_cache:/root/.cache/ aquasec/trivy image ghcr.io/b3partners/planmonitor-wonen-api:snapshot
         with:
           image-ref: 'ghcr.io/b3partners/planmonitor-wonen-api:snapshot'
           format: 'sarif'
@@ -42,19 +51,19 @@ jobs:
           severity: 'HIGH,CRITICAL'
           limit-severities-for-sarif: true
 
-      - name: Check file existence
+      - name: 'Check file existence'
         id: check_files
         uses: andstor/file-existence-action@v3
         with:
           files: 'trivy-results.sarif'
 
-      - name: Upload Trivy scan results to GitHub Security tab
+      - name: 'Upload Trivy scan results to GitHub Security tab'
         uses: github/codeql-action/upload-sarif@v3
         if: steps.check_files.outputs.files_exists == 'true'
         with:
           sarif_file: 'trivy-results.sarif'
 
-      - name: Cleanup cached snapshots
+      - name: 'Cleanup cached snapshots'
         if: always()
         run: |
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
