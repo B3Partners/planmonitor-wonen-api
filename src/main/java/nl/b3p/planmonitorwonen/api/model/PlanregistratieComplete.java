@@ -6,7 +6,9 @@
 
 package nl.b3p.planmonitorwonen.api.model;
 
+import java.util.List;
+
 public record PlanregistratieComplete(
     Planregistratie planregistratie,
-    Plancategorie[] plancategorieen,
-    Detailplanning[] detailplanningen) {}
+    List<Plancategorie> plancategorieen,
+    List<Detailplanning> detailplanningen) {}
