@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
 import nl.b3p.planmonitorwonen.api.model.Plancategorie;
@@ -94,8 +95,8 @@ public class PlanmonitorWonenDatabaseService {
   @Transactional
   public void insertPlanregistratie(
       Planregistratie planregistratie,
-      Plancategorie[] plancategorieen,
-      Detailplanning[] detailplanningen)
+      List<Plancategorie> plancategorieen,
+      List<Detailplanning> detailplanningen)
       throws ParseException {
     this.deletePlanregistratie(planregistratie.getId());
     String insertPlanregistratie =
