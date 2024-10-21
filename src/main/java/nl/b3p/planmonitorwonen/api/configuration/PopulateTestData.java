@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.UUID;
 import nl.b3p.planmonitorwonen.api.ImportGemeentesApplication;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
@@ -86,29 +87,43 @@ public class PopulateTestData {
             .setBeoogdWoonmilieuAbf13("Centrum")
             .setAantalStudentenwoningen(70)
             .setSleutelproject(false);
-    Plancategorie[] plancategorieen = {
-      new Plancategorie(
-          UUID.randomUUID().toString(),
-          planregistratie.getId(),
-          null,
-          null,
-          null,
-          null,
-          "Nieuwbouw",
-          null,
-          null,
-          null,
-          null,
-          null,
-          20,
-          0)
-    };
-    Detailplanning[] detailplanningen = {
-      new Detailplanning(
-          UUID.randomUUID().toString(), plancategorieen[0].id(), null, null, null, null, 2025, 10),
-      new Detailplanning(
-          UUID.randomUUID().toString(), plancategorieen[0].id(), null, null, null, null, 2028, 10)
-    };
+    List<Plancategorie> plancategorieen =
+        List.of(
+            new Plancategorie(
+                UUID.randomUUID().toString(),
+                planregistratie.getId(),
+                null,
+                null,
+                null,
+                null,
+                "Nieuwbouw",
+                null,
+                null,
+                null,
+                null,
+                null,
+                20,
+                0));
+    List<Detailplanning> detailplanningen =
+        List.of(
+            new Detailplanning(
+                UUID.randomUUID().toString(),
+                plancategorieen.get(0).id(),
+                null,
+                null,
+                null,
+                null,
+                2025,
+                10),
+            new Detailplanning(
+                UUID.randomUUID().toString(),
+                plancategorieen.get(0).id(),
+                null,
+                null,
+                null,
+                null,
+                2028,
+                10));
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
   }
 
