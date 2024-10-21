@@ -14,10 +14,12 @@
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.model;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">public</strong> record <a name="PlanregistratieComplete" href="../../../../../nl/b3p/planmonitorwonen/api/model/PlanregistratieComplete.html#PlanregistratieComplete">PlanregistratieComplete</a>(
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>      <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie,
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <a name="Plancategorie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Plancategorie.html#Plancategorie">Plancategorie</a>[] plancategorieen,
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>      <a name="Detailplanning" href="../../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a>[] detailplanningen) {}
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">public</strong> record <a name="PlanregistratieComplete" href="../../../../../nl/b3p/planmonitorwonen/api/model/PlanregistratieComplete.html#PlanregistratieComplete">PlanregistratieComplete</a>(
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>      <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie,
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      List&lt;Plancategorie&gt; plancategorieen,
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      List&lt;Detailplanning&gt; detailplanningen) {}
 </pre>
 <hr/>
 <div id="footer">© 2024 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
