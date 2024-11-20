@@ -137,7 +137,7 @@ SPDX-License-Identifier: MIT
         <modernizer-maven-plugin.version>2.9.0</modernizer-maven-plugin.version>
         <pmd.version>7.0.0</pmd.version>
         <maven-fluido-skin.version>2.0.0</maven-fluido-skin.version>
-        <errorProne.version>2.35.1</errorProne.version>
+        <errorProne.version>2.36.0</errorProne.version>
         <errorProneFlags>-XepDisableWarningsInGeneratedCode</errorProneFlags>
         <errorProneExcludePaths>${project.build.directory}/generated-sources/.*</errorProneExcludePaths>
         <compiler.lint>deprecation,unchecked</compiler.lint>
@@ -525,6 +525,7 @@ SPDX-License-Identifier: MIT
                     <fork>true</fork>
                     <compilerArgs combine.children="append">
                         <arg>-XDcompilePolicy=simple</arg>
+                        <arg>--should-stop=ifError=FLOW</arg>
                         <arg>-Xplugin:ErrorProne -XepExcludedPaths:${errorProneExcludePaths} ${errorProneFlags}</arg>
                         <arg>-Xlint:${compiler.lint}</arg>
                         <arg>-Werror</arg>
