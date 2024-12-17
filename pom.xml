@@ -112,13 +112,12 @@ SPDX-License-Identifier: MIT
             mvn -U org.codehaus.mojo:versions-maven-plugin:display-plugin-updates
         to check
         -->
-        <commons-lang3.version>3.16.0</commons-lang3.version>
-        <flyway.version>10.17.2</flyway.version>
-        <!--        <jackson-bom.version>2.17.1</jackson-bom.version>-->
-        <!--        <micrometer.version>1.13.1</micrometer.version>-->
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <flyway.version>10.20.1</flyway.version>
+        <jackson-bom.version>2.17.2</jackson-bom.version>
+        <micrometer.version>1.14.2</micrometer.version>
         <junit-jupiter.version>5.11.4</junit-jupiter.version>
         <postgresql.version>42.7.4</postgresql.version>
-        <!--        <logback.version>1.5.7</logback.version>-->
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
         <maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
@@ -152,7 +151,6 @@ SPDX-License-Identifier: MIT
         <docker.pull.policy>ALWAYS</docker.pull.policy>
         <!-- skip QA checks -->
         <skipQA>false</skipQA>
-        <skipSBOM>false</skipSBOM>
         <skipJavaDoc>false</skipJavaDoc>
     </properties>
     <dependencyManagement>
@@ -786,7 +784,6 @@ SPDX-License-Identifier: MIT
                 <version>2.9.1</version>
                 <configuration>
                     <projectType>application</projectType>
-                    <skip>${skipSBOM}</skip>
                 </configuration>
                 <executions>
                     <execution>
