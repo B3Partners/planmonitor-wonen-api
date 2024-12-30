@@ -8,11 +8,12 @@ package nl.b3p.planmonitorwonen.api;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import org.geotools.api.data.DataStore;
@@ -34,7 +35,9 @@ public class ImportGemeentesApplication {
     String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
     String typename = "bestuurlijkegebieden:Gemeentegebied";
     String sql = getGemeentesSql(wfs, typename);
-    new OutputStreamWriter(new FileOutputStream("gemeentes.sql"), UTF_8).append(sql).close();
+    new OutputStreamWriter(Files.newOutputStream(Path.of("gemeentes.sql")), UTF_8)
+        .append(sql)
+        .close();
     System.out.println("Done");
   }
 
