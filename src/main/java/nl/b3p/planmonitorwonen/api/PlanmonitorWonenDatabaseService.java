@@ -22,10 +22,15 @@ import org.locationtech.jts.io.WKBReader;
 import org.locationtech.jts.io.WKBWriter;
 import org.locationtech.jts.io.WKTReader;
 import org.locationtech.jts.io.WKTWriter;
+import org.postgresql.jdbc.PgArray;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SimplePropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,12 +43,24 @@ public class PlanmonitorWonenDatabaseService {
   public PlanmonitorWonenDatabaseService(JdbcClient jdbcClient) {
     this.jdbcClient = jdbcClient;
 
+    final GenericConversionService conversionService = new GenericConversionService();
+    DefaultConversionService.addDefaultConverters(conversionService);
+    conversionService.addConverter(
+        (Converter<PgArray, String[]>)
+            source -> {
+              try {
+                return (String[]) source.getArray();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            });
+
     planregistratieRowMapper =
-        new SimplePropertyRowMapper<>(Planregistratie.class) {
+        new SimplePropertyRowMapper<>(Planregistratie.class, conversionService) {
           @Override
-          public Planregistratie mapRow(ResultSet rs, int rowNumber) throws SQLException {
+          @NonNull
+          public Planregistratie mapRow(@NonNull ResultSet rs, int rowNumber) throws SQLException {
             Planregistratie planregistratie = super.mapRow(rs, rowNumber);
-            assert planregistratie != null;
             planregistratie.setGeometrie(wkbToWkt(planregistratie.getGeometrie()));
             return planregistratie;
           }
@@ -126,8 +143,8 @@ insert into planregistratie(
   aantal_studentenwoningen,
   sleutelproject
   )
-values (%s)"""
-            .formatted(sqlQuestionMarks(23));
+values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
+            .formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));
     this.jdbcClient
         .sql(insertPlanregistratie)
         .param(1, planregistratie.getId(), Types.OTHER)
@@ -149,7 +166,7 @@ values (%s)"""
         .param(planregistratie.getBestemmingsplan())
         .param(18, planregistratie.getStatusProject(), Types.OTHER)
         .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)
-        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.OTHER)
+        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
         .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
         .param(planregistratie.getAantalStudentenwoningen())
         .param(planregistratie.isSleutelproject())

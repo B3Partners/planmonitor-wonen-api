@@ -30,7 +30,7 @@ public final class Planregistratie {
   private String bestemmingsplan;
   private String statusProject;
   private String statusPlanologisch;
-  private String knelpuntenMeerkeuze;
+  private String[] knelpuntenMeerkeuze;
   private String beoogdWoonmilieuAbf13;
   private Integer aantalStudentenwoningen;
   private boolean sleutelproject;
@@ -209,11 +209,11 @@ public final class Planregistratie {
     return this;
   }
 
-  public String getKnelpuntenMeerkeuze() {
+  public String[] getKnelpuntenMeerkeuze() {
     return knelpuntenMeerkeuze;
   }
 
-  public Planregistratie setKnelpuntenMeerkeuze(String knelpuntenMeerkeuze) {
+  public Planregistratie setKnelpuntenMeerkeuze(String[] knelpuntenMeerkeuze) {
     this.knelpuntenMeerkeuze = knelpuntenMeerkeuze;
     return this;
   }
