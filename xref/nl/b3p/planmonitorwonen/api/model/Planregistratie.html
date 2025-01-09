@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>    <strong class="jxr_keyword">private</strong> String bestemmingsplan;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>    <strong class="jxr_keyword">private</strong> String statusProject;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>    <strong class="jxr_keyword">private</strong> String statusPlanologisch;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> String knelpuntenMeerkeuze;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">private</strong> String[] knelpuntenMeerkeuze;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">private</strong> String beoogdWoonmilieuAbf13;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>    <strong class="jxr_keyword">private</strong> Integer aantalStudentenwoningen;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> sleutelproject;
@@ -217,11 +217,11 @@
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>   }
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> 
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>   <strong class="jxr_keyword">public</strong> String getKnelpuntenMeerkeuze() {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>   <strong class="jxr_keyword">public</strong> String[] getKnelpuntenMeerkeuze() {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     <strong class="jxr_keyword">return</strong> knelpuntenMeerkeuze;
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>   }
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>   <strong class="jxr_keyword">public</strong> <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> setKnelpuntenMeerkeuze(String knelpuntenMeerkeuze) {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>   <strong class="jxr_keyword">public</strong> <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> setKnelpuntenMeerkeuze(String[] knelpuntenMeerkeuze) {
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>     <strong class="jxr_keyword">this</strong>.knelpuntenMeerkeuze = knelpuntenMeerkeuze;
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>   }
