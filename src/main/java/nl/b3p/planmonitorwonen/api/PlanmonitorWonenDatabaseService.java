@@ -45,16 +45,17 @@ public class PlanmonitorWonenDatabaseService {
 
     final GenericConversionService conversionService = new GenericConversionService();
     DefaultConversionService.addDefaultConverters(conversionService);
-    conversionService.addConverter(new Converter<PgArray, String[]>() {
-      @Override
-      public String[] convert(PgArray source) {
-        try {
-          return (String[]) source.getArray();
-        } catch (SQLException e) {
-          throw new RuntimeException(e);
-        }
-      }
-    });
+    conversionService.addConverter(
+        new Converter<PgArray, String[]>() {
+          @Override
+          public String[] convert(PgArray source) {
+            try {
+              return (String[]) source.getArray();
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        });
 
     planregistratieRowMapper =
         new SimplePropertyRowMapper<>(Planregistratie.class, conversionService) {
