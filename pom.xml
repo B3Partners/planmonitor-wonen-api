@@ -114,7 +114,6 @@ SPDX-License-Identifier: MIT
         -->
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <flyway.version>10.20.1</flyway.version>
-        <jackson-bom.version>2.17.2</jackson-bom.version>
         <micrometer.version>1.14.2</micrometer.version>
         <junit-jupiter.version>5.11.4</junit-jupiter.version>
         <postgresql.version>42.7.4</postgresql.version>
