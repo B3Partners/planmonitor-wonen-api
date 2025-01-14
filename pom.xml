@@ -490,7 +490,7 @@ SPDX-License-Identifier: MIT
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <!--suppress UnresolvedMavenProperty -->
+                            <!--suppress UnresolvedMavenProperty, MavenModelInspection -->
                             <skip>${skipTests}</skip>
                             <profiles>
                                 <profile>test</profile>
