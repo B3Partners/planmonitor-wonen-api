@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlanmonitorWonenDatabaseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Planmonitor Wonen API</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.planmonitorwonen.api</a> &gt; <span class="el_source">PlanmonitorWonenDatabaseService.java</span></div><h1>PlanmonitorWonenDatabaseService.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.planmonitorwonen.api;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import nl.b3p.planmonitorwonen.api.model.Detailplanning;
+import nl.b3p.planmonitorwonen.api.model.Plancategorie;
+import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKBReader;
+import org.locationtech.jts.io.WKBWriter;
+import org.locationtech.jts.io.WKTReader;
+import org.locationtech.jts.io.WKTWriter;
+import org.postgresql.jdbc.PgArray;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SimplePropertyRowMapper;
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Profile(&quot;!test&quot;)
+public class PlanmonitorWonenDatabaseService {
+  private final JdbcClient jdbcClient;
+  private final RowMapper&lt;Planregistratie&gt; planregistratieRowMapper;
+
+<span class="nc" id="L43">  public PlanmonitorWonenDatabaseService(JdbcClient jdbcClient) {</span>
+<span class="nc" id="L44">    this.jdbcClient = jdbcClient;</span>
+
+<span class="nc" id="L46">    final GenericConversionService conversionService = new GenericConversionService();</span>
+<span class="nc" id="L47">    DefaultConversionService.addDefaultConverters(conversionService);</span>
+<span class="nc" id="L48">    conversionService.addConverter(</span>
+<span class="nc" id="L49">        new Converter&lt;PgArray, String[]&gt;() {</span>
+          @Override
+          public String[] convert(PgArray source) {
+            try {
+<span class="nc" id="L53">              return (String[]) source.getArray();</span>
+<span class="nc" id="L54">            } catch (SQLException e) {</span>
+<span class="nc" id="L55">              throw new RuntimeException(e);</span>
+            }
+          }
+        });
+
+<span class="nc" id="L60">    planregistratieRowMapper =</span>
+<span class="nc" id="L61">        new SimplePropertyRowMapper&lt;&gt;(Planregistratie.class, conversionService) {</span>
+          @Override
+          @NonNull
+          public Planregistratie mapRow(@NonNull ResultSet rs, int rowNumber) throws SQLException {
+<span class="nc" id="L65">            Planregistratie planregistratie = super.mapRow(rs, rowNumber);</span>
+<span class="nc" id="L66">            planregistratie.setGeometrie(wkbToWkt(planregistratie.getGeometrie()));</span>
+<span class="nc" id="L67">            return planregistratie;</span>
+          }
+        };
+<span class="nc" id="L70">  }</span>
+
+  private String wkbToWkt(String wkb) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    if (wkb == null) {</span>
+<span class="nc" id="L74">      return null;</span>
+    }
+    try {
+<span class="nc" id="L77">      Geometry geometry = new WKBReader().read(WKBReader.hexToBytes(wkb));</span>
+<span class="nc" id="L78">      return new WKTWriter().write(geometry);</span>
+<span class="nc" id="L79">    } catch (ParseException e) {</span>
+<span class="nc" id="L80">      throw new RuntimeException(e);</span>
+    }
+  }
+
+  private byte[] wktToWkb(String wkt) throws ParseException {
+<span class="nc" id="L85">    Geometry geometry = new WKTReader().read(wkt);</span>
+<span class="nc" id="L86">    return new WKBWriter().write(geometry);</span>
+  }
+
+  private String sqlQuestionMarks(int count) {
+<span class="nc" id="L90">    String[] qs = new String[count];</span>
+<span class="nc" id="L91">    Arrays.fill(qs, &quot;?&quot;);</span>
+<span class="nc" id="L92">    return String.join(&quot;, &quot;, qs);</span>
+  }
+
+  public Set&lt;Planregistratie&gt; getPlanregistratiesForProvincie() {
+<span class="nc" id="L96">    return jdbcClient.sql(&quot;select * from planregistratie&quot;).query(planregistratieRowMapper).set();</span>
+  }
+
+  public Set&lt;Planregistratie&gt; getPlanregistratiesForGemeentes(Collection&lt;String&gt; gemeentes) {
+<span class="nc" id="L100">    return jdbcClient</span>
+<span class="nc" id="L101">        .sql(</span>
+            &quot;select * from planregistratie where gemeente in (%s)&quot;
+<span class="nc" id="L103">                .formatted(sqlQuestionMarks(gemeentes.size())))</span>
+<span class="nc" id="L104">        .params(Arrays.asList(gemeentes.toArray()))</span>
+<span class="nc" id="L105">        .query(planregistratieRowMapper)</span>
+<span class="nc" id="L106">        .set();</span>
+  }
+
+  @Transactional
+  public void deletePlanregistratie(String id) {
+<span class="nc" id="L111">    jdbcClient.sql(&quot;delete from planregistratie where id = ?&quot;).param(1, id, Types.OTHER).update();</span>
+<span class="nc" id="L112">  }</span>
+
+  @Transactional
+  public void insertPlanregistratie(
+      Planregistratie planregistratie,
+      List&lt;Plancategorie&gt; plancategorieen,
+      List&lt;Detailplanning&gt; detailplanningen)
+      throws ParseException {
+<span class="nc" id="L120">    this.deletePlanregistratie(planregistratie.getId());</span>
+<span class="nc" id="L121">    String insertPlanregistratie =</span>
+        &quot;&quot;&quot;
+insert into planregistratie(
+  id,
+  geometrie,
+  creator,
+  created_at,
+  editor,
+  edited_at,
+  plan_naam,
+  provincie,
+  gemeente,
+  regio,
+  plaatsnaam,
+  vertrouwelijkheid,
+  opdrachtgever_type,
+  opdrachtgever_naam,
+  opmerkingen,
+  plantype,
+  bestemmingsplan,
+  status_project,
+  status_planologisch,
+  knelpunten_meerkeuze,
+  beoogd_woonmilieu_abf13,
+  aantal_studentenwoningen,
+  sleutelproject
+  )
+values (%s, ?::pmw_knelpunten_meerkeuze[], %s)&quot;&quot;&quot;
+<span class="nc" id="L149">            .formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));</span>
+<span class="nc" id="L150">    this.jdbcClient</span>
+<span class="nc" id="L151">        .sql(insertPlanregistratie)</span>
+<span class="nc" id="L152">        .param(1, planregistratie.getId(), Types.OTHER)</span>
+<span class="nc" id="L153">        .param(wktToWkb(planregistratie.getGeometrie()))</span>
+<span class="nc" id="L154">        .param(planregistratie.getCreator())</span>
+<span class="nc" id="L155">        .param(planregistratie.getCreatedAt())</span>
+<span class="nc" id="L156">        .param(planregistratie.getEditor())</span>
+<span class="nc" id="L157">        .param(planregistratie.getEditedAt())</span>
+<span class="nc" id="L158">        .param(planregistratie.getPlanNaam())</span>
+<span class="nc" id="L159">        .param(planregistratie.getProvincie())</span>
+<span class="nc" id="L160">        .param(planregistratie.getGemeente())</span>
+<span class="nc" id="L161">        .param(planregistratie.getRegio())</span>
+<span class="nc" id="L162">        .param(planregistratie.getPlaatsnaam())</span>
+<span class="nc" id="L163">        .param(12, planregistratie.getVertrouwelijkheid(), Types.OTHER)</span>
+<span class="nc" id="L164">        .param(13, planregistratie.getOpdrachtgeverType(), Types.OTHER)</span>
+<span class="nc" id="L165">        .param(planregistratie.getOpdrachtgeverNaam())</span>
+<span class="nc" id="L166">        .param(planregistratie.getOpmerkingen())</span>
+<span class="nc" id="L167">        .param(16, planregistratie.getPlantype(), Types.OTHER)</span>
+<span class="nc" id="L168">        .param(planregistratie.getBestemmingsplan())</span>
+<span class="nc" id="L169">        .param(18, planregistratie.getStatusProject(), Types.OTHER)</span>
+<span class="nc" id="L170">        .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)</span>
+<span class="nc" id="L171">        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)</span>
+<span class="nc" id="L172">        .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)</span>
+<span class="nc" id="L173">        .param(planregistratie.getAantalStudentenwoningen())</span>
+<span class="nc" id="L174">        .param(planregistratie.isSleutelproject())</span>
+<span class="nc" id="L175">        .update();</span>
+
+<span class="nc bnc" id="L177" title="All 2 branches missed.">    for (Plancategorie p : plancategorieen) {</span>
+<span class="nc" id="L178">      this.jdbcClient</span>
+<span class="nc" id="L179">          .sql(</span>
+              &quot;&quot;&quot;
+            insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
+            values (%s)&quot;&quot;&quot;
+<span class="nc" id="L183">                  .formatted(sqlQuestionMarks(14)))</span>
+<span class="nc" id="L184">          .param(1, p.id(), Types.OTHER)</span>
+<span class="nc" id="L185">          .param(2, p.planregistratieId(), Types.OTHER)</span>
+<span class="nc" id="L186">          .param(p.creator())</span>
+<span class="nc" id="L187">          .param(p.createdAt())</span>
+<span class="nc" id="L188">          .param(p.editor())</span>
+<span class="nc" id="L189">          .param(p.editedAt())</span>
+<span class="nc" id="L190">          .param(7, p.nieuwbouw(), Types.OTHER)</span>
+<span class="nc" id="L191">          .param(8, p.woningType(), Types.OTHER)</span>
+<span class="nc" id="L192">          .param(9, p.wonenEnZorg(), Types.OTHER)</span>
+<span class="nc" id="L193">          .param(10, p.flexwoningen(), Types.OTHER)</span>
+<span class="nc" id="L194">          .param(11, p.betaalbaarheid(), Types.OTHER)</span>
+<span class="nc" id="L195">          .param(12, p.sloop(), Types.OTHER)</span>
+<span class="nc" id="L196">          .param(p.totaalGepland())</span>
+<span class="nc" id="L197">          .param(p.totaalGerealiseerd())</span>
+<span class="nc" id="L198">          .update();</span>
+<span class="nc" id="L199">    }</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">    for (Detailplanning d : detailplanningen) {</span>
+<span class="nc" id="L201">      this.jdbcClient</span>
+<span class="nc" id="L202">          .sql(</span>
+              &quot;&quot;&quot;
+            insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
+            values (%s)&quot;&quot;&quot;
+<span class="nc" id="L206">                  .formatted(sqlQuestionMarks(8)))</span>
+<span class="nc" id="L207">          .param(1, d.id(), Types.OTHER)</span>
+<span class="nc" id="L208">          .param(2, d.plancategorieId(), Types.OTHER)</span>
+<span class="nc" id="L209">          .param(d.creator())</span>
+<span class="nc" id="L210">          .param(d.createdAt())</span>
+<span class="nc" id="L211">          .param(d.editor())</span>
+<span class="nc" id="L212">          .param(d.editedAt())</span>
+<span class="nc" id="L213">          .param(d.jaartal())</span>
+<span class="nc" id="L214">          .param(d.aantalGepland())</span>
+<span class="nc" id="L215">          .update();</span>
+<span class="nc" id="L216">    }</span>
+<span class="nc" id="L217">  }</span>
+
+  public String getPlanregistratieGemeente(String id) {
+<span class="nc" id="L220">    return (String)</span>
+        this.jdbcClient
+<span class="nc" id="L222">            .sql(&quot;select gemeente from planregistratie where id = ?&quot;)</span>
+<span class="nc" id="L223">            .param(1, id, Types.OTHER)</span>
+<span class="nc" id="L224">            .query()</span>
+<span class="nc" id="L225">            .singleColumn()</span>
+<span class="nc" id="L226">            .stream()</span>
+<span class="nc" id="L227">            .findFirst()</span>
+<span class="nc" id="L228">            .orElse(null);</span>
+  }
+
+  public Set&lt;Plancategorie&gt; getPlancategorieen(String planregistratieId) {
+<span class="nc" id="L232">    return this.jdbcClient</span>
+<span class="nc" id="L233">        .sql(&quot;select * from plancategorie where planregistratie_id = ?&quot;)</span>
+<span class="nc" id="L234">        .param(1, planregistratieId, Types.OTHER)</span>
+<span class="nc" id="L235">        .query(Plancategorie.class)</span>
+<span class="nc" id="L236">        .set();</span>
+  }
+
+  public Set&lt;Plancategorie&gt; getAllPlancategorieen() {
+<span class="nc" id="L240">    return this.jdbcClient.sql(&quot;select * from plancategorie&quot;).query(Plancategorie.class).set();</span>
+  }
+
+  public Set&lt;Plancategorie&gt; getAllPlancategorieenForGemeentes(Collection&lt;String&gt; gemeentes) {
+<span class="nc" id="L244">    return this.jdbcClient</span>
+<span class="nc" id="L245">        .sql(</span>
+            &quot;select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (%s))&quot;
+<span class="nc" id="L247">                .formatted(sqlQuestionMarks(gemeentes.size())))</span>
+<span class="nc" id="L248">        .params(Arrays.asList(gemeentes.toArray()))</span>
+<span class="nc" id="L249">        .query(Plancategorie.class)</span>
+<span class="nc" id="L250">        .set();</span>
+  }
+
+  public Set&lt;Detailplanning&gt; getDetailplanningen(String planregistratieId) {
+<span class="nc" id="L254">    return this.jdbcClient</span>
+<span class="nc" id="L255">        .sql(</span>
+            &quot;&quot;&quot;
+            select * from detailplanning
+            where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)&quot;&quot;&quot;)
+<span class="nc" id="L259">        .param(1, planregistratieId, Types.OTHER)</span>
+<span class="nc" id="L260">        .query(Detailplanning.class)</span>
+<span class="nc" id="L261">        .set();</span>
+  }
+
+  public Set&lt;Detailplanning&gt; getAllDetailplanningen() {
+<span class="nc" id="L265">    return this.jdbcClient.sql(&quot;select * from detailplanning&quot;).query(Detailplanning.class).set();</span>
+  }
+
+  public Set&lt;Detailplanning&gt; getAllDetailplanningenForGemeentes(Collection&lt;String&gt; gemeentes) {
+<span class="nc" id="L269">    return this.jdbcClient</span>
+<span class="nc" id="L270">        .sql(</span>
+            &quot;&quot;&quot;
+            select * from detailplanning
+            where plancategorie_id in
+                (select id from plancategorie
+                 where planregistratie_id in
+                 (select id from planregistratie where gemeente in (%s)))&quot;&quot;&quot;
+<span class="nc" id="L277">                .formatted(sqlQuestionMarks(gemeentes.size())))</span>
+<span class="nc" id="L278">        .params(Arrays.asList(gemeentes.toArray()))</span>
+<span class="nc" id="L279">        .query(Detailplanning.class)</span>
+<span class="nc" id="L280">        .set();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
