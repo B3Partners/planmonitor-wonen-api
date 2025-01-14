@@ -17,6 +17,19 @@
         </server>
     </servers>
     <mirrors/>
-    <profiles/>
-    <activeProfiles/>
+    <profiles>
+        <profile>
+            <id>docker-deploy</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <docker.deploy-username>${env.GITHUB_ACTOR}</docker.deploy-username>
+                <docker.deploy-password>${env.GITHUB_TOKEN}</docker.deploy-password>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>docker-deploy</activeProfile>
+    </activeProfiles>
 </settings>

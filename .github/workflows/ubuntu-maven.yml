@@ -6,7 +6,7 @@ concurrency: # More info: https://stackoverflow.com/a/68422069/253468
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true
-  MAVEN_VERSION: '3.9.7'
+  MAVEN_VERSION: '3.9.9'
 
 on:
   push:
@@ -120,29 +120,19 @@ jobs:
         with:
           maven-version: ${{ env.MAVEN_VERSION }}
 
-      - name: 'Log in to GitHub container registry'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build and Push
         # no need to run any QC or tests
-        # note deploy will deploy both Maven artifact as well as Docker image
+        # note deploy will deploy both Maven artifact and Docker image
         env:
           B3P_DEPLOY_ACTOR: ${{ secrets.B3P_DEPLOY_ACTOR }}
           B3P_DEPLOY_TOKEN: ${{ secrets.B3P_DEPLOY_TOKEN }}
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker run --privileged --rm tonistiigi/binfmt --install arm64
-          mvn -B -V -fae -DskipTests -DskipITs -DskipQA=true -Pqa-skip clean deploy --settings .github/maven-settings.xml
-          docker push ghcr.io/b3partners/planmonitor-wonen-api:snapshot
+        run: mvn -B -V -fae -DskipTests -DskipITs -DskipQA=true -Ddocker.publish=true clean deploy --settings .github/maven-settings.xml
 
 
   cleanup:
-    name: Maven cache cleanup
+    name: 'Maven cache cleanup'
     if: ${{ always() }}
     needs: [ build, publish ]
     runs-on: ubuntu-latest
