@@ -59,6 +59,8 @@ public class PlanmonitorAuthentication {
 
     PlanmonitorAuthentication result = new PlanmonitorAuthentication();
     result.tmApiAuthentication = authentication;
+    // these keys have been registered in the TM API, see:
+    // - https://github.com/Tailormap/tailormap-api/blob/d4be62bc4d1bf8ed8cdb52f0887590f1fed337f0/src/main/java/org/tailormap/api/persistence/helper/AdminAdditionalPropertyHelper.java#L18-L24
     result.isProvincie =
         groupProperties.getOrDefault("typeGebruiker", Collections.emptySet()).contains("provincie");
     result.gemeentes = groupProperties.getOrDefault("gemeente", Collections.emptySet());
