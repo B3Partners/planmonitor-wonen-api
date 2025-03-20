@@ -128,7 +128,7 @@ SPDX-License-Identifier: MIT
         <modernizer-maven-plugin.version>3.1.0</modernizer-maven-plugin.version>
         <pmd.version>7.0.0</pmd.version>
         <maven-fluido-skin.version>2.1.0</maven-fluido-skin.version>
-        <errorProne.version>2.36.0</errorProne.version>
+        <errorProne.version>2.37.0</errorProne.version>
         <errorProneFlags>-XepDisableWarningsInGeneratedCode</errorProneFlags>
         <errorProneExcludePaths>${project.build.directory}/generated-sources/.*</errorProneExcludePaths>
         <compiler.lint>deprecation,unchecked</compiler.lint>
@@ -265,6 +265,14 @@ SPDX-License-Identifier: MIT
             <id>B3Partners</id>
             <name>Releases hosted by B3Partners</name>
             <url>https://repo.b3p.nl/nexus/repository/public/</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>OSGeo</id>
+            <name>Releases hosted by OSGeo</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
         </repository>
     </repositories>
     <build>
