@@ -119,7 +119,7 @@ public class PlanmonitorWonenDatabaseService {
       throws ParseException {
     this.deletePlanregistratie(planregistratie.getId());
     String insertPlanregistratie =
-        """
+"""
 insert into planregistratie(
   id,
   geometrie,
