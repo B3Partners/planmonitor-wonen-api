@@ -8,10 +8,6 @@ updates:
       timezone: Europe/Amsterdam
     open-pull-requests-limit: 25
     target-branch: main
-    reviewers:
-      - mprins
-    assignees:
-      - mprins
     labels:
       - dependency
     # stay on springboot 3.x / spring-security 6.x / hibernate 6.x
@@ -33,7 +29,5 @@ updates:
       day: monday
       time: "21:00"
       timezone: Europe/Amsterdam
-    assignees:
-      - mprins
     labels:
       - infrastructure
