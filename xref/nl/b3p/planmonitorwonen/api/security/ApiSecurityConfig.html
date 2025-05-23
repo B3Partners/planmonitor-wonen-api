@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.config.http.SessionCreationPolicy;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.web.SecurityFilterChain;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  @Configuration
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  @EnableWebSecurity(debug = false)
@@ -95,14 +95,15 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>    @DependsOn(<span class="jxr_string">"authenticationManager"</span>)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>    <strong class="jxr_keyword">public</strong> <a name="TMAPIAuthenticationFilter" href="../../../../../nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationFilter.html#TMAPIAuthenticationFilter">TMAPIAuthenticationFilter</a> tmapiSessionCookieAuthenticationFilter() {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <a name="TMAPIAuthenticationFilter" href="../../../../../nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationFilter.html#TMAPIAuthenticationFilter">TMAPIAuthenticationFilter</a> filter = <strong class="jxr_keyword">new</strong> <a name="TMAPIAuthenticationFilter" href="../../../../../nl/b3p/planmonitorwonen/api/security/TMAPIAuthenticationFilter.html#TMAPIAuthenticationFilter">TMAPIAuthenticationFilter</a>();
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      filter.setRequiresAuthenticationRequestMatcher(<strong class="jxr_keyword">new</strong> AntPathRequestMatcher(apiBasePath + <span class="jxr_string">"/**"</span>));
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      filter.setAuthenticationManager(authenticationManager());
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      filter.setAuthenticationDetailsSource(TMAPIAuthenticationDetails::<strong class="jxr_keyword">new</strong>);
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      filter.setApplicationEventPublisher(applicationEventPublisher);
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      logger.debug(<span class="jxr_string">"TMAPIAuthenticationFilter created with {}"</span>, filter);
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">return</strong> filter;
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>    }
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      filter.setRequiresAuthenticationRequestMatcher(
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          PathPatternRequestMatcher.withDefaults().matcher(apiBasePath + <span class="jxr_string">"/**"</span>));
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      filter.setAuthenticationManager(authenticationManager());
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      filter.setAuthenticationDetailsSource(TMAPIAuthenticationDetails::<strong class="jxr_keyword">new</strong>);
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      filter.setApplicationEventPublisher(applicationEventPublisher);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      logger.debug(<span class="jxr_string">"TMAPIAuthenticationFilter created with {}"</span>, filter);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">return</strong> filter;
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>    }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2024–2025 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
