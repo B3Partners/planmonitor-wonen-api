@@ -25,7 +25,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 @Configuration
 @EnableWebSecurity(debug = false)
@@ -87,7 +87,8 @@ public class ApiSecurityConfig {
   @DependsOn("authenticationManager")
   public TMAPIAuthenticationFilter tmapiSessionCookieAuthenticationFilter() {
     TMAPIAuthenticationFilter filter = new TMAPIAuthenticationFilter();
-    filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(apiBasePath + "/**"));
+    filter.setRequiresAuthenticationRequestMatcher(
+        PathPatternRequestMatcher.withDefaults().matcher(apiBasePath + "/**"));
     filter.setAuthenticationManager(authenticationManager());
     filter.setAuthenticationDetailsSource(TMAPIAuthenticationDetails::new);
     filter.setApplicationEventPublisher(applicationEventPublisher);
