@@ -60,29 +60,26 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          PrintWriter pw = <strong class="jxr_keyword">new</strong> PrintWriter(sw)) {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>        <strong class="jxr_keyword">while</strong> (features.hasNext()) {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>          SimpleFeature feature = features.next();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          String sql =
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <span class="jxr_string">"insert into gemeente(identificatie, naam, provincie, geometry) values('%s', '%s', '%s', '%s');\n"</span>;
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          Geometry g = (Geometry) feature.getDefaultGeometry();
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          g = TopologyPreservingSimplifier.simplify(g, 50);
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          g = <strong class="jxr_keyword">new</strong> GeometryPrecisionReducer(<strong class="jxr_keyword">new</strong> PrecisionModel(1.0)).reduce(g);
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          String wkb = WKBWriter.toHex(<strong class="jxr_keyword">new</strong> WKBWriter().write(g)).trim();
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          pw.printf(
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>              sql,
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"identificatie"</span>)),
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"naam"</span>)),
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"ligtInProvincieNaam"</span>)),
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>              wkb);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>        }
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          Geometry g = (Geometry) feature.getDefaultGeometry();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          g = TopologyPreservingSimplifier.simplify(g, 50);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          g = <strong class="jxr_keyword">new</strong> GeometryPrecisionReducer(<strong class="jxr_keyword">new</strong> PrecisionModel(1.0)).reduce(g);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          String wkb = WKBWriter.toHex(<strong class="jxr_keyword">new</strong> WKBWriter().write(g)).trim();
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          pw.printf(
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>              <span class="jxr_string">"insert into gemeente(identificatie, naam, provincie, geometry) values('%s', '%s', '%s', '%s');\n"</span>,
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"identificatie"</span>)),
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"naam"</span>)),
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>              escapeSql(feature.getAttribute(<span class="jxr_string">"ligtInProvincieNaam"</span>)),
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              wkb);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>        }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">return</strong> sw.toString();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>    }
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">return</strong> sw.toString();
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>    }
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String escapeSql(Object s) {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">return</strong> s.toString().replaceAll(<span class="jxr_string">"'"</span>, <span class="jxr_string">"''"</span>);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>    }
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  }
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> String escapeSql(Object s) {
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">return</strong> s.toString().replaceAll(<span class="jxr_string">"'"</span>, <span class="jxr_string">"''"</span>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>    }
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2024–2025 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
