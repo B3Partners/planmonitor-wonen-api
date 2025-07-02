@@ -52,15 +52,12 @@ public class ImportGemeentesApplication {
         PrintWriter pw = new PrintWriter(sw)) {
       while (features.hasNext()) {
         SimpleFeature feature = features.next();
-
-        String sql =
-            "insert into gemeente(identificatie, naam, provincie, geometry) values('%s', '%s', '%s', '%s');\n";
         Geometry g = (Geometry) feature.getDefaultGeometry();
         g = TopologyPreservingSimplifier.simplify(g, 50);
         g = new GeometryPrecisionReducer(new PrecisionModel(1.0)).reduce(g);
         String wkb = WKBWriter.toHex(new WKBWriter().write(g)).trim();
         pw.printf(
-            sql,
+            "insert into gemeente(identificatie, naam, provincie, geometry) values('%s', '%s', '%s', '%s');\n",
             escapeSql(feature.getAttribute("identificatie")),
             escapeSql(feature.getAttribute("naam")),
             escapeSql(feature.getAttribute("ligtInProvincieNaam")),
