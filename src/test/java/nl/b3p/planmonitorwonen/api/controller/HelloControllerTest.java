@@ -45,7 +45,7 @@ class HelloControllerTest {
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
   @Disabled(
       "This test is failing because we need to issue a valid TM API jsessionid cookie to pass the test.")
   void testHelloWithUser() throws Exception {
@@ -61,11 +61,10 @@ class HelloControllerTest {
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
   void testHello() throws Exception {
     mockMvc
         .perform(get(basePath + "/hello").accept(MediaType.APPLICATION_JSON))
-        .andDo(print())
         .andExpect(status().is4xxClientError())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json("{\"message\":\"Unauthorized\",\"authResponse\":null}"));

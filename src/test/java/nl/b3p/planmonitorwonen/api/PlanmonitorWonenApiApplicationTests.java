@@ -14,6 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 class PlanmonitorWonenApiApplicationTests {
 
   @Test
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
   void contextLoads() {}
 }
