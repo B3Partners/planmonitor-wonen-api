@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiSecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Aggregate Test Coverage</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.planmonitorwonen.api.security</a> &gt; <span class="el_source">ApiSecurityConfig.java</span></div><h1>ApiSecurityConfig.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+package nl.b3p.planmonitorwonen.api.security;
+
+import jakarta.servlet.http.HttpServletResponse;
+import java.lang.invoke.MethodHandles;
+import java.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+
+@Configuration
+@EnableWebSecurity(debug = false)
+public class ApiSecurityConfig {
+
+<span class="fc" id="L34">  private static final Logger logger =</span>
+<span class="fc" id="L35">      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());</span>
+
+  private final ApplicationEventPublisher applicationEventPublisher;
+
+  @Autowired
+<span class="fc" id="L40">  public ApiSecurityConfig(ApplicationEventPublisher applicationEventPublisher) {</span>
+<span class="fc" id="L41">    this.applicationEventPublisher = applicationEventPublisher;</span>
+<span class="fc" id="L42">  }</span>
+
+  @Value(&quot;${planmonitor-wonen-api.base-path}&quot;)
+  private String apiBasePath;
+
+  @Bean
+  public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L49">    http.cors(Customizer.withDefaults())</span>
+        // disable login/logout for this application
+<span class="fc" id="L51">        .formLogin(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L52">        .httpBasic(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L53">        .anonymous(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L54">        .csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L55">        .logout(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L56">        .sessionManagement(</span>
+            httpSecuritySessionManagementConfigurer -&gt;
+<span class="fc" id="L58">                httpSecuritySessionManagementConfigurer.sessionCreationPolicy(</span>
+                    SessionCreationPolicy.STATELESS))
+<span class="fc" id="L60">        .exceptionHandling(</span>
+            httpSecurityExceptionHandlingConfigurer -&gt;
+<span class="fc" id="L62">                httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(</span>
+                    (request, response, authException) -&gt; {
+<span class="nc" id="L64">                      logger.debug(&quot;Unauthorized request: {}&quot;, request, authException);</span>
+<span class="nc" id="L65">                      response.sendError(</span>
+<span class="nc" id="L66">                          HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());</span>
+<span class="nc" id="L67">                    }));</span>
+
+<span class="fc" id="L69">    return http.build();</span>
+  }
+
+  @Bean(name = &quot;tmapiAuthenticationProvider&quot;)
+  public AuthenticationProvider tmapiAuthenticationProvider() {
+<span class="fc" id="L74">    TMAPIAuthenticationProvider provider = new TMAPIAuthenticationProvider();</span>
+<span class="fc" id="L75">    provider.setUserDetailsService(new TMAPIUserDetailsService());</span>
+<span class="fc" id="L76">    logger.debug(&quot;Created AuthenticationProvider {}&quot;, provider);</span>
+<span class="fc" id="L77">    return provider;</span>
+  }
+
+  @Bean(name = &quot;authenticationManager&quot;)
+  @DependsOn(&quot;tmapiAuthenticationProvider&quot;)
+  protected AuthenticationManager authenticationManager() {
+<span class="fc" id="L83">    return new ProviderManager(Collections.singletonList(tmapiAuthenticationProvider()));</span>
+  }
+
+  @Bean
+  @DependsOn(&quot;authenticationManager&quot;)
+  public TMAPIAuthenticationFilter tmapiSessionCookieAuthenticationFilter() {
+<span class="fc" id="L89">    TMAPIAuthenticationFilter filter = new TMAPIAuthenticationFilter();</span>
+<span class="fc" id="L90">    filter.setRequiresAuthenticationRequestMatcher(</span>
+<span class="fc" id="L91">        PathPatternRequestMatcher.withDefaults().matcher(apiBasePath + &quot;/**&quot;));</span>
+<span class="fc" id="L92">    filter.setAuthenticationManager(authenticationManager());</span>
+<span class="fc" id="L93">    filter.setAuthenticationDetailsSource(TMAPIAuthenticationDetails::new);</span>
+<span class="fc" id="L94">    filter.setApplicationEventPublisher(applicationEventPublisher);</span>
+<span class="fc" id="L95">    logger.debug(&quot;TMAPIAuthenticationFilter created with {}&quot;, filter);</span>
+<span class="fc" id="L96">    return filter;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TMAPIUserDetailsService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Planmonitor Wonen API</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.planmonitorwonen.api.security</a> &gt; <span class="el_source">TMAPIUserDetailsService.java</span></div><h1>TMAPIUserDetailsService.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+package nl.b3p.planmonitorwonen.api.security;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+<span class="nc" id="L18">public class TMAPIUserDetailsService</span>
+    implements AuthenticationUserDetailsService&lt;TMAPIAuthenticationToken&gt; {
+<span class="nc" id="L20">  private static final Logger logger =</span>
+<span class="nc" id="L21">      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());</span>
+
+  @Override
+  public UserDetails loadUserDetails(TMAPIAuthenticationToken token)
+      throws UsernameNotFoundException {
+<span class="nc" id="L26">    return this.buildUserDetails(token, token.getAuthorities());</span>
+  }
+
+  protected UserDetails buildUserDetails(
+      TMAPIAuthenticationToken token, Collection&lt;? extends GrantedAuthority&gt; authorities) {
+<span class="nc" id="L31">    logger.debug(&quot;building user details for token: {}, authorities: {}&quot;, token, authorities);</span>
+<span class="nc" id="L32">    return new TMAPIUserDetails(</span>
+<span class="nc" id="L33">        token.getName(), authorities.stream().collect(Collectors.toUnmodifiableList()));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
