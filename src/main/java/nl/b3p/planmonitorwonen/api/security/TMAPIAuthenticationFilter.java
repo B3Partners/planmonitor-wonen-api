@@ -149,7 +149,7 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
         request.getCookies() == null
             ? null
             : Arrays.stream(request.getCookies())
-                .filter(cookie -> "JSESSIONID".equals(cookie.getName()))
+                .filter(cookie -> "SESSION".equals(cookie.getName()))
                 // TODO filter cookie path for the TM API
                 //  the current path is / though
                 // .filter(cookie -> cookiePath.equals(cookie.getPath()))
@@ -161,7 +161,7 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
     }
 
     logger.debug(
-        "Found JSESSIONID = {} in request {}", jSessionId.getValue(), request.getRequestURI());
+        "Found SESSION = {} in request {}", jSessionId.getValue(), request.getRequestURI());
     return jSessionId.getValue();
   }
 
@@ -169,7 +169,7 @@ public class TMAPIAuthenticationFilter extends GenericFilterBean
       throws JsonProcessingException {
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
-    headers.add("Cookie", "JSESSIONID=%s".formatted(sessionCookieValue));
+    headers.add("Cookie", "SESSION=%s".formatted(sessionCookieValue));
     HttpEntity<ObjectNode> entity = new HttpEntity<>(headers);
     // set up with default TM API unauthorized response
     ObjectNode authResponseBody =
