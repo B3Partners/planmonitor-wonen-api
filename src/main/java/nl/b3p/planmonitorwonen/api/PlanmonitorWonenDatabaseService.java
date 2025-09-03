@@ -99,8 +99,7 @@ public class PlanmonitorWonenDatabaseService {
 
   public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
     return jdbcClient
-        .sql(
-            "select * from planregistratie where gemeente in (:gemeentes)")
+        .sql("select * from planregistratie where gemeente in (:gemeentes)")
         .params(Collections.singletonMap("gemeentes", gemeentes))
         .query(planregistratieRowMapper)
         .set();
