@@ -30,13 +30,13 @@ public class JdbcSessionConfiguration {
   @Value("${spring.datasource.password}")
   private String dataSourcePassword;
 
-  @Value("${tailormap.datasource.url}")
+  @Value("${tailormap.datasource.url:jdbc:postgresql:tailormap}")
   private String sessionDataSourceUrl;
 
-  @Value("${tailormap.datasource.username}")
+  @Value("${tailormap.datasource.username:tailormap}")
   private String sessionDataSourceUsername;
 
-  @Value("${tailormap.datasource.password}")
+  @Value("${tailormap.datasource.password:tailormap}")
   private String sessionDataSourcePassword;
 
   @Bean
