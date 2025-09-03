@@ -7,6 +7,8 @@
 package nl.b3p.planmonitorwonen.api.configuration;
 
 import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -20,6 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @EnableJdbcHttpSession
+@Profile("!test")
 public class JdbcSessionConfiguration {
   @Value("${spring.datasource.url}")
   private String dataSourceUrl;
@@ -30,13 +33,13 @@ public class JdbcSessionConfiguration {
   @Value("${spring.datasource.password}")
   private String dataSourcePassword;
 
-  @Value("${tailormap.datasource.url:jdbc:postgresql:tailormap}")
+  @Value("${tailormap.datasource.url}")
   private String sessionDataSourceUrl;
 
-  @Value("${tailormap.datasource.username:tailormap}")
+  @Value("${tailormap.datasource.username}")
   private String sessionDataSourceUsername;
 
-  @Value("${tailormap.datasource.password:tailormap}")
+  @Value("${tailormap.datasource.password}")
   private String sessionDataSourcePassword;
 
   @Bean
