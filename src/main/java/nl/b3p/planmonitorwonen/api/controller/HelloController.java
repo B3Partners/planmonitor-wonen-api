@@ -6,58 +6,40 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import nl.b3p.planmonitorwonen.api.security.TMAPIAuthenticationToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping(
-    path = "${planmonitor-wonen-api.base-path}/hello",
-    produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelloController {
-  private static final Logger logger =
-      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private final PlanmonitorAuthenticationService planmonitorAuthenticationService;
 
-  private record HelloResponse(String message, ObjectNode authResponse) implements Serializable {}
+  public HelloController(PlanmonitorAuthenticationService planmonitorAuthenticationService) {
+    this.planmonitorAuthenticationService = planmonitorAuthenticationService;
+  }
 
-  @RequestMapping(
-      method = {GET},
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Serializable> hello(@AuthenticationPrincipal UserDetails userDetails) {
-    final TMAPIAuthenticationToken authentication =
-        (TMAPIAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+  @GetMapping(path = "${planmonitor-wonen-api.base-path}/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Map<String, Object> hello() {
+    Map<String, Set<Object>> publicGroupProperties = planmonitorAuthenticationService.getGroupProperties().entrySet().stream()
+        .map(entry -> Map.entry(
+            entry.getKey(),
+            entry.getValue().stream()
+                .filter(PlanmonitorAuthenticationService.AdminAdditionalProperty::isPublic)
+                .map(PlanmonitorAuthenticationService.AdminAdditionalProperty::value)
+                .collect(Collectors.toSet())
+        ))
+        .filter(entry -> !entry.getValue().isEmpty())
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-    logger.info("Authentication: {}", authentication);
-    logger.info("UserDetails: {}", userDetails);
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth = planmonitorAuthenticationService.getFromSecurityContext();
 
-    if (null == authentication) {
-      // should not happen
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-          .body(new HelloResponse("Unauthorized", null));
-    }
-
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(
-            new HelloResponse(
-                "Hello "
-                    + authentication.getName()
-                    + " with roles: "
-                    + authentication.getAuthorities()
-                    + " and userDetails: "
-                    + userDetails,
-                authentication.getAuthResponse()));
+    return Map.of("name", auth.userDetails().getUsername(),
+        "authorities", auth.userDetails().getAuthorities().stream().map(Object::toString).toList(),
+        "groupProperties", publicGroupProperties);
   }
 }
