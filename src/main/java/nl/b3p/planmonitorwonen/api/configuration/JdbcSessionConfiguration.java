@@ -6,6 +6,7 @@
 
 package nl.b3p.planmonitorwonen.api.configuration;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -16,8 +17,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.session.jdbc.config.annotation.SpringSessionDataSource;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableJdbcHttpSession
@@ -56,9 +55,9 @@ public class JdbcSessionConfiguration {
 
   @Bean(name = "tailormapJdbcClient")
   public JdbcClient tailormapJdbcClient(@Qualifier("tailormapDataSource") DataSource data) {
-      return JdbcClient.create(data);
+    return JdbcClient.create(data);
   }
-    
+
   @Bean(name = {"springSessionDataSource", "tailormapDataSource"})
   @SpringSessionDataSource
   public DataSource sessionDataSource() {

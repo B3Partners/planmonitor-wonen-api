@@ -47,14 +47,16 @@ public class PlanregistratieController {
   private final PlanmonitorWonenDatabaseService pmwDb;
 
   public PlanregistratieController(
-      PlanmonitorAuthenticationService authenticationService, PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService) {
+      PlanmonitorAuthenticationService authenticationService,
+      PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService) {
     this.authenticationService = authenticationService;
     this.pmwDb = planmonitorWonenDatabaseService;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
   public Set<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth = authenticationService.getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
     Set<Planregistratie> planregistraties;
     if (auth.isProvincie()) {
       planregistraties = pmwDb.getPlanregistratiesForProvincie();
@@ -93,7 +95,8 @@ public class PlanregistratieController {
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}/details")
   public Map<String, Object> details(@PathVariable("id") String id) {
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth = authenticationService.getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     String gemeente = pmwDb.getPlanregistratieGemeente(id);
     if (gemeente == null) {
@@ -126,7 +129,8 @@ public class PlanregistratieController {
       throw new ResponseStatusException(BAD_REQUEST);
     }
 
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth = authenticationService.getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(
@@ -173,7 +177,8 @@ public class PlanregistratieController {
       throw new ResponseStatusException(BAD_REQUEST);
     }
 
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth = authenticationService.getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(

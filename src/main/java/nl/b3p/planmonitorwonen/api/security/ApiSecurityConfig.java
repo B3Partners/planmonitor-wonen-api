@@ -6,6 +6,7 @@
 package nl.b3p.planmonitorwonen.api.security;
 
 import jakarta.servlet.http.HttpServletResponse;
+import java.lang.invoke.MethodHandles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
-
-import java.lang.invoke.MethodHandles;
 
 @Configuration
 @EnableWebSecurity(debug = false)

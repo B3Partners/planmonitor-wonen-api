@@ -7,9 +7,6 @@
 package org.tailormap.api.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.io.Serial;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -17,15 +14,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class TailormapUserDetails implements UserDetails {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   public Collection<GrantedAuthority> authorities;
   public String username;
-  @JsonIgnore
-  public String password;
+  @JsonIgnore public String password;
   public ZonedDateTime validUntil;
   public boolean enabled;
 
