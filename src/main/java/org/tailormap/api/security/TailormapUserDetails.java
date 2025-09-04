@@ -6,28 +6,30 @@
 
 package org.tailormap.api.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serial;
+import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class TailormapUserDetails implements UserDetails {
-  @Serial private static final long serialVersionUID = 1L;
+  public record UDAdditionalProperty(String key, Boolean isPublic, Object value)
+      implements Serializable {}
+
+  @Serial private static final long serialVersionUID = 2L;
 
   public Collection<GrantedAuthority> authorities;
   public String username;
-  @JsonIgnore public String password;
+  public String password;
   public ZonedDateTime validUntil;
   public boolean enabled;
 
-  @JsonIgnore // Can contain non-public properties
-  private final List<Map.Entry<String, Object>> additionalProperties = new ArrayList<>();
+  private final List<UDAdditionalProperty> additionalProperties = new ArrayList<>();
+  private final List<UDAdditionalProperty> additionalGroupProperties = new ArrayList<>();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -54,7 +56,11 @@ public class TailormapUserDetails implements UserDetails {
     return enabled;
   }
 
-  public List<Map.Entry<String, Object>> getAdditionalProperties() {
+  public List<UDAdditionalProperty> getAdditionalProperties() {
     return additionalProperties;
+  }
+
+  public List<UDAdditionalProperty> getAdditionalGroupProperties() {
+    return additionalGroupProperties;
   }
 }
