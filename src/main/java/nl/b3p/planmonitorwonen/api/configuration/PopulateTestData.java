@@ -64,66 +64,48 @@ public class PopulateTestData {
     String wkt =
         "POLYGON ((27791.55972066056 397785.16112066095, 24697.205902478643 393790.63164628064, 26778.86210743738 391483.93152727233, 30548.347667768074 395084.6341520658, 30548.347667768074 395084.6341520658, 27791.55972066056 397785.16112066095))";
 
-    Planregistratie planregistratie =
-        new Planregistratie()
-            .setId(UUID.randomUUID().toString())
-            .setGeometrie(wkt)
-            .setCreator("test")
-            .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
-            .setPlanNaam("Plan 1")
-            .setProvincie("Zeeland")
-            .setGemeente(gemeentesLoaded ? "Middelburg (Z.)" : null)
-            .setRegio("Walcheren")
-            .setPlaatsnaam("Middelburg")
-            .setVertrouwelijkheid("Openbaar")
-            .setOpdrachtgeverType("Gemeente")
-            .setOpdrachtgeverNaam("De opdrachtgever")
-            .setOpmerkingen("Opmerking\nTweede regel")
-            .setPlantype("Herstructurering")
-            .setBestemmingsplan("Een bestemmingsplan")
-            .setStatusProject("Voorbereiding")
-            .setStatusPlanologisch("3. In voorbereiding")
-            .setKnelpuntenMeerkeuze(new String[] {"Bereikbaarheid"})
-            .setBeoogdWoonmilieuAbf13("Centrum")
-            .setAantalStudentenwoningen(70)
-            .setSleutelproject(false);
-    List<Plancategorie> plancategorieen =
-        List.of(
-            new Plancategorie(
-                UUID.randomUUID().toString(),
-                planregistratie.getId(),
-                null,
-                null,
-                null,
-                null,
-                "Nieuwbouw",
-                null,
-                null,
-                null,
-                null,
-                null,
-                20,
-                0));
-    List<Detailplanning> detailplanningen =
-        List.of(
-            new Detailplanning(
-                UUID.randomUUID().toString(),
-                plancategorieen.get(0).id(),
-                null,
-                null,
-                null,
-                null,
-                2025,
-                10),
-            new Detailplanning(
-                UUID.randomUUID().toString(),
-                plancategorieen.get(0).id(),
-                null,
-                null,
-                null,
-                null,
-                2028,
-                10));
+    Planregistratie planregistratie = new Planregistratie()
+        .setId(UUID.randomUUID().toString())
+        .setGeometrie(wkt)
+        .setCreator("test")
+        .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
+        .setPlanNaam("Plan 1")
+        .setProvincie("Zeeland")
+        .setGemeente(gemeentesLoaded ? "Middelburg (Z.)" : null)
+        .setRegio("Walcheren")
+        .setPlaatsnaam("Middelburg")
+        .setVertrouwelijkheid("Openbaar")
+        .setOpdrachtgeverType("Gemeente")
+        .setOpdrachtgeverNaam("De opdrachtgever")
+        .setOpmerkingen("Opmerking\nTweede regel")
+        .setPlantype("Herstructurering")
+        .setBestemmingsplan("Een bestemmingsplan")
+        .setStatusProject("Voorbereiding")
+        .setStatusPlanologisch("3. In voorbereiding")
+        .setKnelpuntenMeerkeuze(new String[] {"Bereikbaarheid"})
+        .setBeoogdWoonmilieuAbf13("Centrum")
+        .setAantalStudentenwoningen(70)
+        .setSleutelproject(false);
+    List<Plancategorie> plancategorieen = List.of(new Plancategorie(
+        UUID.randomUUID().toString(),
+        planregistratie.getId(),
+        null,
+        null,
+        null,
+        null,
+        "Nieuwbouw",
+        null,
+        null,
+        null,
+        null,
+        null,
+        20,
+        0));
+    List<Detailplanning> detailplanningen = List.of(
+        new Detailplanning(
+            UUID.randomUUID().toString(), plancategorieen.get(0).id(), null, null, null, null, 2025, 10),
+        new Detailplanning(
+            UUID.randomUUID().toString(), plancategorieen.get(0).id(), null, null, null, null, 2028, 10));
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
   }
 
@@ -134,8 +116,7 @@ public class PopulateTestData {
   private String gemeentesTypename;
 
   private void populateGemeentes() throws IOException {
-    String sql =
-        ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
+    String sql = ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
     this.jdbcClient.sql(sql).update();
   }
 }

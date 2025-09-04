@@ -44,8 +44,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @Profile("!test")
-public class PlanregistratieAutofillController
-    implements ApplicationListener<ApplicationReadyEvent> {
+public class PlanregistratieAutofillController implements ApplicationListener<ApplicationReadyEvent> {
 
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -147,17 +146,17 @@ public class PlanregistratieAutofillController
   private static List<SimpleFeature> getFeaturesOrderedByIntersectionAreaDescending(
       Geometry geometry, Collection<SimpleFeature> features) {
     return features.stream()
-        .map(
-            f -> {
-              Geometry featureGeometry = (Geometry) f.getDefaultGeometry();
-              if (featureGeometry.intersects(geometry)) {
-                return Pair.of(f, featureGeometry.intersection(geometry).getArea());
-              } else {
-                return null;
-              }
-            })
+        .map(f -> {
+          Geometry featureGeometry = (Geometry) f.getDefaultGeometry();
+          if (featureGeometry.intersects(geometry)) {
+            return Pair.of(f, featureGeometry.intersection(geometry).getArea());
+          } else {
+            return null;
+          }
+        })
         .filter(Objects::nonNull)
-        .sorted(comparingDouble((Pair<SimpleFeature, Double> p) -> p.getRight()).reversed())
+        .sorted(comparingDouble((Pair<SimpleFeature, Double> p) -> p.getRight())
+            .reversed())
         .map(Pair::getLeft)
         .collect(Collectors.toList());
   }
@@ -176,35 +175,31 @@ public class PlanregistratieAutofillController
       throw new ResponseStatusException(BAD_REQUEST, "WKT parsing error");
     }
 
-    List<String> gemeentes =
-        this.jdbcClient
-            .sql(
-                """
-        select g.naam
-        from gemeente g
-        where st_intersects(g.geometry, st_geomfromtext(?, 28992))
-        order by st_area(st_intersection(g.geometry, st_geomfromtext(?, 28992))) desc""")
-            .param(wkt)
-            .param(wkt)
-            .query(String.class)
-            .list();
+    List<String> gemeentes = this.jdbcClient
+        .sql(
+            """
+select g.naam
+from gemeente g
+where st_intersects(g.geometry, st_geomfromtext(?, 28992))
+order by st_area(st_intersection(g.geometry, st_geomfromtext(?, 28992))) desc""")
+        .param(wkt)
+        .param(wkt)
+        .query(String.class)
+        .list();
 
-    List<String> provincies =
-        getFeaturesOrderedByIntersectionAreaDescending(geometry, provincieFeatures).stream()
-            .map(f -> (String) f.getAttribute(provinciesPropertyName))
-            .toList();
+    List<String> provincies = getFeaturesOrderedByIntersectionAreaDescending(geometry, provincieFeatures).stream()
+        .map(f -> (String) f.getAttribute(provinciesPropertyName))
+        .toList();
 
-    List<String> regios =
-        getFeaturesOrderedByIntersectionAreaDescending(geometry, regioFeatures).stream()
-            .map(f -> (String) f.getAttribute(regiosPropertyName))
-            .toList();
+    List<String> regios = getFeaturesOrderedByIntersectionAreaDescending(geometry, regioFeatures).stream()
+        .map(f -> (String) f.getAttribute(regiosPropertyName))
+        .toList();
 
-    List<String> woonmilieus =
-        getFeaturesOrderedByIntersectionAreaDescending(geometry, woonmilieuFeatures).stream()
-            .map(f -> (Integer) f.getAttribute(woonmilieuPropertyName))
-            .distinct()
-            .map(PlanregistratieAutofillController::woonmilieuCodeToEnumValue)
-            .toList();
+    List<String> woonmilieus = getFeaturesOrderedByIntersectionAreaDescending(geometry, woonmilieuFeatures).stream()
+        .map(f -> (Integer) f.getAttribute(woonmilieuPropertyName))
+        .distinct()
+        .map(PlanregistratieAutofillController::woonmilieuCodeToEnumValue)
+        .toList();
 
     return Map.of(
         "gemeentes", gemeentes,
@@ -213,15 +208,14 @@ public class PlanregistratieAutofillController
         "woonmilieus", woonmilieus);
   }
 
-  private static final Map<Integer, String> woonmilieuCodeValueMap =
-      Map.of(
-          2, "Centrum",
-          6, "Stedelijk Compact",
-          7, "Stedelijk Grondgebonden",
-          8, "Stedelijk met Groen",
-          9, "Landelijk of Dorps bij de stad",
-          10, "Dorps",
-          11, "Landelijk");
+  private static final Map<Integer, String> woonmilieuCodeValueMap = Map.of(
+      2, "Centrum",
+      6, "Stedelijk Compact",
+      7, "Stedelijk Grondgebonden",
+      8, "Stedelijk met Groen",
+      9, "Landelijk of Dorps bij de stad",
+      10, "Dorps",
+      11, "Landelijk");
 
   private static String woonmilieuCodeToEnumValue(Integer code) {
     return Objects.requireNonNullElse(woonmilieuCodeValueMap.get(code), "Geen Woonmilieu");

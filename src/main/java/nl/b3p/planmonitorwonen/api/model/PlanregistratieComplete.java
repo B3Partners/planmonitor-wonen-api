@@ -9,6 +9,4 @@ package nl.b3p.planmonitorwonen.api.model;
 import java.util.List;
 
 public record PlanregistratieComplete(
-    Planregistratie planregistratie,
-    List<Plancategorie> plancategorieen,
-    List<Detailplanning> detailplanningen) {}
+    Planregistratie planregistratie, List<Plancategorie> plancategorieen, List<Detailplanning> detailplanningen) {}

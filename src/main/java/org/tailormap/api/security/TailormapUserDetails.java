@@ -17,10 +17,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class TailormapUserDetails implements UserDetails {
-  public record UDAdditionalProperty(String key, Boolean isPublic, Object value)
-      implements Serializable {}
+  public record UDAdditionalProperty(String key, Boolean isPublic, Object value) implements Serializable {}
 
-  @Serial private static final long serialVersionUID = 2L;
+  @Serial
+  private static final long serialVersionUID = 2L;
 
   public Collection<GrantedAuthority> authorities;
   public String username;

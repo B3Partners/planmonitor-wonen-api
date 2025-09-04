@@ -23,9 +23,7 @@ public class HelloController {
     this.planmonitorAuthenticationService = planmonitorAuthenticationService;
   }
 
-  @GetMapping(
-      path = "${planmonitor-wonen-api.base-path}/hello",
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "${planmonitor-wonen-api.base-path}/hello", produces = MediaType.APPLICATION_JSON_VALUE)
   public Map<String, Object> hello(@AuthenticationPrincipal TailormapUserDetails userDetails) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         planmonitorAuthenticationService.getFromSecurityContext();
@@ -34,7 +32,9 @@ public class HelloController {
         "name",
         userDetails.getUsername(),
         "authorities",
-        auth.userDetails().getAuthorities().stream().map(Object::toString).toList(),
+        auth.userDetails().getAuthorities().stream()
+            .map(Object::toString)
+            .toList(),
         "isProvincie",
         auth.isProvincie(),
         "gemeentes",
@@ -42,16 +42,14 @@ public class HelloController {
         "properties",
         userDetails.getAdditionalProperties().stream()
             .filter(TailormapUserDetails.UDAdditionalProperty::isPublic)
-            .collect(
-                Collectors.toMap(
-                    TailormapUserDetails.UDAdditionalProperty::key,
-                    TailormapUserDetails.UDAdditionalProperty::value)),
+            .collect(Collectors.toMap(
+                TailormapUserDetails.UDAdditionalProperty::key,
+                TailormapUserDetails.UDAdditionalProperty::value)),
         "groupProperties",
         userDetails.getAdditionalGroupProperties().stream()
             .filter(TailormapUserDetails.UDAdditionalProperty::isPublic)
-            .collect(
-                Collectors.toMap(
-                    TailormapUserDetails.UDAdditionalProperty::key,
-                    TailormapUserDetails.UDAdditionalProperty::value)));
+            .collect(Collectors.toMap(
+                TailormapUserDetails.UDAdditionalProperty::key,
+                TailormapUserDetails.UDAdditionalProperty::value)));
   }
 }
