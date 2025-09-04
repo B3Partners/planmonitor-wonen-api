@@ -19,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.tailormap.api.security.TailormapUserDetails;
 
 @Service
-@Profile("!test")
 public class PlanmonitorAuthenticationService {
   public record PlanmonitorAuthentication(
       TailormapUserDetails userDetails, boolean isProvincie, Set<String> gemeentes) {}
@@ -40,7 +39,6 @@ public class PlanmonitorAuthenticationService {
             .filter(p -> "typeGebruiker".equals(p.key()))
             .map(TailormapUserDetails.UDAdditionalProperty::value)
             .anyMatch("provincie"::equals);
-    ;
 
     Set<String> gemeentes =
         userDetails.getAdditionalGroupProperties().stream()
