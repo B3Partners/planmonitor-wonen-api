@@ -6,58 +6,52 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
-import nl.b3p.planmonitorwonen.api.security.TMAPIAuthenticationToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import java.util.Map;
+import java.util.stream.Collectors;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.tailormap.api.security.TailormapUserDetails;
 
 @RestController
-@RequestMapping(
-    path = "${planmonitor-wonen-api.base-path}/hello",
-    produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelloController {
-  private static final Logger logger =
-      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private final PlanmonitorAuthenticationService planmonitorAuthenticationService;
 
-  private record HelloResponse(String message, ObjectNode authResponse) implements Serializable {}
+  public HelloController(PlanmonitorAuthenticationService planmonitorAuthenticationService) {
+    this.planmonitorAuthenticationService = planmonitorAuthenticationService;
+  }
 
-  @RequestMapping(
-      method = {GET},
+  @GetMapping(
+      path = "${planmonitor-wonen-api.base-path}/hello",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Serializable> hello(@AuthenticationPrincipal UserDetails userDetails) {
-    final TMAPIAuthenticationToken authentication =
-        (TMAPIAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+  public Map<String, Object> hello(@AuthenticationPrincipal TailormapUserDetails userDetails) {
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        planmonitorAuthenticationService.getFromSecurityContext();
 
-    logger.info("Authentication: {}", authentication);
-    logger.info("UserDetails: {}", userDetails);
-
-    if (null == authentication) {
-      // should not happen
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-          .body(new HelloResponse("Unauthorized", null));
-    }
-
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(
-            new HelloResponse(
-                "Hello "
-                    + authentication.getName()
-                    + " with roles: "
-                    + authentication.getAuthorities()
-                    + " and userDetails: "
-                    + userDetails,
-                authentication.getAuthResponse()));
+    return Map.of(
+        "name",
+        userDetails.getUsername(),
+        "authorities",
+        auth.userDetails().getAuthorities().stream().map(Object::toString).toList(),
+        "isProvincie",
+        auth.isProvincie(),
+        "gemeentes",
+        auth.gemeentes(),
+        "properties",
+        userDetails.getAdditionalProperties().stream()
+            .filter(TailormapUserDetails.UDAdditionalProperty::isPublic)
+            .collect(
+                Collectors.toMap(
+                    TailormapUserDetails.UDAdditionalProperty::key,
+                    TailormapUserDetails.UDAdditionalProperty::value)),
+        "groupProperties",
+        userDetails.getAdditionalGroupProperties().stream()
+            .filter(TailormapUserDetails.UDAdditionalProperty::isPublic)
+            .collect(
+                Collectors.toMap(
+                    TailormapUserDetails.UDAdditionalProperty::key,
+                    TailormapUserDetails.UDAdditionalProperty::value)));
   }
 }

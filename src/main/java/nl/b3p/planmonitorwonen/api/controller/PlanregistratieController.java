@@ -6,7 +6,6 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
-import static nl.b3p.planmonitorwonen.api.model.auth.PlanmonitorAuthentication.getFromSecurityContext;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -23,7 +22,7 @@ import nl.b3p.planmonitorwonen.api.model.Detailplanning;
 import nl.b3p.planmonitorwonen.api.model.Plancategorie;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.model.PlanregistratieComplete;
-import nl.b3p.planmonitorwonen.api.model.auth.PlanmonitorAuthentication;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import org.locationtech.jts.io.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,21 +43,25 @@ public class PlanregistratieController {
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  private final PlanmonitorAuthenticationService authenticationService;
   private final PlanmonitorWonenDatabaseService pmwDb;
 
   public PlanregistratieController(
+      PlanmonitorAuthenticationService authenticationService,
       PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService) {
+    this.authenticationService = authenticationService;
     this.pmwDb = planmonitorWonenDatabaseService;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
   public Set<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
-    PlanmonitorAuthentication auth = getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
     Set<Planregistratie> planregistraties;
     if (auth.isProvincie()) {
       planregistraties = pmwDb.getPlanregistratiesForProvincie();
     } else {
-      planregistraties = pmwDb.getPlanregistratiesForGemeentes(auth.getGemeentes());
+      planregistraties = pmwDb.getPlanregistratiesForGemeentes(auth.gemeentes());
     }
     if (details) {
       Map<String, Planregistratie> planregistratieMap =
@@ -68,7 +71,7 @@ public class PlanregistratieController {
       Set<Plancategorie> plancategorieen =
           auth.isProvincie()
               ? pmwDb.getAllPlancategorieen()
-              : pmwDb.getAllPlancategorieenForGemeentes(auth.getGemeentes());
+              : pmwDb.getAllPlancategorieenForGemeentes(auth.gemeentes());
       plancategorieen.forEach(
           plancategorie -> {
             Planregistratie planregistratie =
@@ -79,7 +82,7 @@ public class PlanregistratieController {
       Set<Detailplanning> detailplanningen =
           auth.isProvincie()
               ? pmwDb.getAllDetailplanningen()
-              : pmwDb.getAllDetailplanningenForGemeentes(auth.getGemeentes());
+              : pmwDb.getAllDetailplanningenForGemeentes(auth.gemeentes());
       detailplanningen.forEach(
           detailplanning -> {
             Planregistratie planregistratie =
@@ -92,18 +95,19 @@ public class PlanregistratieController {
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}/details")
   public Map<String, Object> details(@PathVariable("id") String id) {
-    PlanmonitorAuthentication auth = getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     String gemeente = pmwDb.getPlanregistratieGemeente(id);
     if (gemeente == null) {
       throw new ResponseStatusException(NOT_FOUND);
     }
 
-    if (!auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
+    if (!auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}, denied",
-          auth.getTmApiAuthentication().getName(),
-          auth.getGemeentes(),
+          auth.userDetails().getUsername(),
+          auth.gemeentes(),
           id,
           gemeente);
       throw new ResponseStatusException(NOT_FOUND);
@@ -125,21 +129,22 @@ public class PlanregistratieController {
       throw new ResponseStatusException(BAD_REQUEST);
     }
 
-    PlanmonitorAuthentication auth = getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(
           "Provincie user \"{}\" tried to save plan id {}, denied",
-          auth.getTmApiAuthentication().getName(),
+          auth.userDetails().getUsername(),
           id);
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    if (!auth.getGemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
+    if (!auth.gemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}, denied",
-          auth.getTmApiAuthentication().getName(),
-          auth.getGemeentes(),
+          auth.userDetails().getUsername(),
+          auth.gemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
           planregistratieComplete.planregistratie().getGemeente());
@@ -148,11 +153,11 @@ public class PlanregistratieController {
 
     String gemeente = pmwDb.getPlanregistratieGemeente(id);
 
-    if (gemeente != null && !auth.isProvincie() && !auth.getGemeentes().contains(gemeente)) {
+    if (gemeente != null && !auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to update plan id {}, name \"{}\" of gemeente {}, denied",
-          auth.getTmApiAuthentication().getName(),
-          auth.getGemeentes(),
+          auth.userDetails().getUsername(),
+          auth.gemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
           gemeente);
@@ -172,12 +177,13 @@ public class PlanregistratieController {
       throw new ResponseStatusException(BAD_REQUEST);
     }
 
-    PlanmonitorAuthentication auth = getFromSecurityContext();
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(
           "Provincie user \"{}\" tried to delete plan id {}, denied",
-          auth.getTmApiAuthentication().getName(),
+          auth.userDetails().getUsername(),
           id);
       throw new ResponseStatusException(FORBIDDEN);
     }
@@ -188,11 +194,11 @@ public class PlanregistratieController {
       throw new ResponseStatusException(NOT_FOUND);
     }
 
-    if (!auth.getGemeentes().contains(gemeente)) {
+    if (!auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to delete plan id {} of gemeente {}, denied",
-          auth.getTmApiAuthentication().getName(),
-          auth.getGemeentes(),
+          auth.userDetails().getUsername(),
+          auth.gemeentes(),
           id,
           gemeente);
       throw new ResponseStatusException(FORBIDDEN);

@@ -184,6 +184,10 @@ SPDX-License-Identifier: MIT
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
@@ -741,6 +745,7 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.geotools:*</exclude>
                                         <exclude>org.flywaydb:flyway-core</exclude>
                                         <exclude>org.postgresql:postgresql</exclude>
+                                        <exclude>org.springframework.session:spring-session-jdbc</exclude>
                                     </excludes>
                                 </banTransitiveDependencies>
                             </rules>
