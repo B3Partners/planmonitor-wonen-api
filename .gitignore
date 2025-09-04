@@ -22,3 +22,4 @@ buildNumber.properties
 *.iws
 *.ipr
 .run/
+/.spotless-index

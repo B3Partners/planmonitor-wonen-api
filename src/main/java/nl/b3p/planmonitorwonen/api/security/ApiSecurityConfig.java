@@ -29,14 +29,13 @@ public class ApiSecurityConfig {
     RequestCache nullRequestCache = new NullRequestCache();
     http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
         .requestCache((cache) -> cache.requestCache(nullRequestCache))
-        .exceptionHandling(
-            httpSecurityExceptionHandlingConfigurer ->
-                httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(
-                    (request, response, authException) -> {
-                      logger.debug("Unauthorized request: {}", request, authException);
-                      response.sendError(
-                          HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());
-                    }));
+        .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+            httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(
+                (request, response, authException) -> {
+                  logger.debug("Unauthorized request: {}", request, authException);
+                  response.sendError(
+                      HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());
+                }));
 
     return http.build();
   }

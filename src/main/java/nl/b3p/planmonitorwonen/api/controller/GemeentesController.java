@@ -25,18 +25,14 @@ public class GemeentesController {
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/gemeentes")
-  public ResponseEntity<List<Gemeente>> planregistraties(
-      @RequestParam(required = false) String provincie) {
+  public ResponseEntity<List<Gemeente>> planregistraties(@RequestParam(required = false) String provincie) {
     JdbcClient.StatementSpec statementSpec;
     if (provincie == null) {
-      statementSpec =
-          jdbcClient.sql("select identificatie, naam, provincie from gemeente order by naam");
+      statementSpec = jdbcClient.sql("select identificatie, naam, provincie from gemeente order by naam");
     } else {
-      statementSpec =
-          jdbcClient
-              .sql(
-                  "select identificatie, naam, provincie from gemeente where provincie = ? order by naam")
-              .param(provincie);
+      statementSpec = jdbcClient
+          .sql("select identificatie, naam, provincie from gemeente where provincie = ? order by naam")
+          .param(provincie);
     }
     List<Gemeente> gemeentes = statementSpec.query(Gemeente.class).list();
     return ResponseEntity.ok(gemeentes);

@@ -135,7 +135,6 @@ SPDX-License-Identifier: MIT
         <errorProneExcludePaths>${project.build.directory}/generated-sources/.*</errorProneExcludePaths>
         <compiler.lint>deprecation,unchecked</compiler.lint>
         <failOnValidation>true</failOnValidation>
-        <fmt.action>format</fmt.action>
         <pom.fmt.action>sort</pom.fmt.action>
         <!-- suppress missing javadoc warnings -->
         <javadoc.doclint>all,-missing</javadoc.doclint>
@@ -330,11 +329,6 @@ SPDX-License-Identifier: MIT
                     <groupId>com.github.ekryd.sortpom</groupId>
                     <artifactId>sortpom-maven-plugin</artifactId>
                     <version>4.0.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.spotify.fmt</groupId>
-                    <artifactId>fmt-maven-plugin</artifactId>
-                    <version>2.27</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
@@ -662,20 +656,40 @@ SPDX-License-Identifier: MIT
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.spotify.fmt</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.46.1</version>
                 <configuration>
-                    <verbose>false</verbose>
-                    <filesNamePattern>.*\.java</filesNamePattern>
-                    <skip>${skipQA}</skip>
-                    <style>google</style>
-                    <displayFiles>true</displayFiles>
+                    <java>
+                        <palantirJavaFormat>
+                            <version>2.68.0</version>
+                            <formatJavadoc>true</formatJavadoc>
+                        </palantirJavaFormat>
+                        <importOrder />
+                        <removeUnusedImports />
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
+                        <formatAnnotations />
+                        <indent>
+                            <tabs>true</tabs>
+                            <spacesPerTab>4</spacesPerTab>
+                        </indent>
+                        <indent>
+                            <spaces>true</spaces>
+                            <spacesPerTab>2</spacesPerTab>
+                        </indent>
+                    </java>
+                    <upToDateChecking>
+                        <enabled>true</enabled>
+                        <indexFile>${project.basedir}/.spotless-index</indexFile>
+                    </upToDateChecking>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>${fmt.action}</goal>
+                            <goal>apply</goal>
                         </goals>
+                        <phase>validate</phase>
                     </execution>
                 </executions>
             </plugin>

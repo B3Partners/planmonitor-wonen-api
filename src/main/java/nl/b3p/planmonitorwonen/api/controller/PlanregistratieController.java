@@ -65,30 +65,24 @@ public class PlanregistratieController {
     }
     if (details) {
       Map<String, Planregistratie> planregistratieMap =
-          planregistraties.stream()
-              .collect(Collectors.toMap(Planregistratie::getId, Function.identity()));
+          planregistraties.stream().collect(Collectors.toMap(Planregistratie::getId, Function.identity()));
       Map<String, Planregistratie> plancategorieToPlanregistratieMap = new HashMap<>();
-      Set<Plancategorie> plancategorieen =
-          auth.isProvincie()
-              ? pmwDb.getAllPlancategorieen()
-              : pmwDb.getAllPlancategorieenForGemeentes(auth.gemeentes());
-      plancategorieen.forEach(
-          plancategorie -> {
-            Planregistratie planregistratie =
-                planregistratieMap.get(plancategorie.planregistratieId());
-            planregistratie.getPlancategorieList().add(plancategorie);
-            plancategorieToPlanregistratieMap.put(plancategorie.id(), planregistratie);
-          });
-      Set<Detailplanning> detailplanningen =
-          auth.isProvincie()
-              ? pmwDb.getAllDetailplanningen()
-              : pmwDb.getAllDetailplanningenForGemeentes(auth.gemeentes());
-      detailplanningen.forEach(
-          detailplanning -> {
-            Planregistratie planregistratie =
-                plancategorieToPlanregistratieMap.get(detailplanning.plancategorieId());
-            planregistratie.getDetailplanningList().add(detailplanning);
-          });
+      Set<Plancategorie> plancategorieen = auth.isProvincie()
+          ? pmwDb.getAllPlancategorieen()
+          : pmwDb.getAllPlancategorieenForGemeentes(auth.gemeentes());
+      plancategorieen.forEach(plancategorie -> {
+        Planregistratie planregistratie = planregistratieMap.get(plancategorie.planregistratieId());
+        planregistratie.getPlancategorieList().add(plancategorie);
+        plancategorieToPlanregistratieMap.put(plancategorie.id(), planregistratie);
+      });
+      Set<Detailplanning> detailplanningen = auth.isProvincie()
+          ? pmwDb.getAllDetailplanningen()
+          : pmwDb.getAllDetailplanningenForGemeentes(auth.gemeentes());
+      detailplanningen.forEach(detailplanning -> {
+        Planregistratie planregistratie =
+            plancategorieToPlanregistratieMap.get(detailplanning.plancategorieId());
+        planregistratie.getDetailplanningList().add(detailplanning);
+      });
     }
     return planregistraties;
   }
@@ -114,10 +108,7 @@ public class PlanregistratieController {
     }
 
     return Map.of(
-        "plancategorieen",
-        pmwDb.getPlancategorieen(id),
-        "detailplanningen",
-        pmwDb.getDetailplanningen(id));
+        "plancategorieen", pmwDb.getPlancategorieen(id), "detailplanningen", pmwDb.getDetailplanningen(id));
   }
 
   @PutMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")

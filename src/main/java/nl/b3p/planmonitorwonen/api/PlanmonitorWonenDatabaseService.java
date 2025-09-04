@@ -46,28 +46,25 @@ public class PlanmonitorWonenDatabaseService {
 
     final GenericConversionService conversionService = new GenericConversionService();
     DefaultConversionService.addDefaultConverters(conversionService);
-    conversionService.addConverter(
-        new Converter<PgArray, String[]>() {
-          @Override
-          public String[] convert(PgArray source) {
-            try {
-              return (String[]) source.getArray();
-            } catch (SQLException e) {
-              throw new RuntimeException(e);
-            }
-          }
-        });
+    conversionService.addConverter(new Converter<PgArray, String[]>() {
+      @Override
+      public String[] convert(PgArray source) {
+        try {
+          return (String[]) source.getArray();
+        } catch (SQLException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    });
 
-    planregistratieRowMapper =
-        new SimplePropertyRowMapper<>(Planregistratie.class, conversionService) {
-          @Override
-          @NonNull
-          public Planregistratie mapRow(@NonNull ResultSet rs, int rowNumber) throws SQLException {
-            Planregistratie planregistratie = super.mapRow(rs, rowNumber);
-            planregistratie.setGeometrie(wkbToWkt(planregistratie.getGeometrie()));
-            return planregistratie;
-          }
-        };
+    planregistratieRowMapper = new SimplePropertyRowMapper<>(Planregistratie.class, conversionService) {
+      @Override
+      @NonNull public Planregistratie mapRow(@NonNull ResultSet rs, int rowNumber) throws SQLException {
+        Planregistratie planregistratie = super.mapRow(rs, rowNumber);
+        planregistratie.setGeometrie(wkbToWkt(planregistratie.getGeometrie()));
+        return planregistratie;
+      }
+    };
   }
 
   private String wkbToWkt(String wkb) {
@@ -94,7 +91,10 @@ public class PlanmonitorWonenDatabaseService {
   }
 
   public Set<Planregistratie> getPlanregistratiesForProvincie() {
-    return jdbcClient.sql("select * from planregistratie").query(planregistratieRowMapper).set();
+    return jdbcClient
+        .sql("select * from planregistratie")
+        .query(planregistratieRowMapper)
+        .set();
   }
 
   public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
@@ -107,43 +107,44 @@ public class PlanmonitorWonenDatabaseService {
 
   @Transactional
   public void deletePlanregistratie(String id) {
-    jdbcClient.sql("delete from planregistratie where id = ?").param(1, id, Types.OTHER).update();
+    jdbcClient
+        .sql("delete from planregistratie where id = ?")
+        .param(1, id, Types.OTHER)
+        .update();
   }
 
   @Transactional
   public void insertPlanregistratie(
-      Planregistratie planregistratie,
-      List<Plancategorie> plancategorieen,
-      List<Detailplanning> detailplanningen)
+      Planregistratie planregistratie, List<Plancategorie> plancategorieen, List<Detailplanning> detailplanningen)
       throws ParseException {
     this.deletePlanregistratie(planregistratie.getId());
     String insertPlanregistratie =
-"""
+        """
 insert into planregistratie(
-  id,
-  geometrie,
-  creator,
-  created_at,
-  editor,
-  edited_at,
-  plan_naam,
-  provincie,
-  gemeente,
-  regio,
-  plaatsnaam,
-  vertrouwelijkheid,
-  opdrachtgever_type,
-  opdrachtgever_naam,
-  opmerkingen,
-  plantype,
-  bestemmingsplan,
-  status_project,
-  status_planologisch,
-  knelpunten_meerkeuze,
-  beoogd_woonmilieu_abf13,
-  aantal_studentenwoningen,
-  sleutelproject
-  )
+id,
+geometrie,
+creator,
+created_at,
+editor,
+edited_at,
+plan_naam,
+provincie,
+gemeente,
+regio,
+plaatsnaam,
+vertrouwelijkheid,
+opdrachtgever_type,
+opdrachtgever_naam,
+opmerkingen,
+plantype,
+bestemmingsplan,
+status_project,
+status_planologisch,
+knelpunten_meerkeuze,
+beoogd_woonmilieu_abf13,
+aantal_studentenwoningen,
+sleutelproject
+)
 values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
             .formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));
     this.jdbcClient
@@ -177,8 +178,8 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
       this.jdbcClient
           .sql(
               """
-            insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
-            values (%s)"""
+insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
+values (%s)"""
                   .formatted(sqlQuestionMarks(14)))
           .param(1, p.id(), Types.OTHER)
           .param(2, p.planregistratieId(), Types.OTHER)
@@ -200,8 +201,8 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
       this.jdbcClient
           .sql(
               """
-            insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
-            values (%s)"""
+insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
+values (%s)"""
                   .formatted(sqlQuestionMarks(8)))
           .param(1, d.id(), Types.OTHER)
           .param(2, d.plancategorieId(), Types.OTHER)
@@ -216,15 +217,14 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
   }
 
   public String getPlanregistratieGemeente(String id) {
-    return (String)
-        this.jdbcClient
-            .sql("select gemeente from planregistratie where id = ?")
-            .param(1, id, Types.OTHER)
-            .query()
-            .singleColumn()
-            .stream()
-            .findFirst()
-            .orElse(null);
+    return (String) this.jdbcClient
+        .sql("select gemeente from planregistratie where id = ?")
+        .param(1, id, Types.OTHER)
+        .query()
+        .singleColumn()
+        .stream()
+        .findFirst()
+        .orElse(null);
   }
 
   public Set<Plancategorie> getPlancategorieen(String planregistratieId) {
@@ -236,7 +236,10 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
   }
 
   public Set<Plancategorie> getAllPlancategorieen() {
-    return this.jdbcClient.sql("select * from plancategorie").query(Plancategorie.class).set();
+    return this.jdbcClient
+        .sql("select * from plancategorie")
+        .query(Plancategorie.class)
+        .set();
   }
 
   public Set<Plancategorie> getAllPlancategorieenForGemeentes(Collection<String> gemeentes) {
@@ -252,26 +255,29 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
     return this.jdbcClient
         .sql(
             """
-            select * from detailplanning
-            where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
+select * from detailplanning
+where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
         .param(1, planregistratieId, Types.OTHER)
         .query(Detailplanning.class)
         .set();
   }
 
   public Set<Detailplanning> getAllDetailplanningen() {
-    return this.jdbcClient.sql("select * from detailplanning").query(Detailplanning.class).set();
+    return this.jdbcClient
+        .sql("select * from detailplanning")
+        .query(Detailplanning.class)
+        .set();
   }
 
   public Set<Detailplanning> getAllDetailplanningenForGemeentes(Collection<String> gemeentes) {
     return this.jdbcClient
         .sql(
             """
-            select * from detailplanning
-            where plancategorie_id in
-                (select id from plancategorie
-                 where planregistratie_id in
-                 (select id from planregistratie where gemeente in (:gemeentes)))""")
+select * from detailplanning
+where plancategorie_id in
+(select id from plancategorie
+where planregistratie_id in
+(select id from planregistratie where gemeente in (:gemeentes)))""")
         .params(Collections.singletonMap("gemeentes", gemeentes))
         .query(Detailplanning.class)
         .set();
