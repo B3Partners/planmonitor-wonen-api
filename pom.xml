@@ -135,6 +135,7 @@ SPDX-License-Identifier: MIT
         <errorProneExcludePaths>${project.build.directory}/generated-sources/.*</errorProneExcludePaths>
         <compiler.lint>deprecation,unchecked</compiler.lint>
         <failOnValidation>true</failOnValidation>
+        <spotless.action>apply</spotless.action>
         <pom.fmt.action>sort</pom.fmt.action>
         <!-- suppress missing javadoc warnings -->
         <javadoc.doclint>all,-missing</javadoc.doclint>
@@ -687,7 +688,7 @@ SPDX-License-Identifier: MIT
                 <executions>
                     <execution>
                         <goals>
-                            <goal>apply</goal>
+                            <goal>${spotless.action}</goal>
                         </goals>
                         <phase>validate</phase>
                     </execution>
