@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
@@ -98,10 +99,8 @@ public class PlanmonitorWonenDatabaseService {
 
   public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
     return jdbcClient
-        .sql(
-            "select * from planregistratie where gemeente in (%s)"
-                .formatted(sqlQuestionMarks(gemeentes.size())))
-        .params(Arrays.asList(gemeentes.toArray()))
+        .sql("select * from planregistratie where gemeente in (:gemeentes)")
+        .params(Collections.singletonMap("gemeentes", gemeentes))
         .query(planregistratieRowMapper)
         .set();
   }
@@ -243,9 +242,8 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
   public Set<Plancategorie> getAllPlancategorieenForGemeentes(Collection<String> gemeentes) {
     return this.jdbcClient
         .sql(
-            "select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (%s))"
-                .formatted(sqlQuestionMarks(gemeentes.size())))
-        .params(Arrays.asList(gemeentes.toArray()))
+            "select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (:gemeentes))")
+        .params(Collections.singletonMap("gemeentes", gemeentes))
         .query(Plancategorie.class)
         .set();
   }
@@ -273,9 +271,8 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
             where plancategorie_id in
                 (select id from plancategorie
                  where planregistratie_id in
-                 (select id from planregistratie where gemeente in (%s)))"""
-                .formatted(sqlQuestionMarks(gemeentes.size())))
-        .params(Arrays.asList(gemeentes.toArray()))
+                 (select id from planregistratie where gemeente in (:gemeentes)))""")
+        .params(Collections.singletonMap("gemeentes", gemeentes))
         .query(Detailplanning.class)
         .set();
   }
