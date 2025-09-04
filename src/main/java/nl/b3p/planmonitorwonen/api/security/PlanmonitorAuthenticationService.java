@@ -11,7 +11,6 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
