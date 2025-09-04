@@ -72,81 +72,62 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      String wkt =
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <span class="jxr_string">"POLYGON ((27791.55972066056 397785.16112066095, 24697.205902478643 393790.63164628064, 26778.86210743738 391483.93152727233, 30548.347667768074 395084.6341520658, 30548.347667768074 395084.6341520658, 27791.55972066056 397785.16112066095))"</span>;
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie =
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">new</strong> <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a>()
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              .setId(UUID.randomUUID().toString())
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>              .setGeometrie(wkt)
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>              .setCreator(<span class="jxr_string">"test"</span>)
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>              .setCreatedAt(OffsetDateTime.now(ZoneId.of(<span class="jxr_string">"Europe/Amsterdam"</span>)))
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>              .setPlanNaam(<span class="jxr_string">"Plan 1"</span>)
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              .setProvincie(<span class="jxr_string">"Zeeland"</span>)
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>              .setGemeente(gemeentesLoaded ? <span class="jxr_string">"Middelburg (Z.)"</span> : <strong class="jxr_keyword">null</strong>)
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              .setRegio(<span class="jxr_string">"Walcheren"</span>)
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              .setPlaatsnaam(<span class="jxr_string">"Middelburg"</span>)
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>              .setVertrouwelijkheid(<span class="jxr_string">"Openbaar"</span>)
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>              .setOpdrachtgeverType(<span class="jxr_string">"Gemeente"</span>)
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              .setOpdrachtgeverNaam(<span class="jxr_string">"De opdrachtgever"</span>)
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>              .setOpmerkingen(<span class="jxr_string">"Opmerking\nTweede regel"</span>)
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              .setPlantype(<span class="jxr_string">"Herstructurering"</span>)
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>              .setBestemmingsplan(<span class="jxr_string">"Een bestemmingsplan"</span>)
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>              .setStatusProject(<span class="jxr_string">"Voorbereiding"</span>)
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              .setStatusPlanologisch(<span class="jxr_string">"3. In voorbereiding"</span>)
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>              .setKnelpuntenMeerkeuze(<strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"Bereikbaarheid"</span>})
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum"</span>)
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              .setAantalStudentenwoningen(70)
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              .setSleutelproject(false);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      List&lt;Plancategorie&gt; plancategorieen =
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          List.of(
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>              <strong class="jxr_keyword">new</strong> <a name="Plancategorie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Plancategorie.html#Plancategorie">Plancategorie</a>(
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  UUID.randomUUID().toString(),
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  planregistratie.getId(),
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>                  <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>                  <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>                  <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                  <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>                  <span class="jxr_string">"Nieuwbouw"</span>,
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>                 20,
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 0));
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     List&lt;Detailplanning&gt; detailplanningen =
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         List.of(
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>             <strong class="jxr_keyword">new</strong> <a name="Detailplanning" href="../../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a>(
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>                 UUID.randomUUID().toString(),
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>                 plancategorieen.get(0).id(),
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>                 2025,
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 10),
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>             <strong class="jxr_keyword">new</strong> <a name="Detailplanning" href="../../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a>(
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>                 UUID.randomUUID().toString(),
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>                 plancategorieen.get(0).id(),
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>                 <strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>                 2028,
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>                 10));
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>   }
-<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>   @Value(<span class="jxr_string">"${planmonitor-wonen-api.wfs.bestuurlijke-gebieden}"</span>)
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>   <strong class="jxr_keyword">private</strong> String bestuurlijkeGebiedenWfs;
-<a class="jxr_linenumber" name="L132" href="#L132">132</a> 
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>   @Value(<span class="jxr_string">"${planmonitor-wonen-api.wfs.bestuurlijke-gebieden.gemeentes-typename}"</span>)
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>   <strong class="jxr_keyword">private</strong> String gemeentesTypename;
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> populateGemeentes() <strong class="jxr_keyword">throws</strong> IOException {
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     String sql =
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">this</strong>.jdbcClient.sql(sql).update();
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>   }
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie = <strong class="jxr_keyword">new</strong> <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a>()
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          .setId(UUID.randomUUID().toString())
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          .setGeometrie(wkt)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          .setCreator(<span class="jxr_string">"test"</span>)
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          .setCreatedAt(OffsetDateTime.now(ZoneId.of(<span class="jxr_string">"Europe/Amsterdam"</span>)))
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          .setPlanNaam(<span class="jxr_string">"Plan 1"</span>)
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          .setProvincie(<span class="jxr_string">"Zeeland"</span>)
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          .setGemeente(gemeentesLoaded ? <span class="jxr_string">"Middelburg (Z.)"</span> : <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          .setRegio(<span class="jxr_string">"Walcheren"</span>)
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          .setPlaatsnaam(<span class="jxr_string">"Middelburg"</span>)
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          .setVertrouwelijkheid(<span class="jxr_string">"Openbaar"</span>)
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          .setOpdrachtgeverType(<span class="jxr_string">"Gemeente"</span>)
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          .setOpdrachtgeverNaam(<span class="jxr_string">"De opdrachtgever"</span>)
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          .setOpmerkingen(<span class="jxr_string">"Opmerking\nTweede regel"</span>)
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          .setPlantype(<span class="jxr_string">"Herstructurering"</span>)
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          .setBestemmingsplan(<span class="jxr_string">"Een bestemmingsplan"</span>)
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          .setStatusProject(<span class="jxr_string">"Voorbereiding"</span>)
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          .setStatusPlanologisch(<span class="jxr_string">"3. In voorbereiding"</span>)
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          .setKnelpuntenMeerkeuze(<strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"Bereikbaarheid"</span>})
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum"</span>)
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          .setAantalStudentenwoningen(70)
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          .setSleutelproject(false);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      List&lt;Plancategorie&gt; plancategorieen = List.of(<strong class="jxr_keyword">new</strong> <a name="Plancategorie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Plancategorie.html#Plancategorie">Plancategorie</a>(
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          UUID.randomUUID().toString(),
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          planregistratie.getId(),
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          <span class="jxr_string">"Nieuwbouw"</span>,
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         20,
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         0));
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     List&lt;Detailplanning&gt; detailplanningen = List.of(
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">new</strong> <a name="Detailplanning" href="../../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a>(
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             UUID.randomUUID().toString(), plancategorieen.get(0).id(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, 2025, 10),
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">new</strong> <a name="Detailplanning" href="../../../../../nl/b3p/planmonitorwonen/api/model/Detailplanning.html#Detailplanning">Detailplanning</a>(
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>             UUID.randomUUID().toString(), plancategorieen.get(0).id(), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, 2028, 10));
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>   }
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> 
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>   @Value(<span class="jxr_string">"${planmonitor-wonen-api.wfs.bestuurlijke-gebieden}"</span>)
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>   <strong class="jxr_keyword">private</strong> String bestuurlijkeGebiedenWfs;
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> 
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>   @Value(<span class="jxr_string">"${planmonitor-wonen-api.wfs.bestuurlijke-gebieden.gemeentes-typename}"</span>)
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>   <strong class="jxr_keyword">private</strong> String gemeentesTypename;
+<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> populateGemeentes() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     String sql = ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">this</strong>.jdbcClient.sql(sql).update();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>   }
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024–2025 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
