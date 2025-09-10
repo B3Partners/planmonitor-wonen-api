@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JdbcSessionConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Planmonitor Wonen API</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.planmonitorwonen.api.configuration</a> &gt; <span class="el_source">JdbcSessionConfiguration.java</span></div><h1>JdbcSessionConfiguration.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.planmonitorwonen.api.configuration;
+
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.session.jdbc.config.annotation.SpringSessionDataSource;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+@EnableJdbcHttpSession
+@Profile(&quot;!test&quot;)
+<span class="nc" id="L25">public class JdbcSessionConfiguration {</span>
+  @Value(&quot;${spring.datasource.url}&quot;)
+  private String dataSourceUrl;
+
+  @Value(&quot;${spring.datasource.username}&quot;)
+  private String dataSourceUsername;
+
+  @Value(&quot;${spring.datasource.password}&quot;)
+  private String dataSourcePassword;
+
+  @Value(&quot;${tailormap.datasource.url}&quot;)
+  private String sessionDataSourceUrl;
+
+  @Value(&quot;${tailormap.datasource.username}&quot;)
+  private String sessionDataSourceUsername;
+
+  @Value(&quot;${tailormap.datasource.password}&quot;)
+  private String sessionDataSourcePassword;
+
+  @Bean
+  public DataSource dataSource() {
+<span class="nc" id="L46">    DataSourceBuilder&lt;?&gt; dataSourceBuilder = DataSourceBuilder.create();</span>
+<span class="nc" id="L47">    dataSourceBuilder.url(dataSourceUrl);</span>
+<span class="nc" id="L48">    dataSourceBuilder.username(dataSourceUsername);</span>
+<span class="nc" id="L49">    dataSourceBuilder.password(dataSourcePassword);</span>
+<span class="nc" id="L50">    return dataSourceBuilder.build();</span>
+  }
+
+  @Bean
+  public JdbcClient jdbcClient(DataSource dataSource) {
+<span class="nc" id="L55">    return JdbcClient.create(dataSource);</span>
+  }
+
+  @Bean(name = &quot;tailormapJdbcClient&quot;)
+  public JdbcClient tailormapJdbcClient(@Qualifier(&quot;tailormapDataSource&quot;) DataSource data) {
+<span class="nc" id="L60">    return JdbcClient.create(data);</span>
+  }
+
+  @Bean(name = {&quot;springSessionDataSource&quot;, &quot;tailormapDataSource&quot;})
+  @SpringSessionDataSource
+  public DataSource sessionDataSource() {
+<span class="nc" id="L66">    DataSourceBuilder&lt;?&gt; dataSourceBuilder = DataSourceBuilder.create();</span>
+<span class="nc" id="L67">    dataSourceBuilder.url(sessionDataSourceUrl);</span>
+<span class="nc" id="L68">    dataSourceBuilder.username(sessionDataSourceUsername);</span>
+<span class="nc" id="L69">    dataSourceBuilder.password(sessionDataSourcePassword);</span>
+<span class="nc" id="L70">    return dataSourceBuilder.build();</span>
+  }
+
+  @Bean(name = &quot;springSessionTransactionOperations&quot;)
+  public PlatformTransactionManager springSessionTransactionOperations(
+      @Qualifier(&quot;springSessionDataSource&quot;) DataSource springSessionDatasource) {
+<span class="nc" id="L76">    return new DataSourceTransactionManager(springSessionDatasource);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
