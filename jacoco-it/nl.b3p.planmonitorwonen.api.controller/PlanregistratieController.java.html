@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlanregistratieController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Planmonitor Wonen API</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.planmonitorwonen.api.controller</a> &gt; <span class="el_source">PlanregistratieController.java</span></div><h1>PlanregistratieController.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2024 Provincie Zeeland
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.planmonitorwonen.api.controller;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
+
+import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
+import nl.b3p.planmonitorwonen.api.model.Detailplanning;
+import nl.b3p.planmonitorwonen.api.model.Plancategorie;
+import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import nl.b3p.planmonitorwonen.api.model.PlanregistratieComplete;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
+import org.locationtech.jts.io.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+@RestController
+@Profile(&quot;!test&quot;)
+public class PlanregistratieController {
+<span class="nc" id="L43">  private static final Logger logger =</span>
+<span class="nc" id="L44">      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());</span>
+
+  private final PlanmonitorAuthenticationService authenticationService;
+  private final PlanmonitorWonenDatabaseService pmwDb;
+
+  public PlanregistratieController(
+      PlanmonitorAuthenticationService authenticationService,
+<span class="nc" id="L51">      PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService) {</span>
+<span class="nc" id="L52">    this.authenticationService = authenticationService;</span>
+<span class="nc" id="L53">    this.pmwDb = planmonitorWonenDatabaseService;</span>
+<span class="nc" id="L54">  }</span>
+
+  @GetMapping(path = &quot;${planmonitor-wonen-api.base-path}/planregistraties&quot;)
+  public Set&lt;Planregistratie&gt; planregistraties(@RequestParam(required = false) boolean details) {
+<span class="nc" id="L58">    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =</span>
+<span class="nc" id="L59">        authenticationService.getFromSecurityContext();</span>
+    Set&lt;Planregistratie&gt; planregistraties;
+<span class="nc bnc" id="L61" title="All 2 branches missed.">    if (auth.isProvincie()) {</span>
+<span class="nc" id="L62">      planregistraties = pmwDb.getPlanregistratiesForProvincie();</span>
+    } else {
+<span class="nc" id="L64">      planregistraties = pmwDb.getPlanregistratiesForGemeentes(auth.gemeentes());</span>
+    }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (details) {</span>
+<span class="nc" id="L67">      Map&lt;String, Planregistratie&gt; planregistratieMap =</span>
+<span class="nc" id="L68">          planregistraties.stream().collect(Collectors.toMap(Planregistratie::getId, Function.identity()));</span>
+<span class="nc" id="L69">      Map&lt;String, Planregistratie&gt; plancategorieToPlanregistratieMap = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">      Set&lt;Plancategorie&gt; plancategorieen = auth.isProvincie()</span>
+<span class="nc" id="L71">          ? pmwDb.getAllPlancategorieen()</span>
+<span class="nc" id="L72">          : pmwDb.getAllPlancategorieenForGemeentes(auth.gemeentes());</span>
+<span class="nc" id="L73">      plancategorieen.forEach(plancategorie -&gt; {</span>
+<span class="nc" id="L74">        Planregistratie planregistratie = planregistratieMap.get(plancategorie.planregistratieId());</span>
+<span class="nc" id="L75">        planregistratie.getPlancategorieList().add(plancategorie);</span>
+<span class="nc" id="L76">        plancategorieToPlanregistratieMap.put(plancategorie.id(), planregistratie);</span>
+<span class="nc" id="L77">      });</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">      Set&lt;Detailplanning&gt; detailplanningen = auth.isProvincie()</span>
+<span class="nc" id="L79">          ? pmwDb.getAllDetailplanningen()</span>
+<span class="nc" id="L80">          : pmwDb.getAllDetailplanningenForGemeentes(auth.gemeentes());</span>
+<span class="nc" id="L81">      detailplanningen.forEach(detailplanning -&gt; {</span>
+<span class="nc" id="L82">        Planregistratie planregistratie =</span>
+<span class="nc" id="L83">            plancategorieToPlanregistratieMap.get(detailplanning.plancategorieId());</span>
+<span class="nc" id="L84">        planregistratie.getDetailplanningList().add(detailplanning);</span>
+<span class="nc" id="L85">      });</span>
+    }
+<span class="nc" id="L87">    return planregistraties;</span>
+  }
+
+  @GetMapping(path = &quot;${planmonitor-wonen-api.base-path}/planregistratie/{id}/details&quot;)
+  public Map&lt;String, Object&gt; details(@PathVariable(&quot;id&quot;) String id) {
+<span class="nc" id="L92">    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =</span>
+<span class="nc" id="L93">        authenticationService.getFromSecurityContext();</span>
+
+<span class="nc" id="L95">    String gemeente = pmwDb.getPlanregistratieGemeente(id);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">    if (gemeente == null) {</span>
+<span class="nc" id="L97">      throw new ResponseStatusException(NOT_FOUND);</span>
+    }
+
+<span class="nc bnc" id="L100" title="All 4 branches missed.">    if (!auth.isProvincie() &amp;&amp; !auth.gemeentes().contains(gemeente)) {</span>
+<span class="nc" id="L101">      logger.warn(</span>
+          &quot;Gemeente user \&quot;{}\&quot; with authorization for gemeentes {} tried to access plan id {} of gemeente {}, denied&quot;,
+<span class="nc" id="L103">          auth.userDetails().getUsername(),</span>
+<span class="nc" id="L104">          auth.gemeentes(),</span>
+          id,
+          gemeente);
+<span class="nc" id="L107">      throw new ResponseStatusException(NOT_FOUND);</span>
+    }
+
+<span class="nc" id="L110">    return Map.of(</span>
+<span class="nc" id="L111">        &quot;plancategorieen&quot;, pmwDb.getPlancategorieen(id), &quot;detailplanningen&quot;, pmwDb.getDetailplanningen(id));</span>
+  }
+
+  @PutMapping(path = &quot;${planmonitor-wonen-api.base-path}/planregistratie/{id}&quot;)
+  public ResponseEntity&lt;?&gt; put(
+      @PathVariable(&quot;id&quot;) String id, @RequestBody PlanregistratieComplete planregistratieComplete)
+      throws ParseException {
+
+<span class="nc bnc" id="L119" title="All 4 branches missed.">    if (id == null || !id.equals(planregistratieComplete.planregistratie().getId())) {</span>
+<span class="nc" id="L120">      throw new ResponseStatusException(BAD_REQUEST);</span>
+    }
+
+<span class="nc" id="L123">    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =</span>
+<span class="nc" id="L124">        authenticationService.getFromSecurityContext();</span>
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">    if (auth.isProvincie()) {</span>
+<span class="nc" id="L127">      logger.warn(</span>
+          &quot;Provincie user \&quot;{}\&quot; tried to save plan id {}, denied&quot;,
+<span class="nc" id="L129">          auth.userDetails().getUsername(),</span>
+          id);
+<span class="nc" id="L131">      throw new ResponseStatusException(FORBIDDEN);</span>
+    }
+
+<span class="nc bnc" id="L134" title="All 2 branches missed.">    if (!auth.gemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {</span>
+<span class="nc" id="L135">      logger.warn(</span>
+          &quot;Gemeente user \&quot;{}\&quot; with authorization for gemeentes {} tried to save plan id {}, name \&quot;{}\&quot; with gemeente value {}, denied&quot;,
+<span class="nc" id="L137">          auth.userDetails().getUsername(),</span>
+<span class="nc" id="L138">          auth.gemeentes(),</span>
+          id,
+<span class="nc" id="L140">          planregistratieComplete.planregistratie().getPlanNaam(),</span>
+<span class="nc" id="L141">          planregistratieComplete.planregistratie().getGemeente());</span>
+<span class="nc" id="L142">      throw new ResponseStatusException(FORBIDDEN);</span>
+    }
+
+<span class="nc" id="L145">    String gemeente = pmwDb.getPlanregistratieGemeente(id);</span>
+
+<span class="nc bnc" id="L147" title="All 6 branches missed.">    if (gemeente != null &amp;&amp; !auth.isProvincie() &amp;&amp; !auth.gemeentes().contains(gemeente)) {</span>
+<span class="nc" id="L148">      logger.warn(</span>
+          &quot;Gemeente user \&quot;{}\&quot; with authorization for gemeentes {} tried to update plan id {}, name \&quot;{}\&quot; of gemeente {}, denied&quot;,
+<span class="nc" id="L150">          auth.userDetails().getUsername(),</span>
+<span class="nc" id="L151">          auth.gemeentes(),</span>
+          id,
+<span class="nc" id="L153">          planregistratieComplete.planregistratie().getPlanNaam(),</span>
+          gemeente);
+<span class="nc" id="L155">      throw new ResponseStatusException(FORBIDDEN);</span>
+    }
+
+<span class="nc" id="L158">    pmwDb.insertPlanregistratie(</span>
+<span class="nc" id="L159">        planregistratieComplete.planregistratie(),</span>
+<span class="nc" id="L160">        planregistratieComplete.plancategorieen(),</span>
+<span class="nc" id="L161">        planregistratieComplete.detailplanningen());</span>
+<span class="nc" id="L162">    return ResponseEntity.status(OK).build();</span>
+  }
+
+  @DeleteMapping(path = &quot;${planmonitor-wonen-api.base-path}/planregistratie/{id}&quot;)
+  public ResponseEntity&lt;?&gt; delete(@PathVariable(&quot;id&quot;) String id) {
+<span class="nc bnc" id="L167" title="All 2 branches missed.">    if (id == null) {</span>
+<span class="nc" id="L168">      throw new ResponseStatusException(BAD_REQUEST);</span>
+    }
+
+<span class="nc" id="L171">    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =</span>
+<span class="nc" id="L172">        authenticationService.getFromSecurityContext();</span>
+
+<span class="nc bnc" id="L174" title="All 2 branches missed.">    if (auth.isProvincie()) {</span>
+<span class="nc" id="L175">      logger.warn(</span>
+          &quot;Provincie user \&quot;{}\&quot; tried to delete plan id {}, denied&quot;,
+<span class="nc" id="L177">          auth.userDetails().getUsername(),</span>
+          id);
+<span class="nc" id="L179">      throw new ResponseStatusException(FORBIDDEN);</span>
+    }
+
+<span class="nc" id="L182">    String gemeente = pmwDb.getPlanregistratieGemeente(id);</span>
+
+<span class="nc bnc" id="L184" title="All 2 branches missed.">    if (gemeente == null) {</span>
+<span class="nc" id="L185">      throw new ResponseStatusException(NOT_FOUND);</span>
+    }
+
+<span class="nc bnc" id="L188" title="All 2 branches missed.">    if (!auth.gemeentes().contains(gemeente)) {</span>
+<span class="nc" id="L189">      logger.warn(</span>
+          &quot;Gemeente user \&quot;{}\&quot; with authorization for gemeentes {} tried to delete plan id {} of gemeente {}, denied&quot;,
+<span class="nc" id="L191">          auth.userDetails().getUsername(),</span>
+<span class="nc" id="L192">          auth.gemeentes(),</span>
+          id,
+          gemeente);
+<span class="nc" id="L195">      throw new ResponseStatusException(FORBIDDEN);</span>
+    }
+
+<span class="nc" id="L198">    pmwDb.deletePlanregistratie(id);</span>
+<span class="nc" id="L199">    return ResponseEntity.status(OK).build();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
