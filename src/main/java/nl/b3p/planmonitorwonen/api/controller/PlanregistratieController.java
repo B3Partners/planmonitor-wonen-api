@@ -100,7 +100,7 @@ public class PlanregistratieController {
     if (!auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           auth.gemeentes(),
           id,
           gemeente);
@@ -126,7 +126,7 @@ public class PlanregistratieController {
     if (auth.isProvincie()) {
       logger.warn(
           "Provincie user \"{}\" tried to save plan id {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           id);
       throw new ResponseStatusException(FORBIDDEN);
     }
@@ -134,7 +134,7 @@ public class PlanregistratieController {
     if (!auth.gemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           auth.gemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
@@ -147,7 +147,7 @@ public class PlanregistratieController {
     if (gemeente != null && !auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to update plan id {}, name \"{}\" of gemeente {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           auth.gemeentes(),
           id,
           planregistratieComplete.planregistratie().getPlanNaam(),
@@ -174,7 +174,7 @@ public class PlanregistratieController {
     if (auth.isProvincie()) {
       logger.warn(
           "Provincie user \"{}\" tried to delete plan id {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           id);
       throw new ResponseStatusException(FORBIDDEN);
     }
@@ -188,7 +188,7 @@ public class PlanregistratieController {
     if (!auth.gemeentes().contains(gemeente)) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to delete plan id {} of gemeente {}, denied",
-          auth.userDetails().getUsername(),
+          auth.authentication().getName(),
           auth.gemeentes(),
           id,
           gemeente);
