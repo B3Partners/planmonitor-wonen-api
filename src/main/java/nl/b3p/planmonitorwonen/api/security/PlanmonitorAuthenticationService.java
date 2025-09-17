@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -30,6 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.tailormap.api.security.TailormapUserDetails;
 
 @Service
+@Profile("!test")
 public class PlanmonitorAuthenticationService {
   public record PlanmonitorAuthentication(
       Authentication authentication, boolean isProvincie, Set<String> gemeentes) {}
