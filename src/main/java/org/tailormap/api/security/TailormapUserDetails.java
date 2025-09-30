@@ -1,66 +1,36 @@
 /*
- * Copyright (C) 2024 Provincie Zeeland
+ * Copyright (C) 2025 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
  */
 
 package org.tailormap.api.security;
 
-import java.io.Serial;
 import java.io.Serializable;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import org.springframework.security.core.GrantedAuthority;
+import java.util.stream.Stream;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class TailormapUserDetails implements UserDetails {
-  public record UDAdditionalProperty(String key, Boolean isPublic, Object value) implements Serializable {}
+public interface TailormapUserDetails extends Serializable, UserDetails {
 
-  @Serial
-  private static final long serialVersionUID = 2L;
+  Collection<TailormapAdditionalProperty> getAdditionalProperties();
 
-  public Collection<GrantedAuthority> authorities;
-  public String username;
-  public String password;
-  public ZonedDateTime validUntil;
-  public boolean enabled;
+  Collection<TailormapAdditionalProperty> getAdditionalGroupProperties();
 
-  private final List<UDAdditionalProperty> additionalProperties = new ArrayList<>();
-  private final List<UDAdditionalProperty> additionalGroupProperties = new ArrayList<>();
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return authorities;
+  /**
+   * Returns true if any user or group Boolean property with the given key is true. If beside a true value, there are
+   * also properties with the same key but with any other value than true, the true value has precedence.
+   *
+   * @param key the key to look for
+   * @return true if a Boolean property with the key is present with a true value
+   */
+  default boolean hasTruePropertyForKey(String key) {
+    return streamAllPropertiesForKey(key).anyMatch(Boolean.TRUE::equals);
   }
 
-  @Override
-  public String getPassword() {
-    return password;
-  }
-
-  @Override
-  public String getUsername() {
-    return username;
-  }
-
-  @Override
-  public boolean isAccountNonExpired() {
-    return validUntil == null || validUntil.isAfter(ZonedDateTime.now(ZoneId.systemDefault()));
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public List<UDAdditionalProperty> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  public List<UDAdditionalProperty> getAdditionalGroupProperties() {
-    return additionalGroupProperties;
+  default Stream<Object> streamAllPropertiesForKey(String key) {
+    return Stream.concat(getAdditionalProperties().stream(), getAdditionalGroupProperties().stream())
+        .filter(p -> p.key().equals(key))
+        .map(TailormapAdditionalProperty::value);
   }
 }
