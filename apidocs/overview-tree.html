@@ -65,6 +65,15 @@ loadScripts(document, 'script');</script>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
 <li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/ApiSecurityConfig.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">ApiSecurityConfig</a></li>
+<li class="circle">org.springframework.security.oauth2.core.user.DefaultOAuth2User (implements org.springframework.security.oauth2.core.user.OAuth2User, java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
+<ul>
+<li class="circle">org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser (implements org.springframework.security.oauth2.core.oidc.user.OidcUser)
+<ul>
+<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapOidcUser.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapOidcUser</a> (implements org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.html" title="interface in org.tailormap.api.security">TailormapUserDetails</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/GemeentesController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">GemeentesController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/HelloController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">HelloController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.<a href="nl/b3p/planmonitorwonen/api/ImportGemeentesApplication.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api">ImportGemeentesApplication</a></li>
@@ -84,10 +93,24 @@ loadScripts(document, 'script');</script>
 <li class="circle">nl.b3p.planmonitorwonen.api.model.<a href="nl/b3p/planmonitorwonen/api/model/Plancategorie.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/PlanmonitorAuthenticationService.PlanmonitorAuthentication.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">PlanmonitorAuthenticationService.PlanmonitorAuthentication</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.model.<a href="nl/b3p/planmonitorwonen/api/model/PlanregistratieComplete.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.model">PlanregistratieComplete</a></li>
-<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.UDAdditionalProperty.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapUserDetails.UDAdditionalProperty</a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)</li>
+<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapAdditionalProperty.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapAdditionalProperty</a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)</li>
 </ul>
 </li>
-<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapUserDetails</a> (implements org.springframework.security.core.userdetails.UserDetails)</li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="hierarchy">
+<h2 title="Interface Hierarchy">Interface Hierarchy</h2>
+<ul>
+<li class="circle">java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" class="type-name-link external-link" title="class or interface in java.io">Serializable</a>
+<ul>
+<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.html" class="type-name-link" title="interface in org.tailormap.api.security">TailormapUserDetails</a> (also extends org.springframework.security.core.userdetails.UserDetails)</li>
+<li class="circle">org.springframework.security.core.userdetails.UserDetails
+<ul>
+<li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.html" class="type-name-link" title="interface in org.tailormap.api.security">TailormapUserDetails</a> (also extends java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
