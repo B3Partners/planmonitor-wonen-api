@@ -13,7 +13,7 @@ SPDX-License-Identifier: MIT
     </parent>
     <groupId>nl.b3p.pmw</groupId>
     <artifactId>planmonitor-wonen-api</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Planmonitor Wonen API</name>
     <description>Planmonitor Wonen API provides the backend for Planmonitor Wonen</description>
@@ -63,7 +63,7 @@ SPDX-License-Identifier: MIT
     <scm>
         <connection>scm:git:git@github.com:B3Partners/planmonitor-wonen-api.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/planmonitor-wonen-api.git</developerConnection>
-        <tag>planmonitor-wonen-api-1.2.4</tag>
+        <tag>planmonitor-wonen-api-1.2.3</tag>
         <url>https://github.com/B3Partners/planmonitor-wonen-api/</url>
     </scm>
     <issueManagement>
@@ -98,7 +98,7 @@ SPDX-License-Identifier: MIT
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <project.build.outputTimestamp>2025-09-30T23:08:03Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2025-09-30T23:08:46Z</project.build.outputTimestamp>
         <geotools.version>33.2</geotools.version>
         <jts.version>1.19.0</jts.version>
         <spring.boot.version>${project.parent.version}</spring.boot.version>
