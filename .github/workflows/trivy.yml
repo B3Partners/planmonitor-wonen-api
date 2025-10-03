@@ -34,7 +34,7 @@ jobs:
           maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: 'Trivy Cache'
-        uses: yogeshlonkar/trivy-cache-action@v0.1.15
+        uses: yogeshlonkar/trivy-cache-action@v0.1.16
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
 
