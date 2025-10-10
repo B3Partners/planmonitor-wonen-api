@@ -22,6 +22,7 @@ class TailormapUserDetailsImpl implements TailormapUserDetails {
   private String password;
   private ZonedDateTime validUntil;
   private boolean enabled;
+  private String organisation;
 
   private final Collection<TailormapAdditionalProperty> additionalProperties = new ArrayList<>();
   private final Collection<TailormapAdditionalProperty> additionalGroupProperties = new ArrayList<>();
@@ -49,6 +50,11 @@ class TailormapUserDetailsImpl implements TailormapUserDetails {
   @Override
   public boolean isEnabled() {
     return enabled;
+  }
+
+  @Override
+  public String getOrganisation() {
+    return organisation;
   }
 
   @Override
