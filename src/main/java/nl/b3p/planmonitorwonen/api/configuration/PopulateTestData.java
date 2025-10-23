@@ -103,9 +103,23 @@ public class PopulateTestData {
         0));
     List<Detailplanning> detailplanningen = List.of(
         new Detailplanning(
-            UUID.randomUUID().toString(), plancategorieen.get(0).id(), null, null, null, null, 2025, 10),
+            UUID.randomUUID().toString(),
+            plancategorieen.getFirst().id(),
+            null,
+            null,
+            null,
+            null,
+            2025,
+            10),
         new Detailplanning(
-            UUID.randomUUID().toString(), plancategorieen.get(0).id(), null, null, null, null, 2028, 10));
+            UUID.randomUUID().toString(),
+            plancategorieen.getFirst().id(),
+            null,
+            null,
+            null,
+            null,
+            2028,
+            10));
     pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
   }
 
