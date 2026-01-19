@@ -131,6 +131,7 @@ public class PopulateTestData {
 
   private void populateGemeentes() throws IOException {
     String sql = ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
+    this.jdbcClient.sql("delete from gemeente").update();
     this.jdbcClient.sql(sql).update();
   }
 }
