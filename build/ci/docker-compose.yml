@@ -4,18 +4,19 @@
 name: 'planmonitor-wonen-ci'
 
 volumes:
-  postgis-db:
+  planmonitor-wonen-data:
 
 
 services:
   db:
     image: postgis/postgis:18-3.6-alpine
     environment:
+      TZ: Europe/Amsterdam
       POSTGRES_USER: planmonitor-wonen
       POSTGRES_PASSWORD: planmonitor-wonen
       POSTGRES_DB: planmonitor-wonen
     volumes:
-      - postgis-db:/var/lib/postgresql/data
+      - planmonitor-wonen-data:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
     ports:
       - "127.0.0.1:5432:5432"
@@ -30,6 +31,7 @@ services:
   tailormap:
     image: ghcr.io/tailormap/tailormap:snapshot
     environment:
+      - TZ=Europe/Amsterdam
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tailormap
       - SPRING_PROFILES_ACTIVE=populate-testdata
       - ADMIN_HASHED_PASSWORD

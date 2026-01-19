@@ -131,6 +131,12 @@ public class PopulateTestData {
 
   private void populateGemeentes() throws IOException {
     String sql = ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
+    // Intentionally clear the gemeente table before (re)importing test/demo data.
+    // This configuration is only active when the `planmonitor-wonen-api.populate-testdata`
+    // property is set to `true` and is not meant to be enabled in production environments.
+    // Ensure that this remains disabled in production and that schema constraints allow
+    // truncating and repopulating the gemeente table in this way.
+    this.jdbcClient.sql("delete from gemeente").update();
     this.jdbcClient.sql(sql).update();
   }
 }
