@@ -71,7 +71,7 @@ public class PopulateTestData {
         .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
         .setPlanNaam("Plan 1")
         .setProvincie("Zeeland")
-        .setGemeente(gemeentesLoaded ? "Middelburg (Z.)" : null)
+        .setGemeente(gemeentesLoaded ? "Middelburg" : null)
         .setRegio("Walcheren")
         .setPlaatsnaam("Middelburg")
         .setVertrouwelijkheid("Openbaar")
