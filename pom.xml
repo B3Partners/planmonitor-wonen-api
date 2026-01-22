@@ -220,12 +220,8 @@ SPDX-License-Identifier: MIT
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-database-postgresql</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -782,7 +778,6 @@ SPDX-License-Identifier: MIT
                                         <exclude>io.micrometer:micrometer-registry-prometheus</exclude>
                                         <!-- basically each and every geotools module has a load of transitive dependencies -->
                                         <exclude>org.geotools:*</exclude>
-                                        <exclude>org.flywaydb:flyway-core</exclude>
                                         <exclude>org.postgresql:postgresql</exclude>
                                         <exclude>org.springframework.session:spring-session-jdbc</exclude>
                                     </excludes>
