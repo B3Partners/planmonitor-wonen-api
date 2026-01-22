@@ -33,7 +33,7 @@ public class ImportGemeentesApplication {
   public static void main(String[] args) throws IOException {
     System.out.println("Loading gemeentes from WFS...");
     String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
-    String typename = "bestuurlijkegebieden:Gemeentegebied";
+    String typename = "brk-bestuurlijke-gebieden:Gemeentegebied";
     String sql = getGemeentesSql(wfs, typename);
     new OutputStreamWriter(Files.newOutputStream(Path.of("gemeentes.sql")), UTF_8)
         .append(sql)

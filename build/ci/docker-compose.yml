@@ -9,7 +9,7 @@ volumes:
 
 services:
   db:
-    image: postgis/postgis:18-3.6-alpine
+    image: postgis/postgis:17-3.6-alpine
     environment:
       POSTGRES_USER: planmonitor-wonen
       POSTGRES_PASSWORD: planmonitor-wonen
@@ -24,11 +24,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-      test: su planmonitor-wonen -c pg_isready
+      test: pg_isready -U planmonitor-wonen
     restart: unless-stopped
 
   tailormap:
-    image: ghcr.io/b3partners/tailormap:snapshot
+    image: ghcr.io/tailormap/tailormap:snapshot
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tailormap
       - SPRING_PROFILES_ACTIVE=populate-testdata
