@@ -163,8 +163,7 @@ jobs:
           docker run -d --name planmonitor-wonen-api -h planmonitor-wonen-api --network host ghcr.io/b3partners/planmonitor-wonen-api:snapshot
           sleep 60
           docker logs planmonitor-wonen-api
-          curl http://localhost:8080/api/actuator/health
-          curl http://localhost:8080/api/version
+          curl -sS http://localhost:8081/api/gemeentes?provincie=Zeeland | jq -e 'any(.[]; .naam == "Middelburg")' >/dev/null || { echo "ERROR: Middelburg niet gevonden" >&2; exit 1; }
 
 
   cleanup:
