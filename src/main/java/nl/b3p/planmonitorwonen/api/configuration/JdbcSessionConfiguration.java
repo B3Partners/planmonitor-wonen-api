@@ -181,7 +181,7 @@ AND ATTRIBUTE_NAME = ?
         try {
           String content = new String(source, StandardCharsets.UTF_8);
           int maxLength = 256;
-          if ((logger.isDebugEnabled() || logger.isTraceEnabled())) {
+          if (logger.isDebugEnabled() || logger.isTraceEnabled()) {
             preview = content;
           } else {
             preview = content.length() > maxLength ? content.substring(0, maxLength) + "..." : content;
