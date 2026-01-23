@@ -20,7 +20,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -159,7 +161,11 @@ AND ATTRIBUTE_NAME = ?
         return mapper.writerFor(Object.class).writeValueAsBytes(source);
       } catch (JacksonException e) {
         logger.error("Error serializing Spring Session object: {}", source, e);
-        throw e;
+        throw new ConversionFailedException(
+            TypeDescriptor.forObject(source),
+            TypeDescriptor.valueOf(byte[].class),
+            source,
+            e);
       }
     });
     // byte[] -> Object (deserialize from JSON bytes)
@@ -188,7 +194,11 @@ AND ATTRIBUTE_NAME = ?
             source.length,
             preview,
             e);
-        throw e;
+        throw new ConversionFailedException(
+            TypeDescriptor.valueOf(byte[].class),
+            TypeDescriptor.valueOf(Object.class),
+            source,
+            e);
       }
     });
 
