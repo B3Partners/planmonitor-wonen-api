@@ -162,10 +162,7 @@ AND ATTRIBUTE_NAME = ?
       } catch (JacksonException e) {
         logger.error("Error serializing Spring Session object: {}", source, e);
         throw new ConversionFailedException(
-            TypeDescriptor.forObject(source),
-            TypeDescriptor.valueOf(byte[].class),
-            source,
-            e);
+            TypeDescriptor.forObject(source), TypeDescriptor.valueOf(byte[].class), source, e);
       }
     });
     // byte[] -> Object (deserialize from JSON bytes)
@@ -195,10 +192,7 @@ AND ATTRIBUTE_NAME = ?
             preview,
             e);
         throw new ConversionFailedException(
-            TypeDescriptor.valueOf(byte[].class),
-            TypeDescriptor.valueOf(Object.class),
-            source,
-            e);
+            TypeDescriptor.valueOf(byte[].class), TypeDescriptor.valueOf(Object.class), source, e);
       }
     });
 
