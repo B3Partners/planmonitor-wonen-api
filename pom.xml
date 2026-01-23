@@ -246,16 +246,8 @@ SPDX-License-Identifier: MIT
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
@@ -785,6 +777,7 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.springframework.boot:spring-boot-starter-test</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-webmvc</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-webmvc-test</exclude>
+                                        <exclude>org.springframework.boot:spring-boot-starter-json</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-data-jpa</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-actuator</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-validation</exclude>
