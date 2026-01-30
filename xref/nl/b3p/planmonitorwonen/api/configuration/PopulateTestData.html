@@ -139,9 +139,15 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> populateGemeentes() <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     String sql = ImportGemeentesApplication.getGemeentesSql(bestuurlijkeGebiedenWfs, gemeentesTypename);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">this</strong>.jdbcClient.sql(sql).update();
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>   }
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> }
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <em class="jxr_comment">// Intentionally clear the gemeente table before (re)importing test/demo data.</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <em class="jxr_comment">// This configuration is only active when the `planmonitor-wonen-api.populate-testdata`</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <em class="jxr_comment">// property is set to `true` and is not meant to be enabled in production environments.</em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <em class="jxr_comment">// Ensure that this remains disabled in production and that schema constraints allow</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <em class="jxr_comment">// truncating and repopulating the gemeente table in this way.</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">this</strong>.jdbcClient.sql(<span class="jxr_string">"delete from gemeente"</span>).update();
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">this</strong>.jdbcClient.sql(sql).update();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>   }
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
