@@ -176,8 +176,7 @@ public class PlanregistratieAutofillController implements ApplicationListener<Ap
     }
 
     List<String> gemeentes = this.jdbcClient
-        .sql(
-            """
+        .sql("""
 select g.naam
 from gemeente g
 where st_intersects(g.geometry, st_geomfromtext(?, 28992))

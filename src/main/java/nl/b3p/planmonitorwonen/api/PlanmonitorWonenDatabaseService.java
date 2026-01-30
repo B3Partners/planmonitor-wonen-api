@@ -118,8 +118,7 @@ public class PlanmonitorWonenDatabaseService {
       Planregistratie planregistratie, List<Plancategorie> plancategorieen, List<Detailplanning> detailplanningen)
       throws ParseException {
     this.deletePlanregistratie(planregistratie.getId());
-    String insertPlanregistratie =
-        """
+    String insertPlanregistratie = """
 insert into planregistratie(
 id,
 geometrie,
@@ -145,8 +144,7 @@ beoogd_woonmilieu_abf13,
 aantal_studentenwoningen,
 sleutelproject
 )
-values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
-            .formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));
+values (%s, ?::pmw_knelpunten_meerkeuze[], %s)""".formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));
     this.jdbcClient
         .sql(insertPlanregistratie)
         .param(1, planregistratie.getId(), Types.OTHER)
@@ -176,11 +174,9 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)"""
 
     for (Plancategorie p : plancategorieen) {
       this.jdbcClient
-          .sql(
-              """
+          .sql("""
 insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
-values (%s)"""
-                  .formatted(sqlQuestionMarks(14)))
+values (%s)""".formatted(sqlQuestionMarks(14)))
           .param(1, p.id(), Types.OTHER)
           .param(2, p.planregistratieId(), Types.OTHER)
           .param(p.creator())
@@ -199,11 +195,9 @@ values (%s)"""
     }
     for (Detailplanning d : detailplanningen) {
       this.jdbcClient
-          .sql(
-              """
+          .sql("""
 insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
-values (%s)"""
-                  .formatted(sqlQuestionMarks(8)))
+values (%s)""".formatted(sqlQuestionMarks(8)))
           .param(1, d.id(), Types.OTHER)
           .param(2, d.plancategorieId(), Types.OTHER)
           .param(d.creator())
@@ -253,8 +247,7 @@ values (%s)"""
 
   public Set<Detailplanning> getDetailplanningen(String planregistratieId) {
     return this.jdbcClient
-        .sql(
-            """
+        .sql("""
 select * from detailplanning
 where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
         .param(1, planregistratieId, Types.OTHER)
@@ -271,8 +264,7 @@ where plancategorie_id in (select id from plancategorie where planregistratie_id
 
   public Set<Detailplanning> getAllDetailplanningenForGemeentes(Collection<String> gemeentes) {
     return this.jdbcClient
-        .sql(
-            """
+        .sql("""
 select * from detailplanning
 where plancategorie_id in
 (select id from plancategorie
