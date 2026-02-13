@@ -24,47 +24,26 @@ on:
 jobs:
   analyze:
     name: "CodeQL Analyze"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     # don't run on pull request merges to main from dependabot as these will always fail
-    if: ${{ github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.actor != 'dependabot[bot]' }}
     permissions:
       security-events: write
       actions: read
       contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'java' ]
+      packages: read
 
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
 
-      - name: 'Set up JDK'
-        uses: actions/setup-java@v5
-        with:
-          java-version: 21
-          distribution: 'temurin'
-          cache: 'maven'
-
-      - name: 'Set up Maven'
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: ${{ env.MAVEN_VERSION }}
-
       - name: "Initialize CodeQL"
         uses: github/codeql-action/init@v4
         with:
-          languages: ${{ matrix.language }}
+          languages: java-kotlin
+          build-mode: none
 
-      - name: "Build with Maven"
-        run: mvn -B -V -fae -DskipTests -DskipITs -DskipQA=true -Dmaven.javadoc.skip=true -Ddocker.skip=true install
-
-      - name: "Perform CodeQL Analysis"
+      - name: 'Perform CodeQL Analysis'
         uses: github/codeql-action/analyze@v4
-
-      - name: "Cleanup cached snapshots"
-        run: |
-          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
-
+        with:
+          category: "/language:java-kotlin"
