@@ -24,7 +24,7 @@ on:
 jobs:
   analyze:
     name: "CodeQL Analyze"
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     # don't run on pull request merges to main from dependabot as these will always fail
     if: ${{ github.actor != 'dependabot[bot]' }}
     permissions:
@@ -36,6 +36,18 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v6
+
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: 'Set up Maven'
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: ${{ env.MAVEN_VERSION }}
 
       - name: "Initialize CodeQL"
         uses: github/codeql-action/init@v4
