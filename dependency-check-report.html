@@ -679,15 +679,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
                         <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Tue, 10 Mar 2026 10:48:46 GMT</li>
+                        <li><i>Report Generated On</i>: Thu, 12 Mar 2026 14:27:57 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;158 (89 unique)</li>
-                        <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
-                        <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
+                        <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">2</span></li>
+                        <li><i>Vulnerabilities Found</i>:&nbsp;2</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-03-10T10:48:32Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-03-10T07:45:13Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-03-12T14:27:43Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-03-12T14:23:22Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -1075,7 +1075,9 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="JACKSON-ANNOTATIONS-2.20.JAR"><a href="#l31_6a5e7291ea3f2b590a7ce400adb7b3aea4d7e12c">jackson-annotations-2.20.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-modules-java8:2.20:*:*:*:*:*:*:*">
+                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-core:2.20:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-modules-java8:2.20:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20:*:*:*:*:*:*:*</a>
+                                <br/>
                                 cpe:2.3:a:fasterxml:jackson-modules-java8:2.20:*:*:*:*:*:*:*
                         </td>
                         <td data-sort-value="pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.20">
@@ -1083,12 +1085,14 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0">Highest</td>
                         <td>36</td>
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="JACKSON-CORE-2.20.2.JAR"><a href="#l32_615d3bd6d47b569e93d2ad45423f93ca9b002d73">jackson-core-2.20.2.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*">
+                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*</a>
+                                <br/>
                                 cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*
                         </td>
                         <td data-sort-value="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.20.2">
@@ -1096,24 +1100,27 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
-                        <td data-sort-value="3">Low</td>
+                        <td data-sort-value="0">Highest</td>
                         <td>47</td>
                     </tr>
-                    <tr class="notvulnerable">
+                    <tr class=" vulnerable">
                         <td data-sort-value="JACKSON-CORE-3.0.4.JAR"><a href="#l33_c5be0f5814e161030c29fc48b92c27331729ab7f">jackson-core-3.0.4.jar</a></td>
-                        <td data-sort-value="">
+                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*</a>
                         </td>
                         <td data-sort-value="pkg:maven/tools.jackson.core/jackson-core@3.0.4">
                                 pkg:maven/tools.jackson.core/jackson-core@3.0.4
 </td>
-                        <td data-sort-value="-10">&nbsp;</td>
-                        <td>0</td>
-                        <td data-sort-value="0"></td>
+                                                                                <td data-sort-value="87.0">HIGH</td>
+                        <td>1</td>
+                        <td data-sort-value="0">Highest</td>
                         <td>50</td>
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="JACKSON-DATABIND-2.20.2.JAR"><a href="#l34_257229ed4142d1b01a46b71105fd016e9cf7063e">jackson-databind-2.20.2.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-databind:2.20.2:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*">
+                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-databind:2.20.2:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*</a>
+                                <br/>
                                 <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-databind%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-databind:2.20.2:*:*:*:*:*:*:*</a>
                                 <br/>
                                 cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*
@@ -1126,16 +1133,18 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td data-sort-value="0">Highest</td>
                         <td>41</td>
                     </tr>
-                    <tr class="notvulnerable">
+                    <tr class=" vulnerable">
                         <td data-sort-value="JACKSON-DATABIND-3.0.4.JAR"><a href="#l35_b5f818b0b9c79d344aede4b87064cc0e323f9ef2">jackson-databind-3.0.4.jar</a></td>
-                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-databind:3.0.4:*:*:*:*:*:*:*">
+                        <td data-sort-value="cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*cpe:2.3:a:fasterxml:jackson-databind:3.0.4:*:*:*:*:*:*:*">
+                                <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*</a>
+                                <br/>
                                 <a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-databind%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-databind:3.0.4:*:*:*:*:*:*:*</a>
                         </td>
                         <td data-sort-value="pkg:maven/tools.jackson.core/jackson-databind@3.0.4">
                                 pkg:maven/tools.jackson.core/jackson-databind@3.0.4
 </td>
-                        <td data-sort-value="-10">&nbsp;</td>
-                        <td>0</td>
+                                                                                <td data-sort-value="87.0">HIGH</td>
+                        <td>1</td>
                         <td data-sort-value="0">Highest</td>
                         <td>37</td>
                     </tr>
@@ -4602,6 +4611,10 @@ file comparators, endian transformation classes, and much more.
                                     <li>pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.20
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20:*:*:*:*:*:*:*</a>
+                                    &nbsp;&nbsp;(<i>Confidence</i>:Highest)
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-annotations-2.20.jar" data-sha1="6a5e7291ea3f2b590a7ce400adb7b3aea4d7e12c" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.20" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-core">suppress</button>
+                            </li>
                                 <li>cpe:2.3:a:fasterxml:jackson-modules-java8:2.20:*:*:*:*:*:*:*
                                     &nbsp;&nbsp;(<i>Confidence</i>:Low)
                                 &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-annotations-2.20.jar" data-sha1="6a5e7291ea3f2b590a7ce400adb7b3aea4d7e12c" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.20" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-modules-java8">suppress</button>
@@ -4680,6 +4693,10 @@ file comparators, endian transformation classes, and much more.
                                     <li>pkg:maven/com.fasterxml.jackson.core/jackson-core@2.20.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*</a>
+                                    &nbsp;&nbsp;(<i>Confidence</i>:Highest)
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-core-2.20.2.jar" data-sha1="615d3bd6d47b569e93d2ad45423f93ca9b002d73" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.20.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-core">suppress</button>
+                            </li>
                                 <li>cpe:2.3:a:fasterxml:jackson-modules-java8:2.20.2:*:*:*:*:*:*:*
                                     &nbsp;&nbsp;(<i>Confidence</i>:Low)
                                 &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-core-2.20.2.jar" data-sha1="615d3bd6d47b569e93d2ad45423f93ca9b002d73" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.20.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-modules-java8">suppress</button>
@@ -4687,8 +4704,8 @@ file comparators, endian transformation classes, and much more.
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l33_c5be0f5814e161030c29fc48b92c27331729ab7f"></a>jackson-core-3.0.4.jar</h3>
-                    <div class="subsectioncontent notvulnerable">
+                    <h3 class="subsectionheader standardsubsection"><a name="l33_c5be0f5814e161030c29fc48b92c27331729ab7f"></a>jackson-core-3.0.4.jar</h3>
+                    <div class="subsectioncontent">
                             <p><b>Description:</b><pre>Core Jackson processing abstractions (aka Streaming API), implementation for JSON</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The Apache Software License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
@@ -4761,8 +4778,34 @@ file comparators, endian transformation classes, and much more.
                                     <li>pkg:maven/tools.jackson.core/jackson-core@3.0.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*</a>
+                                    &nbsp;&nbsp;(<i>Confidence</i>:Highest)
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-core-3.0.4.jar" data-sha1="c5be0f5814e161030c29fc48b92c27331729ab7f" data-pkgurl="pkg:maven/tools.jackson.core/jackson-core@3.0.4" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-core">suppress</button>
+                            </li>
                             </ul>
                         </div>
+                    <h4 id="header68" class="subsectionheader collapsed collaspablesubsection white">Published Vulnerabilities</h4>
+                    <div id="content68" class="subsectioncontent standardsubsection">
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-29062">CVE-2026-29062</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="jackson-core-3.0.4.jar" data-sha1="c5be0f5814e161030c29fc48b92c27331729ab7f" data-pkgurl="pkg:maven/tools.jackson.core/jackson-core@3.0.4" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-29062">suppress</button></p>
+                            <p>                            <pre>jackson-core contains core low-level incremental (&quot;streaming&quot;) parser and generator abstractions used by Jackson Data Processor. From version 3.0.0 to before version 3.1.0, the UTF8DataInputJsonParser, which is used when parsing from a java.io.DataInput source, bypasses the maxNestingDepth constraint (default: 500) defined in StreamReadConstraints. A similar issue was found in ReaderBasedJsonParser. This allows a user to supply a JSON document with excessive nesting, which can cause a StackOverflowError when the structure is processed, leading to a Denial of Service (DoS). This issue has been patched in version 3.1.0.</pre>
+
+                                CWE-770 Allocation of Resources Without Limits or Throttling<br/><br/>
+                                CVSSv4:
+                                <ul><li>Base Score: HIGH (8.7)</li>
+                                    <li>Vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:N/V:X/RE:X/U:X</li></ul>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (7.5)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:3.9/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/pull/1554">ISSUE_TRACKING,PATCH</a></li>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/commit/8b25fd67f20583e75fb09564ce1eaab06cd5a902">PATCH</a></li>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/security/advisories/GHSA-6v53-7c9g-w56r">PATCH,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:<ul>
+                                        <li class="vs1"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:fasterxml:jackson-core:*:*:*:*:*:*:*:* versions from (including) 3.0.0; versions up to (excluding) 3.1.0</a></li>
+                                    </ul></p>
+                    </div>
                 </div>
                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l34_257229ed4142d1b01a46b71105fd016e9cf7063e"></a>jackson-databind-2.20.2.jar</h3>
                     <div class="subsectioncontent notvulnerable">
@@ -4776,8 +4819,8 @@ file comparators, endian transformation classes, and much more.
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jackson-databind-2.20.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.flywaydb/flyway-database-postgresql@11.20.2
                         </p>
-                        <h4 id="header68" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content68" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header69" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content69" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jackson-databind</td><td>High</td></tr>
@@ -4823,12 +4866,16 @@ file comparators, endian transformation classes, and much more.
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.20.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header69" class="subsectionheader white">Identifiers</h4>
-                        <div id="content69" class="subsectioncontent standardsubsection">
+                        <h4 id="header70" class="subsectionheader white">Identifiers</h4>
+                        <div id="content70" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:2.20.2:*:*:*:*:*:*:*</a>
+                                    &nbsp;&nbsp;(<i>Confidence</i>:Highest)
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-databind-2.20.2.jar" data-sha1="257229ed4142d1b01a46b71105fd016e9cf7063e" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-core">suppress</button>
+                            </li>
                                 <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-databind%3A2.20.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-databind:2.20.2:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
                                 &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-databind-2.20.2.jar" data-sha1="257229ed4142d1b01a46b71105fd016e9cf7063e" data-pkgurl="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.2" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-databind">suppress</button>
@@ -4840,8 +4887,8 @@ file comparators, endian transformation classes, and much more.
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l35_b5f818b0b9c79d344aede4b87064cc0e323f9ef2"></a>jackson-databind-3.0.4.jar</h3>
-                    <div class="subsectioncontent notvulnerable">
+                    <h3 class="subsectionheader standardsubsection"><a name="l35_b5f818b0b9c79d344aede4b87064cc0e323f9ef2"></a>jackson-databind-3.0.4.jar</h3>
+                    <div class="subsectioncontent">
                             <p><b>Description:</b><pre>General data-binding functionality for Jackson: works on core streaming API</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The Apache Software License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
@@ -4852,8 +4899,8 @@ file comparators, endian transformation classes, and much more.
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jackson-databind-3.0.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-json@4.0.3
                         </p>
-                        <h4 id="header70" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content70" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header71" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content71" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jackson-databind</td><td>High</td></tr>
@@ -4895,18 +4942,44 @@ file comparators, endian transformation classes, and much more.
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>3.0.4</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header71" class="subsectionheader white">Identifiers</h4>
-                        <div id="content71" class="subsectioncontent standardsubsection">
+                        <h4 id="header72" class="subsectionheader white">Identifiers</h4>
+                        <div id="content72" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/tools.jackson.core/jackson-databind@3.0.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
+                                <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-core:3.0.4:*:*:*:*:*:*:*</a>
+                                    &nbsp;&nbsp;(<i>Confidence</i>:Highest)
+                                &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-databind-3.0.4.jar" data-sha1="b5f818b0b9c79d344aede4b87064cc0e323f9ef2" data-pkgurl="pkg:maven/tools.jackson.core/jackson-databind@3.0.4" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-core">suppress</button>
+                            </li>
                                 <li><a href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-databind%3A3.0.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A" target="_blank">cpe:2.3:a:fasterxml:jackson-databind:3.0.4:*:*:*:*:*:*:*</a>
                                     &nbsp;&nbsp;(<i>Confidence</i>:Highest)
                                 &nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for the identified vulnerability identifier" data-display-name="jackson-databind-3.0.4.jar" data-sha1="b5f818b0b9c79d344aede4b87064cc0e323f9ef2" data-pkgurl="pkg:maven/tools.jackson.core/jackson-databind@3.0.4" data-type-to-suppress="cpe" data-id-to-suppress="cpe:/a:fasterxml:jackson-databind">suppress</button>
                             </li>
                             </ul>
                         </div>
+                    <h4 id="header73" class="subsectionheader collapsed collaspablesubsection white">Published Vulnerabilities</h4>
+                    <div id="content73" class="subsectioncontent standardsubsection">
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-29062">CVE-2026-29062</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="jackson-databind-3.0.4.jar" data-sha1="b5f818b0b9c79d344aede4b87064cc0e323f9ef2" data-pkgurl="pkg:maven/tools.jackson.core/jackson-databind@3.0.4" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-29062">suppress</button></p>
+                            <p>                            <pre>jackson-core contains core low-level incremental (&quot;streaming&quot;) parser and generator abstractions used by Jackson Data Processor. From version 3.0.0 to before version 3.1.0, the UTF8DataInputJsonParser, which is used when parsing from a java.io.DataInput source, bypasses the maxNestingDepth constraint (default: 500) defined in StreamReadConstraints. A similar issue was found in ReaderBasedJsonParser. This allows a user to supply a JSON document with excessive nesting, which can cause a StackOverflowError when the structure is processed, leading to a Denial of Service (DoS). This issue has been patched in version 3.1.0.</pre>
+
+                                CWE-770 Allocation of Resources Without Limits or Throttling<br/><br/>
+                                CVSSv4:
+                                <ul><li>Base Score: HIGH (8.7)</li>
+                                    <li>Vector: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:N/V:X/RE:X/U:X</li></ul>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (7.5)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:3.9/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/pull/1554">ISSUE_TRACKING,PATCH</a></li>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/commit/8b25fd67f20583e75fb09564ce1eaab06cd5a902">PATCH</a></li>
+                                    <li>security-advisories@github.com - <a target="_blank" href="https://github.com/FasterXML/jackson-core/security/advisories/GHSA-6v53-7c9g-w56r">PATCH,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:<ul>
+                                        <li class="vs2"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Afasterxml%3Ajackson-core%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:fasterxml:jackson-core:*:*:*:*:*:*:*:* versions from (including) 3.0.0; versions up to (excluding) 3.1.0</a></li>
+                                    </ul></p>
+                    </div>
                 </div>
                     <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l36_54f928fadec906a99d558536756d171917b9d936"></a>jakarta.annotation-api-3.0.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
@@ -4921,8 +4994,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jakarta.annotation-api-3.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header72" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content72" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header74" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content74" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jakarta.annotation-api</td><td>High</td></tr>
@@ -4969,8 +5042,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>3.0.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header73" class="subsectionheader white">Identifiers</h4>
-                        <div id="content73" class="subsectioncontent standardsubsection">
+                        <h4 id="header75" class="subsectionheader white">Identifiers</h4>
+                        <div id="content75" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/jakarta.annotation/jakarta.annotation-api@3.0.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -4994,8 +5067,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jakarta.inject-api-2.0.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header74" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content74" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header76" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content76" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jakarta.inject-api</td><td>High</td></tr>
@@ -5056,8 +5129,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header75" class="subsectionheader white">Identifiers</h4>
-                        <div id="content75" class="subsectioncontent standardsubsection">
+                        <h4 id="header77" class="subsectionheader white">Identifiers</h4>
+                        <div id="content77" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/jakarta.inject/jakarta.inject-api@2.0.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5079,8 +5152,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jcip-annotations-1.0-1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-client@4.0.3
                         </p>
-                        <h4 id="header76" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content76" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header78" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content78" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jcip-annotations</td><td>High</td></tr>
@@ -5110,8 +5183,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.0-1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header77" class="subsectionheader white">Identifiers</h4>
-                        <div id="content77" class="subsectioncontent standardsubsection">
+                        <h4 id="header79" class="subsectionheader white">Identifiers</h4>
+                        <div id="content79" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.github.stephenc.jcip/jcip-annotations@1.0-1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5129,8 +5202,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jgridshift-core-1.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header78" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content78" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header80" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content80" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jgridshift-core</td><td>High</td></tr>
@@ -5154,8 +5227,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header79" class="subsectionheader white">Identifiers</h4>
-                        <div id="content79" class="subsectioncontent standardsubsection">
+                        <h4 id="header81" class="subsectionheader white">Identifiers</h4>
+                        <div id="content81" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/it.geosolutions.jgridshift/jgridshift-core@1.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5175,8 +5248,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">json-smart-2.6.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-test@4.0.3
                         </p>
-                        <h4 id="header80" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content80" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header82" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content82" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>json-smart</td><td>High</td></tr>
@@ -5232,8 +5305,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.6.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header81" class="subsectionheader white">Identifiers</h4>
-                        <div id="content81" class="subsectioncontent standardsubsection">
+                        <h4 id="header83" class="subsectionheader white">Identifiers</h4>
+                        <div id="content83" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/net.minidev/json-smart@2.6.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5261,8 +5334,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jspecify-1.0.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-core@1.16.3
                         </p>
-                        <h4 id="header82" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content82" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header84" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content84" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jspecify</td><td>High</td></tr>
@@ -5299,8 +5372,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.0.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header83" class="subsectionheader white">Identifiers</h4>
-                        <div id="content83" class="subsectioncontent standardsubsection">
+                        <h4 id="header85" class="subsectionheader white">Identifiers</h4>
+                        <div id="content85" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.jspecify/jspecify@1.0.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5320,8 +5393,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jts-core-1.20.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header84" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content84" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header86" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content86" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jts-core</td><td>High</td></tr>
@@ -5350,8 +5423,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.20.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header85" class="subsectionheader white">Identifiers</h4>
-                        <div id="content85" class="subsectioncontent standardsubsection">
+                        <h4 id="header87" class="subsectionheader white">Identifiers</h4>
+                        <div id="content87" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.locationtech.jts/jts-core@1.20.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5371,8 +5444,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">jul-to-slf4j-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header86" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content86" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header88" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content88" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>jul-to-slf4j</td><td>High</td></tr>
@@ -5408,8 +5481,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.17</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header87" class="subsectionheader white">Identifiers</h4>
-                        <div id="content87" class="subsectioncontent standardsubsection">
+                        <h4 id="header89" class="subsectionheader white">Identifiers</h4>
+                        <div id="content89" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.slf4j/jul-to-slf4j@2.0.17
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5429,8 +5502,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">lang-tag-1.7.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-client@4.0.3
                         </p>
-                        <h4 id="header88" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content88" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header90" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content90" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>lang-tag</td><td>High</td></tr>
@@ -5482,8 +5555,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.7</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header89" class="subsectionheader white">Identifiers</h4>
-                        <div id="content89" class="subsectioncontent standardsubsection">
+                        <h4 id="header91" class="subsectionheader white">Identifiers</h4>
+                        <div id="content91" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.nimbusds/lang-tag@1.7
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5506,8 +5579,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">log4j-api-2.25.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header90" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content90" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header92" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content92" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>log4j-api</td><td>High</td></tr>
@@ -5555,8 +5628,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.25.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header91" class="subsectionheader white">Identifiers</h4>
-                        <div id="content91" class="subsectioncontent standardsubsection">
+                        <h4 id="header93" class="subsectionheader white">Identifiers</h4>
+                        <div id="content93" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.apache.logging.log4j/log4j-api@2.25.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5581,8 +5654,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">log4j-to-slf4j-2.25.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header92" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content92" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header94" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content94" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>log4j-to-slf4j</td><td>High</td></tr>
@@ -5626,8 +5699,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.25.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header93" class="subsectionheader white">Identifiers</h4>
-                        <div id="content93" class="subsectioncontent standardsubsection">
+                        <h4 id="header95" class="subsectionheader white">Identifiers</h4>
+                        <div id="content95" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.apache.logging.log4j/log4j-to-slf4j@2.25.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5647,8 +5720,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">logback-core-1.5.32.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header94" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content94" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header96" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content96" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>logback-core</td><td>High</td></tr>
@@ -5692,8 +5765,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.5.32</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header95" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content95" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header97" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content97" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>logback-classic-1.5.32.jar
                                     <ul>
@@ -5706,8 +5779,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header96" class="subsectionheader white">Identifiers</h4>
-                        <div id="content96" class="subsectioncontent standardsubsection">
+                        <h4 id="header98" class="subsectionheader white">Identifiers</h4>
+                        <div id="content98" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/ch.qos.logback/logback-core@1.5.32
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5731,8 +5804,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">micrometer-commons-1.16.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-core@1.16.3
                         </p>
-                        <h4 id="header97" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content97" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header99" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content99" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>micrometer-commons</td><td>High</td></tr>
@@ -5802,8 +5875,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header98" class="subsectionheader white">Identifiers</h4>
-                        <div id="content98" class="subsectioncontent standardsubsection">
+                        <h4 id="header100" class="subsectionheader white">Identifiers</h4>
+                        <div id="content100" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.micrometer/micrometer-commons@1.16.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5823,8 +5896,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">micrometer-core-1.16.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.b3p.pmw/planmonitor-wonen-api@1.3.1-SNAPSHOT
                         </p>
-                        <h4 id="header99" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content99" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header101" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content101" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>micrometer-core</td><td>High</td></tr>
@@ -5894,8 +5967,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header100" class="subsectionheader white">Identifiers</h4>
-                        <div id="content100" class="subsectioncontent standardsubsection">
+                        <h4 id="header102" class="subsectionheader white">Identifiers</h4>
+                        <div id="content102" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.micrometer/micrometer-core@1.16.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -5915,8 +5988,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">micrometer-jakarta9-1.16.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-actuator@4.0.3
                         </p>
-                        <h4 id="header101" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content101" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header103" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content103" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>micrometer-jakarta9</td><td>High</td></tr>
@@ -5986,8 +6059,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header102" class="subsectionheader white">Identifiers</h4>
-                        <div id="content102" class="subsectioncontent standardsubsection">
+                        <h4 id="header104" class="subsectionheader white">Identifiers</h4>
+                        <div id="content104" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.micrometer/micrometer-jakarta9@1.16.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6007,8 +6080,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">micrometer-observation-1.16.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-actuator@4.0.3
                         </p>
-                        <h4 id="header103" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content103" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header105" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content105" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>micrometer-observation</td><td>High</td></tr>
@@ -6078,8 +6151,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header104" class="subsectionheader white">Identifiers</h4>
-                        <div id="content104" class="subsectioncontent standardsubsection">
+                        <h4 id="header106" class="subsectionheader white">Identifiers</h4>
+                        <div id="content106" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.micrometer/micrometer-observation@1.16.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6099,8 +6172,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">micrometer-registry-prometheus-1.16.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.b3p.pmw/planmonitor-wonen-api@1.3.1-SNAPSHOT
                         </p>
-                        <h4 id="header105" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content105" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header107" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content107" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>micrometer-registry-prometheus</td><td>High</td></tr>
@@ -6168,8 +6241,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.16.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header106" class="subsectionheader white">Identifiers</h4>
-                        <div id="content106" class="subsectioncontent standardsubsection">
+                        <h4 id="header108" class="subsectionheader white">Identifiers</h4>
+                        <div id="content108" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6191,8 +6264,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">modernizer-maven-annotations-3.2.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.b3p.pmw/planmonitor-wonen-api@1.3.1-SNAPSHOT
                         </p>
-                        <h4 id="header107" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content107" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header109" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content109" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>modernizer-maven-annotations</td><td>High</td></tr>
@@ -6216,8 +6289,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>3.2.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header108" class="subsectionheader white">Identifiers</h4>
-                        <div id="content108" class="subsectioncontent standardsubsection">
+                        <h4 id="header110" class="subsectionheader white">Identifiers</h4>
+                        <div id="content110" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.gaul/modernizer-maven-annotations@3.2.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6236,8 +6309,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">net.opengis.fes-34.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header109" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content109" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header111" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content111" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>net.opengis.fes</td><td>High</td></tr>
@@ -6270,8 +6343,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>34.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header110" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content110" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header112" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content112" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>net.opengis.ows-34.2.jar
                                     <ul>
@@ -6293,8 +6366,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header111" class="subsectionheader white">Identifiers</h4>
-                        <div id="content111" class="subsectioncontent standardsubsection">
+                        <h4 id="header113" class="subsectionheader white">Identifiers</h4>
+                        <div id="content113" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.geotools.ogc/net.opengis.fes@34.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6316,8 +6389,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA256:</b>0b5735ec85f45282f1e2c769779800427b150a8163f405093a9280b71cab1978
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                         </p>
-                        <h4 id="header112" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content112" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header114" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content114" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>gson</td><td>Low</td></tr>
@@ -6331,8 +6404,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.12.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header113" class="subsectionheader white">Identifiers</h4>
-                        <div id="content113" class="subsectioncontent standardsubsection">
+                        <h4 id="header115" class="subsectionheader white">Identifiers</h4>
+                        <div id="content115" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.google.code.gson/gson@2.12.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6359,8 +6432,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">nimbus-jose-jwt-10.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-client@4.0.3
                         </p>
-                        <h4 id="header114" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content114" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header116" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content116" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>nimbus-jose-jwt</td><td>High</td></tr>
@@ -6415,8 +6488,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>10.4</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header115" class="subsectionheader white">Identifiers</h4>
-                        <div id="content115" class="subsectioncontent standardsubsection">
+                        <h4 id="header117" class="subsectionheader white">Identifiers</h4>
+                        <div id="content117" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.nimbusds/nimbus-jose-jwt@10.4
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6443,8 +6516,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">oauth2-oidc-sdk-11.26.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-client@4.0.3
                         </p>
-                        <h4 id="header116" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content116" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header118" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content118" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>oauth2-oidc-sdk</td><td>High</td></tr>
@@ -6506,8 +6579,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>11.26.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header117" class="subsectionheader white">Identifiers</h4>
-                        <div id="content117" class="subsectioncontent standardsubsection">
+                        <h4 id="header119" class="subsectionheader white">Identifiers</h4>
+                        <div id="content119" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.nimbusds/oauth2-oidc-sdk@11.26.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6527,8 +6600,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">org.eclipse.emf.common-2.15.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header118" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content118" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header120" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content120" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>org.eclipse.emf.common</td><td>High</td></tr>
@@ -6576,8 +6649,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.15.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header119" class="subsectionheader white">Identifiers</h4>
-                        <div id="content119" class="subsectioncontent standardsubsection">
+                        <h4 id="header121" class="subsectionheader white">Identifiers</h4>
+                        <div id="content121" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.eclipse.emf/org.eclipse.emf.common@2.15.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6600,8 +6673,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">org.eclipse.emf.ecore-2.15.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header120" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content120" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header122" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content122" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>org.eclipse.emf.ecore</td><td>High</td></tr>
@@ -6650,8 +6723,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.15.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header121" class="subsectionheader white">Identifiers</h4>
-                        <div id="content121" class="subsectioncontent standardsubsection">
+                        <h4 id="header123" class="subsectionheader white">Identifiers</h4>
+                        <div id="content123" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.eclipse.emf/org.eclipse.emf.ecore@2.15.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6674,8 +6747,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">org.eclipse.emf.ecore.xmi-2.15.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header122" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content122" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header124" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content124" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>org.eclipse.emf.ecore.xmi</td><td>High</td></tr>
@@ -6723,8 +6796,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.15.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header123" class="subsectionheader white">Identifiers</h4>
-                        <div id="content123" class="subsectioncontent standardsubsection">
+                        <h4 id="header125" class="subsectionheader white">Identifiers</h4>
+                        <div id="content125" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.eclipse.emf/org.eclipse.emf.ecore.xmi@2.15.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6747,8 +6820,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">org.eclipse.xsd-2.12.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header124" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content124" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header126" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content126" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>org.eclipse.xsd</td><td>High</td></tr>
@@ -6788,8 +6861,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.12.0</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header125" class="subsectionheader white">Identifiers</h4>
-                        <div id="content125" class="subsectioncontent standardsubsection">
+                        <h4 id="header127" class="subsectionheader white">Identifiers</h4>
+                        <div id="content127" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.eclipse.xsd/org.eclipse.xsd@2.12.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6808,8 +6881,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">org.w3.xlink-34.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header126" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content126" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header128" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content128" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>org.w3.xlink</td><td>High</td></tr>
@@ -6843,8 +6916,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>34.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header127" class="subsectionheader white">Identifiers</h4>
-                        <div id="content127" class="subsectioncontent standardsubsection">
+                        <h4 id="header129" class="subsectionheader white">Identifiers</h4>
+                        <div id="content129" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.geotools.ogc/org.w3.xlink@34.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6867,8 +6940,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">picocontainer-1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header128" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content128" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header130" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content130" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>picocontainer</td><td>High</td></tr>
@@ -6899,8 +6972,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header129" class="subsectionheader white">Identifiers</h4>
-                        <div id="content129" class="subsectioncontent standardsubsection">
+                        <h4 id="header131" class="subsectionheader white">Identifiers</h4>
+                        <div id="content131" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/picocontainer/picocontainer@1.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -6920,8 +6993,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">postgresql-42.7.9.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.b3p.pmw/planmonitor-wonen-api@1.3.1-SNAPSHOT
                         </p>
-                        <h4 id="header130" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content130" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header132" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content132" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>postgresql</td><td>High</td></tr>
@@ -6998,8 +7071,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>42.7.9</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header131" class="subsectionheader white">Identifiers</h4>
-                        <div id="content131" class="subsectioncontent standardsubsection">
+                        <h4 id="header133" class="subsectionheader white">Identifiers</h4>
+                        <div id="content133" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.postgresql/postgresql@42.7.9
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7025,8 +7098,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-config-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header132" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content132" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header134" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content134" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-config</td><td>High</td></tr>
@@ -7060,8 +7133,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header133" class="subsectionheader white">Identifiers</h4>
-                        <div id="content133" class="subsectioncontent standardsubsection">
+                        <h4 id="header135" class="subsectionheader white">Identifiers</h4>
+                        <div id="content135" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-config@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7083,8 +7156,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-core-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header134" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content134" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header136" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content136" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-core</td><td>High</td></tr>
@@ -7118,8 +7191,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header135" class="subsectionheader white">Identifiers</h4>
-                        <div id="content135" class="subsectioncontent standardsubsection">
+                        <h4 id="header137" class="subsectionheader white">Identifiers</h4>
+                        <div id="content137" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-core@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7141,8 +7214,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:runtime
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-exposition-formats-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header136" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content136" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header138" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content138" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-exposition-formats</td><td>High</td></tr>
@@ -7176,8 +7249,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header137" class="subsectionheader white">Identifiers</h4>
-                        <div id="content137" class="subsectioncontent standardsubsection">
+                        <h4 id="header139" class="subsectionheader white">Identifiers</h4>
+                        <div id="content139" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-exposition-formats@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7199,8 +7272,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:runtime
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-exposition-textformats-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header138" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content138" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header140" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content140" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-exposition-textformats</td><td>High</td></tr>
@@ -7232,8 +7305,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header139" class="subsectionheader white">Identifiers</h4>
-                        <div id="content139" class="subsectioncontent standardsubsection">
+                        <h4 id="header141" class="subsectionheader white">Identifiers</h4>
+                        <div id="content141" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-exposition-textformats@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7255,8 +7328,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-model-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header140" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content140" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header142" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content142" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-model</td><td>High</td></tr>
@@ -7290,8 +7363,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header141" class="subsectionheader white">Identifiers</h4>
-                        <div id="content141" class="subsectioncontent standardsubsection">
+                        <h4 id="header143" class="subsectionheader white">Identifiers</h4>
+                        <div id="content143" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-model@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7313,8 +7386,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">prometheus-metrics-tracer-common-1.4.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/io.micrometer/micrometer-registry-prometheus@1.16.3
                         </p>
-                        <h4 id="header142" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content142" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header144" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content144" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>prometheus-metrics-tracer-common</td><td>High</td></tr>
@@ -7348,8 +7421,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.4.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header143" class="subsectionheader white">Identifiers</h4>
-                        <div id="content143" class="subsectioncontent standardsubsection">
+                        <h4 id="header145" class="subsectionheader white">Identifiers</h4>
+                        <div id="content145" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/io.prometheus/prometheus-metrics-tracer-common@1.4.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7369,8 +7442,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">re2j-1.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header144" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content144" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header146" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content146" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>re2j</td><td>High</td></tr>
@@ -7403,8 +7476,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.8</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header145" class="subsectionheader white">Identifiers</h4>
-                        <div id="content145" class="subsectioncontent standardsubsection">
+                        <h4 id="header147" class="subsectionheader white">Identifiers</h4>
+                        <div id="content147" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/com.google.re2j/re2j@1.8
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7424,8 +7497,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">si-quantity-2.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header146" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content146" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header148" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content148" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>si-quantity</td><td>High</td></tr>
@@ -7454,8 +7527,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header147" class="subsectionheader white">Identifiers</h4>
-                        <div id="content147" class="subsectioncontent standardsubsection">
+                        <h4 id="header149" class="subsectionheader white">Identifiers</h4>
+                        <div id="content149" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/si.uom/si-quantity@2.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7475,8 +7548,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">si-units-2.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header148" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content148" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header150" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content150" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>si-units</td><td>High</td></tr>
@@ -7514,8 +7587,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header149" class="subsectionheader white">Identifiers</h4>
-                        <div id="content149" class="subsectioncontent standardsubsection">
+                        <h4 id="header151" class="subsectionheader white">Identifiers</h4>
+                        <div id="content151" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/si.uom/si-units@2.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7535,8 +7608,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-jdbc@4.0.3
                         </p>
-                        <h4 id="header150" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content150" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header152" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content152" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>slf4j-api</td><td>High</td></tr>
@@ -7570,8 +7643,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.0.17</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header151" class="subsectionheader white">Identifiers</h4>
-                        <div id="content151" class="subsectioncontent standardsubsection">
+                        <h4 id="header153" class="subsectionheader white">Identifiers</h4>
+                        <div id="content153" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.slf4j/slf4j-api@2.0.17
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7591,8 +7664,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">snakeyaml-2.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header152" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content152" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header154" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content154" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>snakeyaml</td><td>High</td></tr>
@@ -7639,8 +7712,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.5</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header153" class="subsectionheader white">Identifiers</h4>
-                        <div id="content153" class="subsectioncontent standardsubsection">
+                        <h4 id="header155" class="subsectionheader white">Identifiers</h4>
+                        <div id="content155" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.yaml/snakeyaml@2.5
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7664,8 +7737,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-boot-sql-4.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-jdbc@4.0.3
                         </p>
-                        <h4 id="header154" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content154" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header156" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content156" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-boot-sql</td><td>High</td></tr>
@@ -7710,8 +7783,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header155" class="subsectionheader white">Identifiers</h4>
-                        <div id="content155" class="subsectioncontent standardsubsection">
+                        <h4 id="header157" class="subsectionheader white">Identifiers</h4>
+                        <div id="content157" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework.boot/spring-boot-sql@4.0.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -7739,8 +7812,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-boot-web-server-4.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc-test@4.0.3
                         </p>
-                        <h4 id="header156" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content156" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header158" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content158" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-boot-web-server</td><td>High</td></tr>
@@ -7787,8 +7860,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header157" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content157" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header159" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content159" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>spring-boot-4.0.3.jar
                                     <ul>
@@ -8089,8 +8162,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header158" class="subsectionheader white">Identifiers</h4>
-                        <div id="content158" class="subsectioncontent standardsubsection">
+                        <h4 id="header160" class="subsectionheader white">Identifiers</h4>
+                        <div id="content160" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework.boot/spring-boot-web-server@4.0.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8114,8 +8187,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-core-7.0.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-test@4.0.3
                         </p>
-                        <h4 id="header159" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content159" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header161" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content161" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-core</td><td>High</td></tr>
@@ -8161,8 +8234,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.5</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header160" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content160" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header162" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content162" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>spring-aop-7.0.5.jar
                                     <ul>
@@ -8238,8 +8311,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header161" class="subsectionheader white">Identifiers</h4>
-                        <div id="content161" class="subsectioncontent standardsubsection">
+                        <h4 id="header163" class="subsectionheader white">Identifiers</h4>
+                        <div id="content163" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework/spring-core@7.0.5
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8271,8 +8344,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-security-core-7.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.security/spring-security-test@7.0.3
                         </p>
-                        <h4 id="header162" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content162" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header164" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content164" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-security-core</td><td>High</td></tr>
@@ -8315,8 +8388,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header163" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content163" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header165" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content165" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>spring-security-config-7.0.3.jar
                                     <ul>
@@ -8347,8 +8420,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header164" class="subsectionheader white">Identifiers</h4>
-                        <div id="content164" class="subsectioncontent standardsubsection">
+                        <h4 id="header166" class="subsectionheader white">Identifiers</h4>
+                        <div id="content166" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework.security/spring-security-core@7.0.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8376,8 +8449,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-security-oauth2-core-7.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-client@4.0.3
                         </p>
-                        <h4 id="header165" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content165" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header167" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content167" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-security-oauth2-core</td><td>High</td></tr>
@@ -8422,8 +8495,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>7.0.3</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header166" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content166" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header168" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content168" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>spring-security-oauth2-client-7.0.3.jar
                                     <ul>
@@ -8445,8 +8518,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header167" class="subsectionheader white">Identifiers</h4>
-                        <div id="content167" class="subsectioncontent standardsubsection">
+                        <h4 id="header169" class="subsectionheader white">Identifiers</h4>
+                        <div id="content169" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework.security/spring-security-oauth2-core@7.0.3
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8479,14 +8552,14 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                             <b>SHA256:</b>044a2b8d7e995bff815565678631a2d3a5cc0aa96ef8ac35cfacb579307f77a9
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                         </p>
-                        <h4 id="header168" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content168" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header170" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content170" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                             </table>
                         </div>
-                        <h4 id="header169" class="subsectionheader white">Identifiers</h4>
-                        <div id="content169" class="subsectioncontent standardsubsection">
+                        <h4 id="header171" class="subsectionheader white">Identifiers</h4>
+                        <div id="content171" class="subsectioncontent standardsubsection">
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
@@ -8502,8 +8575,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">spring-session-core-4.0.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.session/spring-session-jdbc@4.0.2
                         </p>
-                        <h4 id="header170" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content170" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header172" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content172" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>spring-session-core</td><td>High</td></tr>
@@ -8544,8 +8617,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>4.0.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header171" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content171" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header173" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content173" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>spring-session-jdbc-4.0.2.jar
                                     <ul>
@@ -8558,8 +8631,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header172" class="subsectionheader white">Identifiers</h4>
-                        <div id="content172" class="subsectioncontent standardsubsection">
+                        <h4 id="header174" class="subsectionheader white">Identifiers</h4>
+                        <div id="content174" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.springframework.session/spring-session-core@4.0.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8583,8 +8656,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">systems-common-2.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header173" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content173" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header175" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content175" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>systems-common</td><td>High</td></tr>
@@ -8626,8 +8699,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header174" class="subsectionheader white">Identifiers</h4>
-                        <div id="content174" class="subsectioncontent standardsubsection">
+                        <h4 id="header176" class="subsectionheader white">Identifiers</h4>
+                        <div id="content176" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/systems.uom/systems-common@2.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8647,8 +8720,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">tomcat-embed-core-11.0.18.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header175" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content175" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header177" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content177" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>tomcat-embed-core</td><td>High</td></tr>
@@ -8716,8 +8789,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>11.0.18</td><td>Highest</td></tr>
                             </table>
                         </div>
-                            <h4 id="header176" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
-                            <div id="content176" class="subsectioncontent standardsubsection hidden">
+                            <h4 id="header178" class="subsectionheader expandable expandablesubsection white">Related Dependencies</h4>
+                            <div id="content178" class="subsectioncontent standardsubsection hidden">
                             <ul>
                                 <li>tomcat-embed-websocket-11.0.18.jar
                                     <ul>
@@ -8730,8 +8803,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 </li>
                             </ul>
                             </div>
-                        <h4 id="header177" class="subsectionheader white">Identifiers</h4>
-                        <div id="content177" class="subsectioncontent standardsubsection">
+                        <h4 id="header179" class="subsectionheader white">Identifiers</h4>
+                        <div id="content179" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.18
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8759,8 +8832,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">tomcat-embed-el-11.0.18.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.springframework.boot/spring-boot-starter-webmvc@4.0.3
                         </p>
-                        <h4 id="header178" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content178" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header180" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content180" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>tomcat-embed-el</td><td>High</td></tr>
@@ -8798,8 +8871,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>11.0.18</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header179" class="subsectionheader white">Identifiers</h4>
-                        <div id="content179" class="subsectioncontent standardsubsection">
+                        <h4 id="header181" class="subsectionheader white">Identifiers</h4>
+                        <div id="content181" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.apache.tomcat.embed/tomcat-embed-el@11.0.18
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8821,8 +8894,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">unit-api-2.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header180" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content180" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header182" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content182" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>unit-api</td><td>High</td></tr>
@@ -8936,8 +9009,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header181" class="subsectionheader white">Identifiers</h4>
-                        <div id="content181" class="subsectioncontent standardsubsection">
+                        <h4 id="header183" class="subsectionheader white">Identifiers</h4>
+                        <div id="content183" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/javax.measure/unit-api@2.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -8957,8 +9030,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">uom-lib-common-2.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header182" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content182" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header184" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content184" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>uom-lib-common</td><td>High</td></tr>
@@ -9006,8 +9079,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>2.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header183" class="subsectionheader white">Identifiers</h4>
-                        <div id="content183" class="subsectioncontent standardsubsection">
+                        <h4 id="header185" class="subsectionheader white">Identifiers</h4>
+                        <div id="content185" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/tech.uom.lib/uom-lib-common@2.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -9025,8 +9098,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">utilities-0.9.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-main@34.2
                         </p>
-                        <h4 id="header184" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content184" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header186" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content186" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>utilities</td><td>High</td></tr>
@@ -9055,8 +9128,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>0.9.1</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header185" class="subsectionheader white">Identifiers</h4>
-                        <div id="content185" class="subsectioncontent standardsubsection">
+                        <h4 id="header187" class="subsectionheader white">Identifiers</h4>
+                        <div id="content187" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.eclipse.imagen/utilities@0.9.1
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
@@ -9074,8 +9147,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                 <br/><b>Referenced In Project/Scope:</b> Planmonitor Wonen API:compile
                                 <br/><span class="tooltip"><span class="tooltiptext">xml-commons-resolver-1.2.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.geotools/gt-wfs-ng@34.2
                         </p>
-                        <h4 id="header186" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
-                        <div id="content186" class="subsectioncontent standardsubsection hidden">
+                        <h4 id="header188" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
+                        <div id="content188" class="subsectioncontent standardsubsection hidden">
                             <table class="lined fullwidth" border="0">
                                 <tr><th class="left" style="width:10%;">Type</th><th class="left" style="width:10%;">Source</th><th class="left" style="width:20%;">Name</th><th class="left" style="width:50%;">Value</th><th class="left" style="width:10%;">Confidence</th></tr>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>xml-commons-resolver</td><td>High</td></tr>
@@ -9099,8 +9172,8 @@ GPL2 w/ CPE: https://www.gnu.org/software/classpath/license.html</pre>
                                     <tr><td>Version</td><td>pom</td><td>version</td><td>1.2</td><td>Highest</td></tr>
                             </table>
                         </div>
-                        <h4 id="header187" class="subsectionheader white">Identifiers</h4>
-                        <div id="content187" class="subsectioncontent standardsubsection">
+                        <h4 id="header189" class="subsectionheader white">Identifiers</h4>
+                        <div id="content189" class="subsectioncontent standardsubsection">
                             <ul>
                                     <li>pkg:maven/org.apache.xml/xml-commons-resolver@1.2
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
