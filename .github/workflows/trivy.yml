@@ -8,7 +8,7 @@ on:
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true
-  MAVEN_VERSION: '3.9.12'
+  MAVEN_VERSION: '3.9.14'
 
 jobs:
   build:
@@ -32,11 +32,6 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: ${{ env.MAVEN_VERSION }}
-
-      - name: 'Trivy Cache'
-        uses: yogeshlonkar/trivy-cache-action@v0.1.17
-        with:
-          gh-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Build'
         run: mvn -U package -DskipTests -DskipITs -Dmaven.javadoc.skip=true
