@@ -684,15 +684,15 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
                         <li><i>dependency-check version</i>: 13.0.0</li>
-                        <li><i>Report Generated On</i>: Sun, 23 Aug 2026 23:47:27 GMT</li>
+                        <li><i>Report Generated On</i>: Sun, 30 Aug 2026 23:47:15 GMT</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;158 (85 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">8</span></li>
-                        <li><i>Vulnerabilities Found</i>:&nbsp;61</li>
+                        <li><i>Vulnerabilities Found</i>:&nbsp;71</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-08-23T23:47:14Z</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-08-23T23:16:46Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-08-30T23:47:02Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-08-30T23:17:08Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -1733,7 +1733,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                 pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21
 </td>
                                                                                 <td data-sort-value="98.0">CRITICAL</td>
-                        <td>16</td>
+                        <td>26</td>
                         <td data-sort-value="0">Highest</td>
                         <td>63</td>
                     </tr>
@@ -9548,6 +9548,70 @@ Users are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fi
                                         <li class="vs47 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
                                         <li class="vs47 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-65637">CVE-2026-65637</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-65637">suppress</button></p>
+                            <p>                            <pre>Improper Input Validation vulnerability in Apache Tomcat due to incomplete fix for CVE-2026-32990.
+
+
+
+This issue affects Apache Tomcat: from 11.0.20 through 11.0.24, from 10.1.53 through 10.1.57, from 9.0.115 through 9.0.120.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
+
+                                CWE-20 Improper Input Validation<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: CRITICAL (9.8)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/djog953z1ohsyt25bdvhfzbmsy22vgcj">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs48">show all</a>)<ul>
+                                        <li class="vs48"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.20; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs48">...</li>
+                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.53; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.20; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.115; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-65905">CVE-2026-65905</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-65905">suppress</button></p>
+                            <p>                            <pre>Authentication Bypass by Capture-replay vulnerability in Apache Tomcat's DIGEST authenticator. If, before windowSize requests have been made, a client makes a DIGEST 
+authenticated request with a nonceCount on the upper boundary of the 
+replay window then that request is replayable once only while the 
+associated nonceCount remains within the replay window.
+
+
+
+&nbsp;
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected:&nbsp;from 8.5.0 through 8.5.100, from 7.0.30 through 7.0.109. Other unsupported versions may also be affected.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
+
+                                CWE-294 Authentication Bypass by Capture-replay<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: CRITICAL (9.8)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/4">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/9v114xlpgbzrrbzz5vf9f6r2q4wnxwwj">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs49">show all</a>)<ul>
+                                        <li class="vs49"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs49">...</li>
+                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.30; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-43515">CVE-2026-43515</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-43515">suppress</button></p>
                             <p>                            <pre>Improper Authorization vulnerability when multiple method constraints define an HTTP method for the same extension in Apache Tomcat.
 
@@ -9564,14 +9628,14 @@ Users are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fi
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/746nxfxod0wsocxtmv8pb8nkgmwpc6bb">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs48">show all</a>)<ul>
-                                        <li class="vs48"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs48">...</li>
-                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
-                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs48 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs50">show all</a>)<ul>
+                                        <li class="vs50"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs50">...</li>
+                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
+                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-53434">CVE-2026-53434</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-53434">suppress</button></p>
                             <p>                            <pre>Detection of Error Condition Without Action vulnerability in Apache Tomcat when configuring CRLs for a FFM based connector.
@@ -9589,12 +9653,12 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/x510lbq0sfrd1qyo7q3r1mpllgpdcosk">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs49">show all</a>)<ul>
-                                        <li class="vs49"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs49">...</li>
-                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs49 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.83; versions up to (excluding) 9.0.119</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs51">show all</a>)<ul>
+                                        <li class="vs51"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs51">...</li>
+                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.83; versions up to (excluding) 9.0.119</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-55276">CVE-2026-55276</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-55276">suppress</button></p>
                             <p>                            <pre>Always-Incorrect Control Flow Implementation vulnerability in Apache Tomcat meant that special roles and empty authorisation constraints were not included when the effective web.xml was logged.
@@ -9612,12 +9676,12 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119 which fi
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/jy09xjlzn6r2qwvqoph8vcmf959yq68v">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs50">show all</a>)<ul>
-                                        <li class="vs50"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs50">...</li>
-                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
-                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs50 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs52">show all</a>)<ul>
+                                        <li class="vs52"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs52">...</li>
+                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
+                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-59083">CVE-2026-59083</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-59083">suppress</button></p>
                             <p>                            <pre>Improper Handling of URL Encoding (Hex Encoding) vulnerability in Apache Tomcat's rewrite valve allowed security constraint bypass for some configurations.
@@ -9635,14 +9699,14 @@ Users are recommended to upgrade to version 11.0.24, 10.1.57 or 9.0.120, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/3g63zos2gkjo5vgnrk8kxmosv47w6wbq">MITIGATION,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs51">show all</a>)<ul>
-                                        <li class="vs51"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
-                                        <li class="vs51">...</li>
-                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (including) 8.0.0</a></li>
-                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (including) 10.1.56</a></li>
-                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
-                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs51 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (including) 9.0.119</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs53">show all</a>)<ul>
+                                        <li class="vs53"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
+                                        <li class="vs53">...</li>
+                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (including) 8.0.0</a></li>
+                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (including) 10.1.56</a></li>
+                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
+                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (including) 9.0.119</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-59084">CVE-2026-59084</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-59084">suppress</button></p>
                             <p>                            <pre>Insufficient Technical Documentation vulnerability in Apache Tomcat since the requirements to securely configure the EncryptInterceptor were not clearly documented.
@@ -9660,14 +9724,196 @@ Users are recommended to upgrade to version 11.0.24, 10.1.57 or 9.0.120 which fi
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/7w9746ootcxo0gvx26xjpw80l31f1qw7">MITIGATION,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs52">show all</a>)<ul>
-                                        <li class="vs52"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
-                                        <li class="vs52">...</li>
-                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (including) 10.1.56</a></li>
-                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
-                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.100; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.38; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs52 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.13; versions up to (including) 9.0.119</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs54">show all</a>)<ul>
+                                        <li class="vs54"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
+                                        <li class="vs54">...</li>
+                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (including) 10.1.56</a></li>
+                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (including) 11.0.23</a></li>
+                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.100; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.38; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.13; versions up to (including) 9.0.119</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-65182">CVE-2026-65182</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-65182">suppress</button></p>
+                            <p>                            <pre>Improper Access Control, Incorrect Authorization vulnerability in Apache Tomcat leads to security constraint bypass if a constraint for a longer path is specified before a more restrictive constraint for a shorter sub-path.
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58, 9.0.121, which fixes the issue.</pre>
+
+                                CWE-863 Incorrect Authorization, CWE-284 Improper Access Control<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: CRITICAL (9.1)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/1">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/joosxvzc9b49ttj8lj0jw9mqt0ml767m">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs55">show all</a>)<ul>
+                                        <li class="vs55"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs55">...</li>
+                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-68525">CVE-2026-68525</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-68525">suppress</button></p>
+                            <p>                            <pre>Incorrect Authorization vulnerability in Apache Tomcat's FORM authentication process allows the bypassing of a security constraint that limits user has access to a resource POST but not GET.
+
+
+
+
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.
+
+
+
+
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109. Other unsupported versions may also be affected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fixes the issue.</pre>
+
+                                CWE-863 Incorrect Authorization<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: CRITICAL (9.1)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/7">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/x1y2lfsgzxwzc456f8954vbvgn03zhd7">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs56">show all</a>)<ul>
+                                        <li class="vs56"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs56">...</li>
+                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-65183">CVE-2026-65183</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-65183">suppress</button></p>
+                            <p>                            <pre>Time-of-check Time-of-use (TOCTOU) Race Condition vulnerability in Apache Tomcat when creating unix domain sockets allows an unauthorised local user to access the unix domain socket.
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.42 through 9.0.120.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58, 9.0.121, which fixes the issue.</pre>
+
+                                CWE-367 Time-of-check Time-of-use (TOCTOU) Race Condition<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (8.1)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/2">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/748o4st6d5dk6n3l7tgzo5yl68gg05c0">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs57">show all</a>)<ul>
+                                        <li class="vs57"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs57">...</li>
+                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.42; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-66422">CVE-2026-66422</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-66422">suppress</button></p>
+                            <p>                            <pre>Improper Authorization vulnerability in Apache Tomcat cause by security-role-ref definitions being incorrectly used as role aliases within the Realm in additional to the correct usage with Request.isUserInRole().
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.25 through 9.0.120.
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.46 through 8.5.100, from 7.0.97 through 7.0.109. Other unsupported versions may also be affected.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
+
+                                CWE-285 Improper Authorization<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (8.1)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/6">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/j5plylz1b2vhqvbkqn7k58nygxhcpk73">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs58">show all</a>)<ul>
+                                        <li class="vs58"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs58">...</li>
+                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.97; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.46; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-68569">CVE-2026-68569</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-68569">suppress</button></p>
+                            <p>                            <pre>Improper Authentication vulnerability in Apache Tomcat meant that in some circumstances (e.g. CLIENT-CERT, SPNEGO) that a user would be authenticated even if the user did not exist in the DataSourceRealm.
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.
+
+
+
+
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109. Other unsupported versions may also be affected.
+
+
+
+
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
+
+                                CWE-287 Improper Authentication<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (8.1)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/8">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/8robqo76q0osxgw0b5lcwgz0hcf9h4zc">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs59">show all</a>)<ul>
+                                        <li class="vs59"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs59">...</li>
+                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-41284">CVE-2026-41284</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-41284">suppress</button></p>
                             <p>                            <pre>Allocation of Resources Without Limits or Throttling vulnerability in Apache Tomcat.
@@ -9686,15 +9932,15 @@ Users are recommended to upgrade to version [FIXED_VERSION], which fixes the iss
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/2nvqjr7ovjmvx2vbhb7s61ycd5msc8qc">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs53">show all</a>)<ul>
-                                        <li class="vs53"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs53">...</li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.0.0; versions up to (including) 10.0.27</a></li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 4.0.0; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs53 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs60">show all</a>)<ul>
+                                        <li class="vs60"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs60">...</li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.0.0; versions up to (including) 10.0.27</a></li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 4.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-43513">CVE-2026-43513</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-43513">suppress</button></p>
                             <p>                            <pre>Improper Handling of Case Sensitivity vulnerability in LockOutRealm in Apache Tomcat.
@@ -9713,44 +9959,82 @@ Users are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fi
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/ytjcgldshj73lcnd1sh95od5hrghwogp">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs54">show all</a>)<ul>
-                                        <li class="vs54"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs54">...</li>
-                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
-                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs54 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs61">show all</a>)<ul>
+                                        <li class="vs61"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs61">...</li>
+                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
+                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
-                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-66299">CVE-2026-66299</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-66299">suppress</button></p>
-                            <p>                            <pre>Uncontrolled Resource Consumption vulnerability in Apache Tomcat's WebSocket chat example.
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-65927">CVE-2026-65927</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-65927">suppress</button></p>
+                            <p>                            <pre>Off-by-one Error vulnerability in Apache Tomcat impacting the [N] flag on the rewrite valves causes rewrite processing to restart at the second rule rather than the first rule.
 
-This issue affects Apache Tomcat: from 11.0.0-M20 through 11.0.24, from 10.1.24 through 10.1.57, from 9.0.89 through 9.0.120. Users who have followed the security guidance to remove the examples web application are not affected by this issue.
 
-Users are recommended to remove the examples web application or to upgrade to version 11.0.25, 10.1.58 or 9.0.121 (when released), which fix the issue.</pre>
+
+
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.0 through 8.5.100. Other unsupported versions may also be affected.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121 which fix the issue.</pre>
+
+                                CWE-193 Off-by-one Error<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: HIGH (7.5)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/5">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/st1dx1zyn5y7ny2s0sscmh6lrv3worr4">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs62">show all</a>)<ul>
+                                        <li class="vs62"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs62">...</li>
+                                        <li class="vs62 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs62 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs62 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-68763">CVE-2026-68763</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-68763">suppress</button></p>
+                            <p>                            <pre>Uncontrolled Resource Consumption vulnerability in Apache Tomcat&nbsp;via an allocation leak in the HTTP/2 backlog tracking when a stream is reset
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.39 through 9.0.120.
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.59 through 8.5.100.&nbsp;Other unsupported versions may also be affected.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
 
                                 CWE-400 Uncontrolled Resource Consumption<br/><br/>
                             CVSSv3:
                             <ul><li>Base Score: HIGH (7.5)</li>
                                 <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P/RC:R/MAV:A</li></ul>
                                 <br/>References:<ul>
-                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/07/28/25">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
-                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/8owczcc1o8qw1rxmg9gvfk4w2jnh4l5k">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/9">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/tv51ty39ppv41v04hdtkp9dp7tg02nzl">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs55">show all</a>)<ul>
-                                        <li class="vs55"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.1; versions up to (excluding) 11.0.25</a></li>
-                                        <li class="vs55">...</li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.24; versions up to (excluding) 10.1.58</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.1; versions up to (excluding) 11.0.25</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.89; versions up to (excluding) 9.0.121</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone20%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone20:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone21%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone21:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone22%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone22:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone23%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone23:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone24%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone24:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone25%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone25:*:*:*:*:*:*</a></li>
-                                        <li class="vs55 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone26%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone26:*:*:*:*:*:*</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs63">show all</a>)<ul>
+                                        <li class="vs63"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs63">...</li>
+                                        <li class="vs63 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs63 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs63 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.59; versions up to (excluding) 9.0.121</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-42498">CVE-2026-42498</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-42498">suppress</button></p>
                             <p>                            <pre>Exposure of HTTP Authentication Header to unexpected hosts during WebSocket authentication vulnerability in Apache Tomcat.
@@ -9768,14 +10052,14 @@ Users are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/n61zwf75jrv09rz90j4jssncm244bwdb">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs56">show all</a>)<ul>
-                                        <li class="vs56"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs56">...</li>
-                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
-                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs56 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs64">show all</a>)<ul>
+                                        <li class="vs64"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs64">...</li>
+                                        <li class="vs64 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
+                                        <li class="vs64 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs64 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs64 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs64 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-53404">CVE-2026-53404</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-53404">suppress</button></p>
                             <p>                            <pre>Always-Incorrect Control Flow Implementation vulnerability in Apache Tomcat's rewrite valve meant that if the first condition in an OR chain matched, subsequent non-OR conditions were skipped.
@@ -9793,13 +10077,46 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/rdhpghgfskrdmw9hqzjgjrtw538smpmz">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs57">show all</a>)<ul>
-                                        <li class="vs57"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs57">...</li>
-                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs57 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.119</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs65">show all</a>)<ul>
+                                        <li class="vs65"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs65">...</li>
+                                        <li class="vs65 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs65 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs65 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs65 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.119</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-73180">CVE-2026-73180</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-73180">suppress</button></p>
+                            <p>                            <pre>Insufficient Session Expiration vulnerability in Apache Tomcat meant that if the session ID for an authenticated HTTP session was changed after a WebSocket connection had been established under that authenticated HTTP session, the WebSokcet session would not be closed as required by the Jakarta WebSocket specification when the HTTP session ended.
+
+
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.
+
+
+
+The following versions were EOL at the time the CVE was created but are 
+known to be affected: from 8.5.0 through 8.5.100, from 7.0.43 through 7.0.109.&nbsp;Other unsupported versions may also be affected.
+
+
+
+Users are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fix the issue.</pre>
+
+                                CWE-613 Insufficient Session Expiration<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: MEDIUM (6.8)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/08/26/10">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/3j15vztszpyqss253mjq5v1kp7s6hooq">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs66">show all</a>)<ul>
+                                        <li class="vs66"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs66">...</li>
+                                        <li class="vs66 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs66 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs66 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.43; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs66 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (excluding) 9.0.121</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-55955">CVE-2026-55955</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-55955">suppress</button></p>
                             <p>                            <pre>Improper Authentication vulnerability in Apache Tomcat allowed a replay attack against the EncryptionInterceptor in the cluster component.
@@ -9817,12 +10134,12 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56, 9.0.119, which fix
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/g4p5sf45p3f9r011pwqs9r54yd64s106">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs58">show all</a>)<ul>
-                                        <li class="vs58"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs58">...</li>
-                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
-                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs58 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs67">show all</a>)<ul>
+                                        <li class="vs67"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs67">...</li>
+                                        <li class="vs67 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
+                                        <li class="vs67 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs67 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-55956">CVE-2026-55956</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-55956">suppress</button></p>
                             <p>                            <pre>Improper Authorization vulnerability in Apache Tomcat leads to security constraints specified for the default servlet ignoring any method or method omission configured as part of the constraint.
@@ -9840,12 +10157,12 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/dcjdcnnnww9hhdm016hr0l7hpw1bzjfp">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs59">show all</a>)<ul>
-                                        <li class="vs59"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs59">...</li>
-                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
-                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs59 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs68">show all</a>)<ul>
+                                        <li class="vs68"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs68">...</li>
+                                        <li class="vs68 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (excluding) 9.0.119</a></li>
+                                        <li class="vs68 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs68 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-50229">CVE-2026-50229</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-50229">suppress</button></p>
                             <p>                            <pre>Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) vulnerability in the number guess example for Apache Tomcat.
@@ -9863,14 +10180,44 @@ Users are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119, which f
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/wlt2no8bw45zl1w8byop4zfqphldf5j0">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs60">show all</a>)<ul>
-                                        <li class="vs60"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs60">...</li>
-                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (including) 7.0.109</a></li>
-                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
-                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
-                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs60 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.119</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs69">show all</a>)<ul>
+                                        <li class="vs69"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs69">...</li>
+                                        <li class="vs69 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions up to (including) 7.0.109</a></li>
+                                        <li class="vs69 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.56</a></li>
+                                        <li class="vs69 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.23</a></li>
+                                        <li class="vs69 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs69 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.119</a></li>
+                                    </ul></p>
+                                <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-66299">CVE-2026-66299</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-66299">suppress</button></p>
+                            <p>                            <pre>Uncontrolled Resource Consumption vulnerability in Apache Tomcat's WebSocket chat example.
+
+This issue affects Apache Tomcat: from 11.0.0-M20 through 11.0.24, from 10.1.24 through 10.1.57, from 9.0.89 through 9.0.120. Users who have followed the security guidance to remove the examples web application are not affected by this issue.
+
+Users are recommended to remove the examples web application or to upgrade to version 11.0.25, 10.1.58 or 9.0.121 (when released), which fix the issue.</pre>
+
+                                CWE-400 Uncontrolled Resource Consumption<br/><br/>
+                            CVSSv3:
+                            <ul><li>Base Score: MEDIUM (5.3)</li>
+                                <li>Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L/E:P/RC:R/MAV:A</li></ul>
+                                <br/>References:<ul>
+                                    <li>af854a3a-2127-422b-91ae-364da2661108 - <a target="_blank" href="http://www.openwall.com/lists/oss-security/2026/07/28/25">MAILING_LIST,THIRD_PARTY_ADVISORY</a></li>
+                                    <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/8owczcc1o8qw1rxmg9gvfk4w2jnh4l5k">MAILING_LIST,VENDOR_ADVISORY</a></li>
+                                </ul>
+                            </p>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs70">show all</a>)<ul>
+                                        <li class="vs70"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.1; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs70">...</li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.24; versions up to (excluding) 10.1.58</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.1; versions up to (excluding) 11.0.25</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.89; versions up to (excluding) 9.0.121</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone20%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone20:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone21%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone21:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone22%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone22:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone23%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone23:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone24%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone24:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone25%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone25:*:*:*:*:*:*</a></li>
+                                        <li class="vs70 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A11.0.0%3Amilestone26%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:11.0.0:milestone26:*:*:*:*:*:*</a></li>
                                     </ul></p>
                                 <p><b><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2026-43514">CVE-2026-43514</a></b>&nbsp;&nbsp;<button class="copybutton" title="Generate Suppression XML for this CVE for this file" data-display-name="tomcat-embed-core-11.0.21.jar" data-sha1="6d53989fe9f9416eb1295a9c53c7b6fb8e3c04bb" data-pkgurl="pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.21" data-type-to-suppress="cve" data-id-to-suppress="CVE-2026-43514">suppress</button></p>
                             <p>                            <pre>Observable Timing Discrepancy vulnerability&nbsp;when comparing AJP secret in Apache Tomcat.
@@ -9889,14 +10236,14 @@ Users are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fi
                                     <li>security@apache.org - <a target="_blank" href="https://lists.apache.org/thread/2k654v5cq123npfsd1b2kk1y30owqb1m">MAILING_LIST,VENDOR_ADVISORY</a></li>
                                 </ul>
                             </p>
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs61">show all</a>)<ul>
-                                        <li class="vs61"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs61">...</li>
-                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
-                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
-                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
-                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
-                                        <li class="vs61 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs71">show all</a>)<ul>
+                                        <li class="vs71"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs71">...</li>
+                                        <li class="vs71 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 10.1.0; versions up to (excluding) 10.1.55</a></li>
+                                        <li class="vs71 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 11.0.0; versions up to (excluding) 11.0.22</a></li>
+                                        <li class="vs71 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 7.0.0; versions up to (including) 7.0.109</a></li>
+                                        <li class="vs71 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 8.5.0; versions up to (including) 8.5.100</a></li>
+                                        <li class="vs71 hidden"><a target="_blank" href="https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&amp;sortDirection=2&amp;cpeFilterMode=applicability&amp;resultType=records&amp;cpeName=cpe%3A2.3%3Aa%3Aapache%3Atomcat%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A">cpe:2.3:a:apache:tomcat:*:*:*:*:*:*:*:* versions from (including) 9.0.0; versions up to (excluding) 9.0.118</a></li>
                                     </ul></p>
                     </div>
                 </div>
