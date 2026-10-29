@@ -10,17 +10,17 @@ updates:
     target-branch: main
     labels:
       - dependency
-    # stay on springboot 3.x / spring-security 6.x / hibernate 6.x
+    # stay on springboot 4.1.x / Jackson 3.1.x LTS for now
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-starter-parent
         versions:
-          - '>= 4'
-      - dependency-name: org.springframework.security:spring-security-test
+          - '>= 4.2'
+      - dependency-name: tools.jackson:jackson-bom
         versions:
-          - '>= 7'
-      - dependency-name: org.hibernate.orm.tooling:hibernate-enhance-maven-plugin
+          - '>= 3.2'
+      - dependency-name: com.fasterxml.jackson:jackson-bom
         versions:
-          - '>= 7'
+          - '>= 2.22'
 
   - package-ecosystem: "github-actions"
     directory: "/"

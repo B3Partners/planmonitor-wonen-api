@@ -16,12 +16,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import nl.b3p.planmonitorwonen.api.configuration.GeoToolsConfiguration;
 import org.geotools.api.data.DataStore;
 import org.geotools.api.data.DataStoreFinder;
 import org.geotools.api.data.SimpleFeatureSource;
 import org.geotools.api.feature.simple.SimpleFeature;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.wfs.WFSDataStoreFactory;
+import org.geotools.util.PreventLocalEntityResolver;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.io.WKBWriter;
@@ -31,6 +33,7 @@ import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
 public class ImportGemeentesApplication {
   @SuppressWarnings("PMD.SystemPrintln")
   public static void main(String[] args) throws IOException {
+    GeoToolsConfiguration.initGeoTools();
     System.out.println("Loading gemeentes from WFS...");
     String wfs = "https://service.pdok.nl/kadaster/bestuurlijkegebieden/wfs/v1_0";
     String typename = "bestuurlijkegebieden:Gemeentegebied";
@@ -44,6 +47,7 @@ public class ImportGemeentesApplication {
   public static String getGemeentesSql(String wfs, String typename) throws IOException {
     Map<String, Object> params = new HashMap<>();
     params.put(WFSDataStoreFactory.URL.key, wfs);
+    params.put(WFSDataStoreFactory.ENTITY_RESOLVER.key, PreventLocalEntityResolver.INSTANCE);
     DataStore ds = DataStoreFinder.getDataStore(params);
 
     SimpleFeatureSource fs = ds.getFeatureSource(typename);

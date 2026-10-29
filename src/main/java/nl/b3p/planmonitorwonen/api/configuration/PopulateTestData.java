@@ -24,12 +24,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 @Configuration
 @ConditionalOnProperty(name = "planmonitor-wonen-api.populate-testdata", havingValue = "true")
 @Profile("!test")
+@DependsOn("geoToolsConfiguration")
 public class PopulateTestData {
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -49,16 +51,15 @@ public class PopulateTestData {
       return;
     }
 
-    boolean gemeentesLoaded = false;
     try {
       logger.info("Laden gemeentes WFS...");
       populateGemeentes();
       logger.info(
           "Succes, {} gemeentes geladen",
           this.jdbcClient.sql("select count(*) from gemeente").query().singleValue());
-      gemeentesLoaded = true;
     } catch (Exception e) {
-      logger.error("Fout bij laden van gemeentes", e);
+      logger.error("Fout bij laden van gemeentes, testdata niet aangemaakt", e);
+      return;
     }
 
     String wkt =
@@ -71,7 +72,7 @@ public class PopulateTestData {
         .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
         .setPlanNaam("Plan 1")
         .setProvincie("Zeeland")
-        .setGemeente(gemeentesLoaded ? "Middelburg" : null)
+        .setGemeente("Middelburg")
         .setRegio("Walcheren")
         .setPlaatsnaam("Middelburg")
         .setVertrouwelijkheid("Openbaar")

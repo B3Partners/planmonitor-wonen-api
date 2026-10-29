@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
@@ -100,7 +99,7 @@ public class PlanmonitorWonenDatabaseService {
   public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
     return jdbcClient
         .sql("select * from planregistratie where gemeente in (:gemeentes)")
-        .params(Collections.singletonMap("gemeentes", gemeentes))
+        .param("gemeentes", gemeentes)
         .query(planregistratieRowMapper)
         .set();
   }
@@ -240,7 +239,7 @@ values (%s)""".formatted(sqlQuestionMarks(8)))
     return this.jdbcClient
         .sql(
             "select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (:gemeentes))")
-        .params(Collections.singletonMap("gemeentes", gemeentes))
+        .param("gemeentes", gemeentes)
         .query(Plancategorie.class)
         .set();
   }
@@ -270,7 +269,7 @@ where plancategorie_id in
 (select id from plancategorie
 where planregistratie_id in
 (select id from planregistratie where gemeente in (:gemeentes)))""")
-        .params(Collections.singletonMap("gemeentes", gemeentes))
+        .param("gemeentes", gemeentes)
         .query(Detailplanning.class)
         .set();
   }

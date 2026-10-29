@@ -25,6 +25,7 @@ import org.geotools.api.data.SimpleFeatureSource;
 import org.geotools.api.feature.simple.SimpleFeature;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.wfs.WFSDataStoreFactory;
+import org.geotools.util.PreventLocalEntityResolver;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.PrecisionModel;
@@ -90,6 +91,7 @@ public class PlanregistratieAutofillController implements ApplicationListener<Ap
   public void onApplicationEvent(ApplicationReadyEvent event) {
     Map<String, Object> params = new HashMap<>();
     params.put(WFSDataStoreFactory.TIMEOUT.key, wfsTimeout);
+    params.put(WFSDataStoreFactory.ENTITY_RESOLVER.key, PreventLocalEntityResolver.INSTANCE);
     DataStore ds = null;
 
     try {
