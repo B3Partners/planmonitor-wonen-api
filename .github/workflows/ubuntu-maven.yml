@@ -7,7 +7,7 @@ concurrency: # More info: https://stackoverflow.com/a/68422069/253468
 env:
   MAVEN_OPTS: -Djava.awt.headless=true
   MAVEN_VERSION: '3.9.12'
-  JAVA_VERSION: '21'
+  JAVA_VERSION: '25'
 
 on:
   push:
