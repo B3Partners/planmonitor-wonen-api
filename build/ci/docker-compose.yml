@@ -16,7 +16,7 @@ services:
       POSTGRES_PASSWORD: planmonitor-wonen
       POSTGRES_DB: planmonitor-wonen
     volumes:
-      - planmonitor-wonen-data:/var/lib/postgresql/data
+      - planmonitor-wonen-data:/var/lib/postgresql
       - ./initdb:/docker-entrypoint-initdb.d
     ports:
       - "127.0.0.1:5432:5432"
