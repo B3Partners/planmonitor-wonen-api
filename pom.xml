@@ -251,6 +251,21 @@ SPDX-License-Identifier: MIT
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
             <scope>runtime</scope>
@@ -795,6 +810,8 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.springframework.boot:spring-boot-starter-aspectj</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-flyway</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-flyway-test</exclude>
+                                        <exclude>org.springframework.boot:spring-boot-testcontainers</exclude>
+                                        <exclude>org.testcontainers:*</exclude>
                                         <exclude>org.flywaydb:flyway-database-postgresql</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-security</exclude>
                                         <exclude>org.springframework.boot:spring-boot-starter-oauth2-client</exclude>
