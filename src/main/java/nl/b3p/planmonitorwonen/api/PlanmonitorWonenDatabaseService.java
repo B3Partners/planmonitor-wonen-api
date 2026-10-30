@@ -9,9 +9,12 @@ package nl.b3p.planmonitorwonen.api;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import nl.b3p.planmonitorwonen.api.model.Detailplanning;
 import nl.b3p.planmonitorwonen.api.model.Plancategorie;
@@ -112,11 +115,35 @@ public class PlanmonitorWonenDatabaseService {
         .update();
   }
 
+  private record Created(String creator, OffsetDateTime createdAt) {}
+
+  /**
+   * Inserts a planregistratie or replaces an existing one. The creator, createdAt, editor and editedAt fields of the
+   * planregistratie are set from the username and the current time, the values from the client are ignored. For an
+   * existing planregistratie the creator and createdAt are kept. These fields are not stored for plancategorieen and
+   * detailplanningen.
+   */
   @Transactional
   public void insertPlanregistratie(
-      Planregistratie planregistratie, List<Plancategorie> plancategorieen, List<Detailplanning> detailplanningen)
+      Planregistratie planregistratie,
+      List<Plancategorie> plancategorieen,
+      List<Detailplanning> detailplanningen,
+      String username)
       throws ParseException {
-    this.deletePlanregistratie(planregistratie.getId());
+    final String id = planregistratie.getId();
+    final OffsetDateTime now = OffsetDateTime.now(ZoneId.of("Europe/Amsterdam"));
+
+    Optional<Created> existing = this.jdbcClient
+        .sql("select creator, created_at from planregistratie where id = ?")
+        .param(1, id, Types.OTHER)
+        .query(Created.class)
+        .optional();
+    planregistratie
+        .setCreator(existing.map(Created::creator).orElse(username))
+        .setCreatedAt(existing.map(Created::createdAt).orElse(now))
+        .setEditor(existing.isPresent() ? username : null)
+        .setEditedAt(existing.isPresent() ? now : null);
+    this.deletePlanregistratie(id);
     String insertPlanregistratie = """
 insert into planregistratie(
 id,
@@ -174,20 +201,16 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)""".formatted(sqlQuestionMarks(19)
     for (Plancategorie p : plancategorieen) {
       this.jdbcClient
           .sql("""
-insert into plancategorie(id, planregistratie_id, creator, created_at, editor, edited_at, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
-values (%s)""".formatted(sqlQuestionMarks(14)))
+insert into plancategorie(id, planregistratie_id, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
+values (%s)""".formatted(sqlQuestionMarks(10)))
           .param(1, p.id(), Types.OTHER)
           .param(2, p.planregistratieId(), Types.OTHER)
-          .param(p.creator())
-          .param(p.createdAt())
-          .param(p.editor())
-          .param(p.editedAt())
-          .param(7, p.nieuwbouw(), Types.OTHER)
-          .param(8, p.woningType(), Types.OTHER)
-          .param(9, p.wonenEnZorg(), Types.OTHER)
-          .param(10, p.flexwoningen(), Types.OTHER)
-          .param(11, p.betaalbaarheid(), Types.OTHER)
-          .param(12, p.sloop(), Types.OTHER)
+          .param(3, p.nieuwbouw(), Types.OTHER)
+          .param(4, p.woningType(), Types.OTHER)
+          .param(5, p.wonenEnZorg(), Types.OTHER)
+          .param(6, p.flexwoningen(), Types.OTHER)
+          .param(7, p.betaalbaarheid(), Types.OTHER)
+          .param(8, p.sloop(), Types.OTHER)
           .param(p.totaalGepland())
           .param(p.totaalGerealiseerd())
           .update();
@@ -195,14 +218,10 @@ values (%s)""".formatted(sqlQuestionMarks(14)))
     for (Detailplanning d : detailplanningen) {
       this.jdbcClient
           .sql("""
-insert into detailplanning(id, plancategorie_id, creator, created_at, editor, edited_at, jaartal, aantal_gepland)
-values (%s)""".formatted(sqlQuestionMarks(8)))
+insert into detailplanning(id, plancategorie_id, jaartal, aantal_gepland)
+values (%s)""".formatted(sqlQuestionMarks(4)))
           .param(1, d.id(), Types.OTHER)
           .param(2, d.plancategorieId(), Types.OTHER)
-          .param(d.creator())
-          .param(d.createdAt())
-          .param(d.editor())
-          .param(d.editedAt())
           .param(d.jaartal())
           .param(d.aantalGepland())
           .update();

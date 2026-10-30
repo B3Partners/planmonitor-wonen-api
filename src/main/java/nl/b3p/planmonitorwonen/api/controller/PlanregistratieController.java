@@ -158,7 +158,8 @@ public class PlanregistratieController {
     pmwDb.insertPlanregistratie(
         planregistratieComplete.planregistratie(),
         planregistratieComplete.plancategorieen(),
-        planregistratieComplete.detailplanningen());
+        planregistratieComplete.detailplanningen(),
+        auth.authentication().getName());
     return ResponseEntity.status(OK).build();
   }
 

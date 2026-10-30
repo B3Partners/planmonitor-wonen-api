@@ -7,11 +7,14 @@
 package nl.b3p.planmonitorwonen.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -55,6 +58,8 @@ import org.testcontainers.utility.DockerImageName;
 @ActiveProfiles("integration-test")
 @Testcontainers
 class PlanmonitorWonenDatabaseServiceTest {
+  private static final OffsetDateTime CLIENT_TIMESTAMP = OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC);
+
   @Container
   static final PostgreSQLContainer postgis = new PostgreSQLContainer(
       DockerImageName.parse("postgis/postgis:18-3.6-alpine").asCompatibleSubstituteFor("postgres"));
@@ -115,29 +120,65 @@ on conflict do nothing""").update();
     Planregistratie planregistratie = planregistratie(id, "Plan transactie");
     Plancategorie nieuwbouw = plancategorie(id, "Nieuwbouw", null);
     pmwDb.insertPlanregistratie(
-        planregistratie, List.of(nieuwbouw), List.of(detailplanning(nieuwbouw.id(), 2025, 10)));
+        planregistratie, List.of(nieuwbouw), List.of(detailplanning(nieuwbouw.id(), 2025, 10)), "gemeente");
 
     Planregistratie updated = planregistratie(id, "Plan transactie gewijzigd");
     // Invalid enum value, rejected by the database after the existing plan has been deleted
     Plancategorie invalid = plancategorie(id, "Nieuwbouw", "Ongeldig");
     assertThrows(
-        DataAccessException.class, () -> pmwDb.insertPlanregistratie(updated, List.of(invalid), List.of()));
+        DataAccessException.class,
+        () -> pmwDb.insertPlanregistratie(updated, List.of(invalid), List.of(), "gemeente"));
 
-    Planregistratie stored = pmwDb.getPlanregistratiesForGemeentes(Set.of("Middelburg")).stream()
-        .filter(p -> p.getId().equals(id))
-        .findFirst()
-        .orElseThrow(() -> new AssertionError("Existing planregistratie deleted by failed update"));
+    Planregistratie stored = getPlanregistratie(id);
     assertEquals("Plan transactie", stored.getPlanNaam());
     assertEquals(1, pmwDb.getPlancategorieen(id).size());
     assertEquals(1, pmwDb.getDetailplanningen(id).size());
+  }
+
+  @Test
+  void insertSetsCreatorAndIgnoresClientValues() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan nieuw"), List.of(), List.of(), "gemeente");
+
+    Planregistratie stored = getPlanregistratie(id);
+    assertEquals("gemeente", stored.getCreator());
+    assertTrue(stored.getCreatedAt().isAfter(CLIENT_TIMESTAMP));
+    assertNull(stored.getEditor());
+    assertNull(stored.getEditedAt());
+  }
+
+  @Test
+  void updateKeepsCreatorAndSetsEditor() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), List.of(), List.of(), "gemeente");
+    Planregistratie inserted = getPlanregistratie(id);
+
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), List.of(), List.of(), "andere gebruiker");
+
+    Planregistratie updated = getPlanregistratie(id);
+    assertEquals("gemeente", updated.getCreator());
+    assertEquals(inserted.getCreatedAt().toInstant(), updated.getCreatedAt().toInstant());
+    assertEquals("andere gebruiker", updated.getEditor());
+    assertNotNull(updated.getEditedAt());
+    assertTrue(updated.getEditedAt().isAfter(CLIENT_TIMESTAMP));
+  }
+
+  private Planregistratie getPlanregistratie(String id) {
+    return pmwDb.getPlanregistratiesForGemeentes(Set.of("Middelburg")).stream()
+        .filter(p -> p.getId().equals(id))
+        .findFirst()
+        .orElseThrow(() -> new AssertionError("Planregistratie not found"));
   }
 
   private static Planregistratie planregistratie(String id, String planNaam) {
     return new Planregistratie()
         .setId(id)
         .setGeometrie("POLYGON ((30000 390000, 31000 390000, 31000 391000, 30000 391000, 30000 390000))")
-        .setCreator("test")
-        .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
+        // Values from the client, must be ignored
+        .setCreator("client")
+        .setCreatedAt(CLIENT_TIMESTAMP)
+        .setEditor("client")
+        .setEditedAt(CLIENT_TIMESTAMP)
         .setPlanNaam(planNaam)
         .setProvincie("Zeeland")
         .setGemeente("Middelburg")
@@ -156,24 +197,10 @@ on conflict do nothing""").update();
 
   private static Plancategorie plancategorie(String planregistratieId, String nieuwbouw, String woningType) {
     return new Plancategorie(
-        UUID.randomUUID().toString(),
-        planregistratieId,
-        null,
-        null,
-        null,
-        null,
-        nieuwbouw,
-        woningType,
-        null,
-        null,
-        null,
-        null,
-        10,
-        0);
+        UUID.randomUUID().toString(), planregistratieId, nieuwbouw, woningType, null, null, null, null, 10, 0);
   }
 
   private static Detailplanning detailplanning(String plancategorieId, int jaartal, int aantalGepland) {
-    return new Detailplanning(
-        UUID.randomUUID().toString(), plancategorieId, null, null, null, null, jaartal, aantalGepland);
+    return new Detailplanning(UUID.randomUUID().toString(), plancategorieId, jaartal, aantalGepland);
   }
 }
