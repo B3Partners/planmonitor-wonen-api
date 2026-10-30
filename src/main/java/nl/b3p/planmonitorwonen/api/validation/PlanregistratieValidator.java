@@ -29,6 +29,7 @@ public final class PlanregistratieValidator {
     required(errors, "plantype", "Plantype", planregistratie.getPlantype());
     required(errors, "statusPlanologisch", "Planologische planstatus", planregistratie.getStatusPlanologisch());
     validateGeometrie(errors, planregistratie.getGeometrie());
+    AantallenValidator.validate(planregistratie.getAantallen(), errors);
     return errors;
   }
 
