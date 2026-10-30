@@ -101,6 +101,7 @@ SPDX-License-Identifier: MIT
         <project.build.outputTimestamp>2026-02-24T16:08:37Z</project.build.outputTimestamp>
         <geotools.version>35.2</geotools.version>
         <jts.version>1.20.0</jts.version>
+        <springdoc.version>3.2.0</springdoc.version>
         <spring.boot.version>${project.parent.version}</spring.boot.version>
         <!--
         Spring-Boot version overrides. see org.springframework.boot:spring-boot-dependencies
@@ -184,6 +185,11 @@ SPDX-License-Identifier: MIT
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -800,6 +806,7 @@ SPDX-License-Identifier: MIT
                                         <exclude>org.geotools:*</exclude>
                                         <exclude>org.postgresql:postgresql</exclude>
                                         <exclude>org.springframework.session:spring-session-jdbc</exclude>
+                                        <exclude>org.springdoc:springdoc-openapi-starter-webmvc-ui</exclude>
                                     </excludes>
                                 </banTransitiveDependencies>
                             </rules>
