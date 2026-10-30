@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.core.convert.ConversionService;
@@ -30,6 +31,7 @@ import org.springframework.security.jackson.SecurityJacksonModules;
 import org.springframework.session.config.SessionRepositoryCustomizer;
 import org.springframework.session.jdbc.JdbcIndexedSessionRepository;
 import org.springframework.session.jdbc.config.annotation.SpringSessionDataSource;
+import org.springframework.session.jdbc.config.annotation.SpringSessionTransactionManager;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
 import tools.jackson.core.JacksonException;
@@ -120,8 +122,20 @@ AND ATTRIBUTE_NAME = ?
     return dataSourceBuilder.build();
   }
 
-  @Bean(name = "springSessionTransactionOperations")
-  public PlatformTransactionManager springSessionTransactionOperations(
+  /**
+   * Transaction manager for the planmonitor-wonen database, used for @Transactional. Must be primary, otherwise the
+   * Spring Boot auto-configured transaction manager backs off because of the Spring Session transaction manager below
+   * and @Transactional would use the Tailormap database.
+   */
+  @Bean
+  @Primary
+  public PlatformTransactionManager transactionManager(DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
+  }
+
+  @Bean
+  @SpringSessionTransactionManager
+  public PlatformTransactionManager springSessionTransactionManager(
       @Qualifier("springSessionDataSource") DataSource springSessionDatasource) {
     return new DataSourceTransactionManager(springSessionDatasource);
   }
