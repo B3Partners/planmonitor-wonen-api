@@ -9,8 +9,6 @@ package nl.b3p.planmonitorwonen.api.configuration;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 import nl.b3p.planmonitorwonen.api.ImportGemeentesApplication;
@@ -68,8 +66,6 @@ public class PopulateTestData {
     Planregistratie planregistratie = new Planregistratie()
         .setId(UUID.randomUUID().toString())
         .setGeometrie(wkt)
-        .setCreator("test")
-        .setCreatedAt(OffsetDateTime.now(ZoneId.of("Europe/Amsterdam")))
         .setPlanNaam("Plan 1")
         .setProvincie("Zeeland")
         .setGemeente("Middelburg")
@@ -90,10 +86,6 @@ public class PopulateTestData {
     List<Plancategorie> plancategorieen = List.of(new Plancategorie(
         UUID.randomUUID().toString(),
         planregistratie.getId(),
-        null,
-        null,
-        null,
-        null,
         "Nieuwbouw",
         null,
         null,
@@ -104,24 +96,10 @@ public class PopulateTestData {
         0));
     List<Detailplanning> detailplanningen = List.of(
         new Detailplanning(
-            UUID.randomUUID().toString(),
-            plancategorieen.getFirst().id(),
-            null,
-            null,
-            null,
-            null,
-            2025,
-            10),
+            UUID.randomUUID().toString(), plancategorieen.getFirst().id(), 2025, 10),
         new Detailplanning(
-            UUID.randomUUID().toString(),
-            plancategorieen.getFirst().id(),
-            null,
-            null,
-            null,
-            null,
-            2028,
-            10));
-    pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen);
+            UUID.randomUUID().toString(), plancategorieen.getFirst().id(), 2028, 10));
+    pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen, "test");
   }
 
   @Value("${planmonitor-wonen-api.wfs.bestuurlijke-gebieden}")
