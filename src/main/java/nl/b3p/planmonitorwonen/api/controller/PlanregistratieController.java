@@ -89,6 +89,10 @@ public class PlanregistratieController {
   public ResponseEntity<?> put(@PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie)
       throws ParseException {
 
+    // Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
+
     if (planregistratie.getId() != null && !isSameUuid(id, planregistratie.getId())) {
       throw new ResponseStatusException(BAD_REQUEST, "Id in de body komt niet overeen met het id in het pad");
     }
@@ -98,9 +102,6 @@ public class PlanregistratieController {
     if (!errors.isEmpty()) {
       throw new PlanregistratieValidationException(errors);
     }
-
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(
