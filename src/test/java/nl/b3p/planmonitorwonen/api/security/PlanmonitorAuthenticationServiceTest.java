@@ -35,7 +35,7 @@ class PlanmonitorAuthenticationServiceTest {
   void noAuthenticationIsUnauthorized() {
     assertEquals(
         HttpStatus.UNAUTHORIZED,
-        statusOf(assertThrows(ResponseStatusException.class, service::getFromSecurityContext)));
+        statusOf(assertThrows(ResponseStatusException.class, service::requirePlanmonitorUser)));
   }
 
   @Test
@@ -45,7 +45,7 @@ class PlanmonitorAuthenticationServiceTest {
             "key", "anonymousUser", List.of(new SimpleGrantedAuthority("ROLE_ANONYMOUS"))));
     assertEquals(
         HttpStatus.UNAUTHORIZED,
-        statusOf(assertThrows(ResponseStatusException.class, service::getFromSecurityContext)));
+        statusOf(assertThrows(ResponseStatusException.class, service::requirePlanmonitorUser)));
   }
 
   @Test
@@ -53,6 +53,23 @@ class PlanmonitorAuthenticationServiceTest {
     SecurityContextHolder.getContext().setAuthentication(new TestingAuthenticationToken("user", null));
     assertEquals(
         HttpStatus.FORBIDDEN,
-        statusOf(assertThrows(ResponseStatusException.class, service::getFromSecurityContext)));
+        statusOf(assertThrows(ResponseStatusException.class, service::requirePlanmonitorUser)));
+  }
+
+  @Test
+  void requireAuthenticatedRejectsAnonymous() {
+    SecurityContextHolder.getContext()
+        .setAuthentication(new AnonymousAuthenticationToken(
+            "key", "anonymousUser", List.of(new SimpleGrantedAuthority("ROLE_ANONYMOUS"))));
+    assertEquals(
+        HttpStatus.UNAUTHORIZED,
+        statusOf(assertThrows(ResponseStatusException.class, service::requireAuthenticated)));
+  }
+
+  @Test
+  void requireAuthenticatedAllowsOtherUser() {
+    TestingAuthenticationToken authentication = new TestingAuthenticationToken("user", null);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    assertEquals(authentication, service.requireAuthenticated());
   }
 }

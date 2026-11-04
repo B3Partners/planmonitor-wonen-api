@@ -10,6 +10,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import java.util.List;
 import java.util.Map;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import nl.b3p.planmonitorwonen.api.service.PlanregistratieAutofillService;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -28,10 +29,15 @@ import org.springframework.web.server.ResponseStatusException;
 public class PlanregistratieAutofillController {
   private final JdbcClient jdbcClient;
   private final PlanregistratieAutofillService autofillService;
+  private final PlanmonitorAuthenticationService authenticationService;
 
-  public PlanregistratieAutofillController(JdbcClient jdbcClient, PlanregistratieAutofillService autofillService) {
+  public PlanregistratieAutofillController(
+      JdbcClient jdbcClient,
+      PlanregistratieAutofillService autofillService,
+      PlanmonitorAuthenticationService authenticationService) {
     this.jdbcClient = jdbcClient;
     this.autofillService = autofillService;
+    this.authenticationService = authenticationService;
   }
 
   // See https://www.w3.org/TR/sdw-bp/#applicability-formatVbp, use text/plain content type for WKT
@@ -40,6 +46,9 @@ public class PlanregistratieAutofillController {
       path = "${planmonitor-wonen-api.base-path}/planregistratie/autofill-by-geometry",
       consumes = "text/plain")
   public Map<String, Object> autofill(@RequestBody String wkt) {
+    // Only for users who can edit plans, this runs spatial queries on an arbitrary geometry
+    authenticationService.requirePlanmonitorUser();
+
     Geometry geometry;
     try {
       GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992);

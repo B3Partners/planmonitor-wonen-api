@@ -8,6 +8,7 @@ package nl.b3p.planmonitorwonen.api.controller;
 
 import java.util.List;
 import nl.b3p.planmonitorwonen.api.model.Gemeente;
+import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -19,13 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Profile("!test")
 public class GemeentesController {
   private final JdbcClient jdbcClient;
+  private final PlanmonitorAuthenticationService authenticationService;
 
-  public GemeentesController(JdbcClient jdbcClient) {
+  public GemeentesController(JdbcClient jdbcClient, PlanmonitorAuthenticationService authenticationService) {
     this.jdbcClient = jdbcClient;
+    this.authenticationService = authenticationService;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/gemeentes")
   public ResponseEntity<List<Gemeente>> planregistraties(@RequestParam(required = false) String provincie) {
+    // Any logged-in user, a Tailormap admin needs the gemeentes for the group properties
+    authenticationService.requireAuthenticated();
+
     JdbcClient.StatementSpec statementSpec;
     if (provincie == null) {
       statementSpec = jdbcClient.sql("select identificatie, naam, provincie from gemeente order by naam");

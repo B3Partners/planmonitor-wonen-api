@@ -27,7 +27,7 @@ public class HelloController {
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/hello", produces = MediaType.APPLICATION_JSON_VALUE)
   public Map<String, Object> hello(@CurrentSecurityContext SecurityContext securityContext) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        planmonitorAuthenticationService.getFromSecurityContext();
+        planmonitorAuthenticationService.requirePlanmonitorUser();
 
     return Map.of(
         "name",
