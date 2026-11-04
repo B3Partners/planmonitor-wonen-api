@@ -6,6 +6,7 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
+import static nl.b3p.planmonitorwonen.api.configuration.ApiVersionConfiguration.MAJOR_VERSION;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import java.util.List;
@@ -21,10 +22,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequestMapping(path = "${planmonitor-wonen-api.base-path}/{version}", version = MAJOR_VERSION)
 @Profile("!test")
 public class PlanregistratieAutofillController {
   private final JdbcClient jdbcClient;
@@ -42,9 +45,7 @@ public class PlanregistratieAutofillController {
 
   // See https://www.w3.org/TR/sdw-bp/#applicability-formatVbp, use text/plain content type for WKT
   // in request body
-  @PostMapping(
-      path = "${planmonitor-wonen-api.base-path}/planregistratie/autofill-by-geometry",
-      consumes = "text/plain")
+  @PostMapping(path = "/planregistratie/autofill-by-geometry", consumes = "text/plain")
   public Map<String, Object> autofill(@RequestBody String wkt) {
     // Only for users who can edit plans, this runs spatial queries on an arbitrary geometry
     authenticationService.requirePlanmonitorUser();

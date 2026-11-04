@@ -45,7 +45,7 @@ import org.springframework.web.server.ResponseStatusException;
 @ActiveProfiles("integration-test")
 class PlanregistratieControllerTest {
   private static final String ID = "0b5c1d0e-3f43-4e4a-9a6e-2f1f6b6d2a10";
-  private static final String URL = "/api/planmonitor-wonen/planregistratie/" + ID;
+  private static final String URL = "/api/planmonitor-wonen/v2/planregistratie/" + ID;
 
   private static final String VALID_PLAN = """
 {

@@ -43,7 +43,7 @@ class GemeentesControllerTest {
     when(authenticationService.requireAuthenticated())
         .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Niet ingelogd"));
 
-    assertThat(mvc.get().uri("/api/planmonitor-wonen/gemeentes")).hasStatus(HttpStatus.UNAUTHORIZED);
+    assertThat(mvc.get().uri("/api/planmonitor-wonen/v2/gemeentes")).hasStatus(HttpStatus.UNAUTHORIZED);
     verifyNoInteractions(jdbcClient);
   }
 }

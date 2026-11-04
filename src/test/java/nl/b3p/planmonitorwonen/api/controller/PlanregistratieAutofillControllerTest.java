@@ -52,7 +52,7 @@ class PlanregistratieAutofillControllerTest {
         .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Niet ingelogd"));
 
     assertThat(mvc.post()
-            .uri("/api/planmonitor-wonen/planregistratie/autofill-by-geometry")
+            .uri("/api/planmonitor-wonen/v2/planregistratie/autofill-by-geometry")
             .contentType(MediaType.TEXT_PLAIN)
             .content("POLYGON ((30000 390000, 31000 390000, 31000 391000, 30000 391000, 30000 390000))"))
         .hasStatus(HttpStatus.UNAUTHORIZED);
