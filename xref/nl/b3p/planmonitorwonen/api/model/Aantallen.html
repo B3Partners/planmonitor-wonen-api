@@ -15,29 +15,52 @@
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.model;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.annotation.JsonInclude;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * Numbers of dwellings of a planregistratie. The maps are keyed by the category value, for example "Eengezins" for</em>
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * woningType. A category left out (or null) is not filled in, a category with an {@link Aantal} of 0 is filled in as</em>
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * zero. For the totals both count as zero. Categories not filled in are left out of the JSON output.</em>
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * @param bruto bruto plancapaciteit, the total number of dwellings added by the plan (stored as plancategorie</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> *     "Nieuwbouw")</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * @param sloop number of dwellings demolished</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * @param woningType dwellings by woningtype, should add up to bruto</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * @param wonenEnZorg dwellings by suitability for elderly and care, should add up to bruto</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * @param flexwoningen dwellings by temporary or permanent, should add up to bruto</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @param betaalbaarheid dwellings by price segment, should add up to bruto</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  @JsonInclude(JsonInclude.Include.NON_EMPTY)
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">public</strong> record <a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a>(
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> bruto,
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> sloop,
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      Map&lt;String, Aantal&gt; woningType,
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      Map&lt;String, Aantal&gt; wonenEnZorg,
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      Map&lt;String, Aantal&gt; flexwoningen,
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>      Map&lt;String, Aantal&gt; betaalbaarheid) {}
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> io.swagger.v3.oas.annotations.media.Schema;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * Numbers of dwellings of a planregistratie. The maps are keyed by the category value, for example "Eengezins" for</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * woningType. A category left out (or null) is not filled in, a category with an {@link Aantal} of 0 is filled in as</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * zero. For the totals both count as zero. Categories not filled in are left out of the JSON output.</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * @param bruto bruto plancapaciteit, the total number of dwellings added by the plan (stored as plancategorie</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> *     "Nieuwbouw")</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * @param sloop number of dwellings demolished</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * @param woningType dwellings by woningtype, should add up to bruto</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * @param wonenEnZorg dwellings by suitability for elderly and care, should add up to bruto</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @param flexwoningen dwellings by temporary or permanent, should add up to bruto</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * @param betaalbaarheid dwellings by price segment, should add up to bruto</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  @Schema(description = <span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a> woningen van een planregistratie. Een categorie weglaten of `<strong class="jxr_keyword">null</strong>` betekent niet ingevuld, een categorie
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  met aantal 0 is ingevuld als nul. Voor de totalen tellen beide als nul. Niet ingevulde categorieën worden in een
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  response weggelaten.
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  Regels:
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  - aantallen zijn niet negatief en `gerealiseerd` is niet meer dan `gepland`
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  - behalve bij sloop is het totaal van `perJaar` gelijk aan `gepland` min `gerealiseerd`
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  - voor `woningType`, `wonenEnZorg`, `flexwoningen` en `betaalbaarheid` is het totaal `gepland` van de categorieën
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  gelijk aan `gepland` van `bruto`, en het totaal per jaar gelijk aan `bruto` in dat jaar. Als `bruto` meer dan 0 is
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  moeten deze groepen dus allemaal ingevuld worden<span class="jxr_string">""</span><span class="jxr_string">")
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> record <a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a>(
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      @Schema(
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          description = <span class="jxr_string">"Bruto plancapaciteit: het totaal aantal woningen dat binnen het plan gerealiseerd wordt,"</span>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>              + <span class="jxr_string">" door nieuwbouw, transformatie of splitsing"</span>)
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      Aantal bruto,
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      @Schema(description = <span class="jxr_string">"Aantal woningen dat gesloopt wordt"</span>)
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      Aantal sloop,
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      @Schema(description = <span class="jxr_string">"Woningen per woningtype"</span>) Map&lt;String, Aantal&gt; woningType,
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Schema(description = <span class="jxr_string">"Woningen per geschiktheid voor ouderen en zorg"</span>)
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      Map&lt;String, Aantal&gt; wonenEnZorg,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      @Schema(description = <span class="jxr_string">"Woningen per tijdelijk (flexwoningen) of permanent"</span>)
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      Map&lt;String, Aantal&gt; flexwoningen,
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @Schema(description = <span class="jxr_string">"Woningen per prijssegment"</span>) Map&lt;String, Aantal&gt; betaalbaarheid) {}
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>

@@ -73,7 +73,6 @@ loadScripts(document, 'script');</script>
 <ol class="toc-list">
 <li><a href="#configureApiVersioning(org.springframework.web.servlet.config.annotation.ApiVersionConfigurer)" tabindex="0">configureApiVersioning(ApiVersionConfigurer)</a></li>
 <li><a href="#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)" tabindex="0">addInterceptors(InterceptorRegistry)</a></li>
-<li><a href="#openAPI()" tabindex="0">openAPI()</a></li>
 </ol>
 </li>
 </ol>
@@ -100,7 +99,8 @@ implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer</s
 <div class="block">Versioning of the API. The major version is a path segment after the base path:
 <code>/api/planmonitor-wonen/v2/planregistraties</code>. A new major version means backwards-incompatible changes. The
 full version (major.minor, the minor version is increased for backwards-compatible additions) is in the
-<a href="#VERSION_HEADER">"API-Version"</a> response header and the OpenAPI documentation.
+<a href="#VERSION_HEADER">"API-Version"</a> response header and the OpenAPI documentation, which also describes this policy (see
+<a href="OpenApiConfiguration.html" title="class in nl.b3p.planmonitorwonen.api.configuration"><code>OpenApiConfiguration</code></a>).
 
 <p>The API version is separate from the version of the application. It starts at 2 because version 1 is the
 unversioned API used by earlier releases.</div>
@@ -161,9 +161,6 @@ unversioned API used by earlier releases.</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#configureApiVersioning(org.springframework.web.servlet.config.annotation.ApiVersionConfigurer)" class="member-name-link">configureApiVersioning</a><wbr>(org.springframework.web.servlet.config.annotation.ApiVersionConfigurer&nbsp;configurer)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>io.swagger.v3.oas.models.OpenAPI</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#openAPI()" class="member-name-link">openAPI</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -280,15 +277,6 @@ unversioned API used by earlier releases.</div>
 <dt>Specified by:</dt>
 <dd><code>addInterceptors</code>&nbsp;in interface&nbsp;<code>org.springframework.web.servlet.config.annotation.WebMvcConfigurer</code></dd>
 </dl>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="openAPI()">
-<h3>openAPI</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.swagger.v3.oas.models.OpenAPI</span>&nbsp;<span class="element-name">openAPI</span>()</div>
 </div>
 </section>
 </li>
