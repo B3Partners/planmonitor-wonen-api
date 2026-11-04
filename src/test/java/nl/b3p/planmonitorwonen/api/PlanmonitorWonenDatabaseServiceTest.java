@@ -6,6 +6,7 @@
 
 package nl.b3p.planmonitorwonen.api;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -211,6 +212,8 @@ on conflict do nothing""").update();
     pmwDb.insertPlanregistratie(planregistratie(id, "Plan nieuw"), "gemeente");
 
     Planregistratie stored = getPlanregistratie(id);
+    assertArrayEquals(new String[] {"Bereikbaarheid", "Stikstof"}, stored.getKnelpuntenMeerkeuze());
+    assertEquals("Herstructurering", stored.getPlantype());
     assertEquals("gemeente", stored.getCreator());
     assertTrue(stored.getCreatedAt().isAfter(CLIENT_TIMESTAMP));
     assertNull(stored.getEditor());
@@ -256,7 +259,7 @@ on conflict do nothing""").update();
         .setPlantype("Herstructurering")
         .setStatusProject("Voorbereiding")
         .setStatusPlanologisch("3. In voorbereiding")
-        .setKnelpuntenMeerkeuze(new String[] {"Bereikbaarheid"})
+        .setKnelpuntenMeerkeuze(new String[] {"Bereikbaarheid", "Stikstof"})
         .setBeoogdWoonmilieuAbf13("Centrum")
         .setAantalStudentenwoningen(0)
         .setSleutelproject(false);
