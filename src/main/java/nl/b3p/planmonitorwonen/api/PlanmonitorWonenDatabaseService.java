@@ -153,12 +153,18 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
     return planregistraties;
   }
 
+  /**
+   * Deletes a planregistratie including the aantallen.
+   *
+   * @return the plan name of the deleted planregistratie, for logging, or empty when it did not exist
+   */
   @Transactional
-  public void deletePlanregistratie(String id) {
-    jdbcClient
-        .sql("delete from planregistratie where id = ?")
+  public Optional<String> deletePlanregistratie(String id) {
+    return jdbcClient
+        .sql("delete from planregistratie where id = ? returning plan_naam")
         .param(UUID.fromString(id))
-        .update();
+        .query(String.class)
+        .optional();
   }
 
   private record Created(String creator, OffsetDateTime createdAt) {}

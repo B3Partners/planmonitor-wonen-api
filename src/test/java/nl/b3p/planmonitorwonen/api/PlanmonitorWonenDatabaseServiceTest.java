@@ -271,6 +271,16 @@ on conflict do nothing""").update();
     assertTrue(updated.getEditedAt().isAfter(CLIENT_TIMESTAMP));
   }
 
+  @Test
+  void deleteReturnsPlanNaam() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan verwijderen"), "gemeente");
+
+    assertEquals(Optional.of("Plan verwijderen"), pmwDb.deletePlanregistratie(id));
+    assertTrue(pmwDb.getPlanregistratie(id).isEmpty());
+    assertEquals(Optional.empty(), pmwDb.deletePlanregistratie(id));
+  }
+
   private Planregistratie getPlanregistratie(String id) {
     return pmwDb.getPlanregistratie(id).orElseThrow(() -> new AssertionError("Planregistratie not found"));
   }

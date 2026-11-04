@@ -107,6 +107,11 @@ public class PlanregistratieController {
         authenticationService.requirePlanmonitorUser();
 
     if (planregistratie.getId() != null && !isSameUuid(id, planregistratie.getId())) {
+      logger.info(
+          "User \"{}\" tried to save plan id {} with id {} in the body, rejected",
+          auth.authentication().getName(),
+          id,
+          planregistratie.getId());
       throw new ResponseStatusException(BAD_REQUEST, "Id in de body komt niet overeen met het id in het pad");
     }
     planregistratie.setId(id.toString());
@@ -168,6 +173,13 @@ public class PlanregistratieController {
     }
     Planregistratie saved = pmwDb.getPlanregistratie(id.toString())
         .orElseThrow(() -> new IllegalStateException("Saved planregistratie " + id + " not found"));
+    logger.info(
+        "User \"{}\" {} plan id {}, name \"{}\" of gemeente {}",
+        auth.authentication().getName(),
+        created ? "created" : "replaced",
+        id,
+        saved.getPlanNaam(),
+        saved.getGemeente());
     return ResponseEntity.status(created ? CREATED : OK).body(saved);
   }
 
@@ -187,6 +199,11 @@ public class PlanregistratieController {
     String gemeente = pmwDb.getPlanregistratieGemeente(id.toString());
 
     if (gemeente == null) {
+      // Not a warning, a client may delete a plan it already deleted
+      logger.info(
+          "User \"{}\" tried to delete unknown plan id {}",
+          auth.authentication().getName(),
+          id);
       throw new ResponseStatusException(NOT_FOUND);
     }
 
@@ -200,7 +217,13 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    pmwDb.deletePlanregistratie(id.toString());
+    pmwDb.deletePlanregistratie(id.toString())
+        .ifPresent(planNaam -> logger.info(
+            "User \"{}\" deleted plan id {}, name \"{}\" of gemeente {}",
+            auth.authentication().getName(),
+            id,
+            planNaam,
+            gemeente));
     return ResponseEntity.status(OK).build();
   }
 
