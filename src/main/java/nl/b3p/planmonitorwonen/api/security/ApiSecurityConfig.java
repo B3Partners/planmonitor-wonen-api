@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,10 +26,21 @@ public class ApiSecurityConfig {
   private static final Logger logger =
       LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Value("${management.endpoints.web.base-path}")
+  private String actuatorBasePath;
+
   @Bean
   public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
     RequestCache nullRequestCache = new NullRequestCache();
     http.csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(authorize -> {
+          authorize.requestMatchers(actuatorBasePath + "/health/**").permitAll();
+          authorize
+              .requestMatchers(actuatorBasePath, actuatorBasePath + "/**")
+              .hasAnyAuthority("admin", "actuator");
+          // API endpoints check authorization themselves with PlanmonitorAuthenticationService
+          authorize.anyRequest().permitAll();
+        })
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
         .requestCache((cache) -> cache.requestCache(nullRequestCache))
         .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
