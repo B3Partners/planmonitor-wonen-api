@@ -34,7 +34,7 @@ public final class AantallenValidator {
   public static final int LAATSTE_JAAR = 2043;
 
   /** The enum type in the database with the categorie values per group. */
-  static final Map<String, String> GROEP_ENUM_TYPES = Map.of(
+  public static final Map<String, String> GROEP_ENUM_TYPES = Map.of(
       "woningType", EnumValues.WONING_TYPE,
       "wonenEnZorg", EnumValues.WONEN_EN_ZORG,
       "flexwoningen", EnumValues.FLEXWONINGEN,

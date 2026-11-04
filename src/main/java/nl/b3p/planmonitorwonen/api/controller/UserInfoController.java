@@ -7,7 +7,11 @@
 package nl.b3p.planmonitorwonen.api.controller;
 
 import static nl.b3p.planmonitorwonen.api.configuration.ApiVersionConfiguration.MAJOR_VERSION;
+import static nl.b3p.planmonitorwonen.api.configuration.OpenApiConfiguration.UNAUTHORIZED;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.HashMap;
 import java.util.Map;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
@@ -30,6 +34,7 @@ import org.tailormap.api.security.TailormapUserDetails;
 @RestController
 @RequestMapping(path = "${planmonitor-wonen-api.base-path}/{version}", version = MAJOR_VERSION)
 @Profile("!test")
+@Tag(name = "Gebruiker")
 public class UserInfoController {
   private final PlanmonitorAuthenticationService authenticationService;
 
@@ -38,6 +43,14 @@ public class UserInfoController {
   }
 
   @GetMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(
+      summary = "De ingelogde gebruiker",
+      description =
+          "Gebruikersnaam, groepen (`authorities`) en eigenschappen van de ingelogde gebruiker. Voor een"
+              + " gebruiker met autorisatie voor Planmonitor Wonen ook `isProvincie` en `gemeentes` (de gemeentes"
+              + " waarvoor de gebruiker planregistraties mag aanleveren), anders de reden in `planmonitorWonenError`.")
+  @ApiResponse(responseCode = "200", description = "De ingelogde gebruiker")
+  @ApiResponse(responseCode = "401", ref = UNAUTHORIZED)
   public Map<String, Object> user() {
     Authentication authentication = authenticationService.requireAuthenticated();
 
