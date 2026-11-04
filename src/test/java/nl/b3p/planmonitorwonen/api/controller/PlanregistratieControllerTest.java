@@ -77,7 +77,7 @@ class PlanregistratieControllerTest {
   private PlanregistratieCompletionService completionService;
 
   private void loggedInAsGemeente() {
-    when(authenticationService.getFromSecurityContext())
+    when(authenticationService.requirePlanmonitorUser())
         .thenReturn(new PlanmonitorAuthentication(
             new TestingAuthenticationToken("gemeente", null), false, Set.of("Middelburg")));
   }
@@ -92,7 +92,7 @@ class PlanregistratieControllerTest {
 
   @Test
   void notLoggedInIsUnauthorizedBeforeValidation() throws Exception {
-    when(authenticationService.getFromSecurityContext())
+    when(authenticationService.requirePlanmonitorUser())
         .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Niet ingelogd"));
     assertThat(mvc.put().uri(URL).contentType(MediaType.APPLICATION_JSON).content("{}"))
         .hasStatus(HttpStatus.UNAUTHORIZED);

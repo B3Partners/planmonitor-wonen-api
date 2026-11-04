@@ -62,7 +62,7 @@ public class PlanregistratieController {
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
   public List<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
+        authenticationService.requirePlanmonitorUser();
     if (auth.isProvincie()) {
       return pmwDb.getPlanregistratiesForProvincie(details);
     } else {
@@ -73,7 +73,7 @@ public class PlanregistratieController {
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
   public Planregistratie planregistratie(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
+        authenticationService.requirePlanmonitorUser();
 
     Planregistratie planregistratie =
         pmwDb.getPlanregistratie(id.toString()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
@@ -96,7 +96,7 @@ public class PlanregistratieController {
 
     // Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
+        authenticationService.requirePlanmonitorUser();
 
     if (planregistratie.getId() != null && !isSameUuid(id, planregistratie.getId())) {
       throw new ResponseStatusException(BAD_REQUEST, "Id in de body komt niet overeen met het id in het pad");
@@ -163,7 +163,7 @@ public class PlanregistratieController {
   @DeleteMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
+        authenticationService.requirePlanmonitorUser();
 
     if (auth.isProvincie()) {
       logger.warn(
