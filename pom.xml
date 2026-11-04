@@ -503,6 +503,10 @@ SPDX-License-Identifier: MIT
                         <env>
                             <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
                             <BP_HEALTH_CHECKER_ENABLED>true</BP_HEALTH_CHECKER_ENABLED>
+                            <!-- Log file in a directory in the home directory of the cnb user, in addition to stdout.
+                            Only in the image so running locally doesn't need the directory. Mount a volume on
+                            /home/cnb/logs to keep the log when the container is recreated -->
+                            <BPE_DEFAULT_LOGGING_FILE_NAME>/home/cnb/logs/planmonitor-wonen-api.log</BPE_DEFAULT_LOGGING_FILE_NAME>
                             <BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
                             <!--suppress UnresolvedMavenProperty -->
                             <BP_OCI_REVISION>${git.commit.id.abbrev}</BP_OCI_REVISION>

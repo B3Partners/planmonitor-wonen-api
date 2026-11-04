@@ -26,8 +26,11 @@ import nl.b3p.planmonitorwonen.api.validation.EnumValues;
 import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import nl.b3p.planmonitorwonen.api.validation.TestEnumValues;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +48,7 @@ import org.springframework.web.server.ResponseStatusException;
     })
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("integration-test")
+@ExtendWith(OutputCaptureExtension.class)
 class PlanregistratieControllerTest {
   private static final String ID = "0b5c1d0e-3f43-4e4a-9a6e-2f1f6b6d2a10";
   private static final String URL = "/api/planmonitor-wonen/v2/planregistratie/" + ID;
@@ -94,7 +98,7 @@ class PlanregistratieControllerTest {
   }
 
   @Test
-  void createsNewPlan() throws Exception {
+  void createsNewPlan(CapturedOutput output) throws Exception {
     loggedInAsGemeente();
     savedPlanIsReturned();
     assertThat(mvc.put().uri(URL).contentType(MediaType.APPLICATION_JSON).content(VALID_PLAN))
@@ -103,10 +107,12 @@ class PlanregistratieControllerTest {
         .isLenientlyEqualTo("""
 {"id": "%s", "planNaam": "Plan", "provincie": "Zeeland"}""".formatted(ID));
     verify(pmwDb).insertPlanregistratie(any(), anyString());
+    assertThat(output)
+        .contains("User \"gemeente\" created plan id %s, name \"Plan\" of gemeente Middelburg".formatted(ID));
   }
 
   @Test
-  void replacesExistingPlan() throws Exception {
+  void replacesExistingPlan(CapturedOutput output) throws Exception {
     loggedInAsGemeente();
     savedPlanIsReturned();
     when(pmwDb.getPlanregistratieGemeente(ID)).thenReturn("Middelburg");
@@ -116,6 +122,7 @@ class PlanregistratieControllerTest {
         .extractingPath("$.provincie")
         .isEqualTo("Zeeland");
     verify(pmwDb).insertPlanregistratie(any(), anyString());
+    assertThat(output).contains("User \"gemeente\" replaced plan id " + ID);
   }
 
   @Test
@@ -150,6 +157,25 @@ class PlanregistratieControllerTest {
         .bodyJson()
         .extractingPath("$.detail")
         .isEqualTo("Er bestaat al een andere planregistratie met de naam \"Plan\"");
+  }
+
+  @Test
+  void deletesPlan(CapturedOutput output) {
+    loggedInAsGemeente();
+    when(pmwDb.getPlanregistratieGemeente(ID)).thenReturn("Middelburg");
+    when(pmwDb.deletePlanregistratie(ID)).thenReturn(Optional.of("Plan"));
+    assertThat(mvc.delete().uri(URL)).hasStatusOk();
+    verify(pmwDb).deletePlanregistratie(ID);
+    assertThat(output)
+        .contains("User \"gemeente\" deleted plan id %s, name \"Plan\" of gemeente Middelburg".formatted(ID));
+  }
+
+  @Test
+  void deleteUnknownPlanIsNotFound(CapturedOutput output) {
+    loggedInAsGemeente();
+    assertThat(mvc.delete().uri(URL)).hasStatus(HttpStatus.NOT_FOUND);
+    verify(pmwDb, never()).deletePlanregistratie(anyString());
+    assertThat(output).contains("User \"gemeente\" tried to delete unknown plan id " + ID);
   }
 
   @Test
