@@ -33,27 +33,18 @@ public final class AantallenValidator {
 
   public static final int LAATSTE_JAAR = 2043;
 
-  /** The categorie values per group, the same as the enum types in the database. */
-  static final Map<String, List<String>> GROEPEN = Map.of(
-      "woningType", List.of("Eengezins", "Meergezins", "Onbekend"),
-      "wonenEnZorg", List.of("Geclusterd", "Nultreden", "Onbekend", "Regulier", "Zorggeschikt"),
-      "flexwoningen", List.of("Flexwoningen", "Regulier permanent"),
-      "betaalbaarheid",
-          List.of(
-              "Sociale huur",
-              "Huur middenhuur",
-              "Huur dure huur",
-              "Huur onbekend",
-              "Koop betaalbare koop",
-              "Koop dure koop",
-              "Koop onbekend",
-              "Onbekend koop of huur"));
+  /** The enum type in the database with the categorie values per group. */
+  static final Map<String, String> GROEP_ENUM_TYPES = Map.of(
+      "woningType", EnumValues.WONING_TYPE,
+      "wonenEnZorg", EnumValues.WONEN_EN_ZORG,
+      "flexwoningen", EnumValues.FLEXWONINGEN,
+      "betaalbaarheid", EnumValues.BETAALBAARHEID);
 
   private static final String BRUTO_FIELD = "aantallen.bruto";
 
   private AantallenValidator() {}
 
-  public static void validate(Aantallen aantallen, List<ValidationError> errors) {
+  public static void validate(Aantallen aantallen, EnumValues enumValues, List<ValidationError> errors) {
     if (aantallen == null) {
       return;
     }
@@ -69,13 +60,14 @@ public final class AantallenValidator {
 
     for (Map.Entry<String, Map<String, Aantal>> groep : groepen.entrySet()) {
       Map<String, Aantal> categorieen = Objects.requireNonNullElse(groep.getValue(), Map.of());
+      List<String> categorieValues = enumValues.get(GROEP_ENUM_TYPES.get(groep.getKey()));
       for (Map.Entry<String, Aantal> categorie : categorieen.entrySet()) {
         String field = "aantallen." + groep.getKey() + "." + categorie.getKey();
-        if (!GROEPEN.get(groep.getKey()).contains(categorie.getKey())) {
+        if (!categorieValues.contains(categorie.getKey())) {
           errors.add(new ValidationError(
               field,
               "Onbekende categorie \"%s\", mogelijke waarden: %s"
-                  .formatted(categorie.getKey(), String.join(", ", GROEPEN.get(groep.getKey())))));
+                  .formatted(categorie.getKey(), String.join(", ", categorieValues))));
           valuesValid = false;
         }
         valuesValid &= validateAantal(field, categorie.getValue(), true, errors);

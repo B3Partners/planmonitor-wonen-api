@@ -39,7 +39,7 @@ class AantallenValidatorTest {
 
   private static List<ValidationError> validate(Aantallen aantallen) {
     List<ValidationError> errors = new ArrayList<>();
-    AantallenValidator.validate(aantallen, errors);
+    AantallenValidator.validate(aantallen, TestEnumValues.ENUM_VALUES, errors);
     return errors;
   }
 

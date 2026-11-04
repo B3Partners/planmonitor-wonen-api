@@ -18,6 +18,7 @@ import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import nl.b3p.planmonitorwonen.api.service.PlanregistratieCompletionService;
+import nl.b3p.planmonitorwonen.api.validation.EnumValues;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidationException;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator;
 import nl.b3p.planmonitorwonen.api.validation.ValidationError;
@@ -44,14 +45,17 @@ public class PlanregistratieController {
   private final PlanmonitorAuthenticationService authenticationService;
   private final PlanmonitorWonenDatabaseService pmwDb;
   private final PlanregistratieCompletionService completionService;
+  private final EnumValues enumValues;
 
   public PlanregistratieController(
       PlanmonitorAuthenticationService authenticationService,
       PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService,
-      PlanregistratieCompletionService completionService) {
+      PlanregistratieCompletionService completionService,
+      EnumValues enumValues) {
     this.authenticationService = authenticationService;
     this.pmwDb = planmonitorWonenDatabaseService;
     this.completionService = completionService;
+    this.enumValues = enumValues;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
@@ -98,7 +102,7 @@ public class PlanregistratieController {
     }
     planregistratie.setId(id.toString());
 
-    List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie);
+    List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie, enumValues);
     if (!errors.isEmpty()) {
       throw new PlanregistratieValidationException(errors);
     }

@@ -22,7 +22,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * Fills in fields of a planregistratie the server can determine: the provincie of the gemeente, a default
- * vertrouwelijkheid and the regio and woonmilieu from the geometry when not set by the client.
+ * vertrouwelijkheid and the regio and woonmilieu from the geometry when not set by the client. Also checks the gemeente
+ * exists and the geometry lies (partly) within the gemeente.
  */
 @Service
 @Profile("!test")
@@ -42,6 +43,7 @@ public class PlanregistratieCompletionService {
   /**
    * Fills in the fields the server can determine.
    *
+   * @throws PlanregistratieValidationException for an unknown gemeente or a geometry outside the gemeente
    * @param planregistratie a planregistratie which passed
    *     {@link nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator}
    */
@@ -50,6 +52,12 @@ public class PlanregistratieCompletionService {
         .orElseThrow(() -> new PlanregistratieValidationException(List.of(
             new ValidationError("gemeente", "Onbekende gemeente: " + planregistratie.getGemeente()))));
     planregistratie.setProvincie(provincie);
+
+    if (!pmwDb.geometryIntersectsGemeente(planregistratie.getGemeente(), planregistratie.getGeometrie())
+        .orElse(false)) {
+      throw new PlanregistratieValidationException(List.of(new ValidationError(
+          "geometrie", "Geometrie ligt niet in gemeente " + planregistratie.getGemeente())));
+    }
 
     if (isBlank(planregistratie.getVertrouwelijkheid())) {
       planregistratie.setVertrouwelijkheid("Openbaar");

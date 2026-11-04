@@ -7,6 +7,8 @@
 package nl.b3p.planmonitorwonen.api;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +24,7 @@ import nl.b3p.planmonitorwonen.api.AantallenRows.DetailplanningRow;
 import nl.b3p.planmonitorwonen.api.AantallenRows.NewPlancategorie;
 import nl.b3p.planmonitorwonen.api.AantallenRows.PlancategorieRow;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import nl.b3p.planmonitorwonen.api.validation.EnumValues;
 import org.jspecify.annotations.NonNull;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -286,11 +289,33 @@ cast(:knelpuntenMeerkeuze as pmw_knelpunten_meerkeuze[]),
         .update();
   }
 
+  /** Returns the values of the enum types of the planmonitor wonen schema. */
+  public EnumValues getEnumValues() {
+    record EnumValue(String type, String value) {}
+    return new EnumValues(this.jdbcClient.sql("""
+select t.typname as type, e.enumlabel as value
+from pg_type t
+join pg_enum e on e.enumtypid = t.oid
+where t.typname like 'pmw\\_%' and pg_type_is_visible(t.oid)
+order by t.typname, e.enumsortorder""").query(EnumValue.class).stream()
+        .collect(groupingBy(EnumValue::type, mapping(EnumValue::value, toList()))));
+  }
+
   public Optional<String> getProvincieForGemeente(String gemeente) {
     return this.jdbcClient
         .sql("select provincie from gemeente where naam = ?")
         .param(gemeente)
         .query(String.class)
+        .optional();
+  }
+
+  /** Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente. */
+  public Optional<Boolean> geometryIntersectsGemeente(String gemeente, String wkt) throws ParseException {
+    return this.jdbcClient
+        .sql("select ST_Intersects(geometry, ST_GeomFromWKB(?, 28992)) from gemeente where naam = ?")
+        .param(wktToWkb(wkt))
+        .param(gemeente)
+        .query(Boolean.class)
         .optional();
   }
 

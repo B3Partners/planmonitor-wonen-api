@@ -27,6 +27,7 @@ import nl.b3p.planmonitorwonen.api.configuration.JdbcSessionConfiguration;
 import nl.b3p.planmonitorwonen.api.model.Aantal;
 import nl.b3p.planmonitorwonen.api.model.Aantallen;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import nl.b3p.planmonitorwonen.api.validation.TestEnumValues;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,6 +205,23 @@ on conflict do nothing""").update();
   void provincieForGemeente() {
     assertEquals(Optional.of("Zeeland"), pmwDb.getProvincieForGemeente("Middelburg"));
     assertEquals(Optional.empty(), pmwDb.getProvincieForGemeente("Onbekend"));
+  }
+
+  @Test
+  void enumValuesFromDatabase() {
+    assertEquals(TestEnumValues.ENUM_VALUES, pmwDb.getEnumValues());
+  }
+
+  @Test
+  void geometryIntersectsGemeente() throws Exception {
+    assertEquals(
+        Optional.of(true),
+        pmwDb.geometryIntersectsGemeente("Middelburg", "POLYGON ((0.5 0.5, 2 0.5, 2 2, 0.5 2, 0.5 0.5))"));
+    assertEquals(
+        Optional.of(false),
+        pmwDb.geometryIntersectsGemeente("Middelburg", "POLYGON ((5 5, 6 5, 6 6, 5 6, 5 5))"));
+    assertEquals(
+        Optional.empty(), pmwDb.geometryIntersectsGemeente("Onbekend", "POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))"));
   }
 
   @Test
