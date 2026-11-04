@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Aantallen xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/nl/b3p/planmonitorwonen/api/model/Aantallen.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2026 Provincie Zeeland</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * SPDX-License-Identifier: MIT</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.model;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> com.fasterxml.jackson.annotation.JsonInclude;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * Numbers of dwellings of a planregistratie. The maps are keyed by the category value, for example "Eengezins" for</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * woningType. A category left out (or null) is not filled in, a category with an {@link Aantal} of 0 is filled in as</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * zero. For the totals both count as zero. Categories not filled in are left out of the JSON output.</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * @param bruto bruto plancapaciteit, the total number of dwellings added by the plan (stored as plancategorie</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> *     "Nieuwbouw")</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * @param sloop number of dwellings demolished</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * @param woningType dwellings by woningtype, should add up to bruto</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * @param wonenEnZorg dwellings by suitability for elderly and care, should add up to bruto</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * @param flexwoningen dwellings by temporary or permanent, should add up to bruto</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @param betaalbaarheid dwellings by price segment, should add up to bruto</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">public</strong> record <a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a>(
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> bruto,
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> sloop,
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      Map&lt;String, Aantal&gt; woningType,
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      Map&lt;String, Aantal&gt; wonenEnZorg,
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      Map&lt;String, Aantal&gt; flexwoningen,
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      Map&lt;String, Aantal&gt; betaalbaarheid) {}
+</pre>
+<hr/>
+<div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
+</body>
+</html>

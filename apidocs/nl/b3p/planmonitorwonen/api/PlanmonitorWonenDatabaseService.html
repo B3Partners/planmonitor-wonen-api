@@ -63,17 +63,13 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#getPlanregistratiesForProvincie()" tabindex="0">getPlanregistratiesForProvincie()</a></li>
-<li><a href="#getPlanregistratiesForGemeentes(java.util.Collection)" tabindex="0">getPlanregistratiesForGemeentes(Collection)</a></li>
+<li><a href="#getPlanregistratiesForProvincie(boolean)" tabindex="0">getPlanregistratiesForProvincie(boolean)</a></li>
+<li><a href="#getPlanregistratiesForGemeentes(java.util.Collection,boolean)" tabindex="0">getPlanregistratiesForGemeentes(Collection, boolean)</a></li>
+<li><a href="#getPlanregistratie(java.lang.String)" tabindex="0">getPlanregistratie(String)</a></li>
 <li><a href="#deletePlanregistratie(java.lang.String)" tabindex="0">deletePlanregistratie(String)</a></li>
-<li><a href="#insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.util.List,java.util.List,java.lang.String)" tabindex="0">insertPlanregistratie(Planregistratie, List, List, String)</a></li>
+<li><a href="#insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.lang.String)" tabindex="0">insertPlanregistratie(Planregistratie, String)</a></li>
+<li><a href="#getProvincieForGemeente(java.lang.String)" tabindex="0">getProvincieForGemeente(String)</a></li>
 <li><a href="#getPlanregistratieGemeente(java.lang.String)" tabindex="0">getPlanregistratieGemeente(String)</a></li>
-<li><a href="#getPlancategorieen(java.lang.String)" tabindex="0">getPlancategorieen(String)</a></li>
-<li><a href="#getAllPlancategorieen()" tabindex="0">getAllPlancategorieen()</a></li>
-<li><a href="#getAllPlancategorieenForGemeentes(java.util.Collection)" tabindex="0">getAllPlancategorieenForGemeentes(Collection)</a></li>
-<li><a href="#getDetailplanningen(java.lang.String)" tabindex="0">getDetailplanningen(String)</a></li>
-<li><a href="#getAllDetailplanningen()" tabindex="0">getAllDetailplanningen()</a></li>
-<li><a href="#getAllDetailplanningenForGemeentes(java.util.Collection)" tabindex="0">getAllDetailplanningenForGemeentes(Collection)</a></li>
 </ol>
 </li>
 </ol>
@@ -124,40 +120,31 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deletePlanregistratie(java.lang.String)" class="member-name-link">deletePlanregistratie</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllDetailplanningen()" class="member-name-link">getAllDetailplanningen</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllDetailplanningenForGemeentes(java.util.Collection)" class="member-name-link">getAllDetailplanningenForGemeentes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratie(java.lang.String)" class="member-name-link">getPlanregistratie</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns a planregistratie with its aantallen.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratieGemeente(java.lang.String)" class="member-name-link">getPlanregistratieGemeente</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllPlancategorieen()" class="member-name-link">getAllPlancategorieen</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratiesForGemeentes(java.util.Collection,boolean)" class="member-name-link">getPlanregistratiesForGemeentes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes,
+ boolean&nbsp;withAantallen)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllPlancategorieenForGemeentes(java.util.Collection)" class="member-name-link">getAllPlancategorieenForGemeentes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDetailplanningen(java.lang.String)" class="member-name-link">getDetailplanningen</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;planregistratieId)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlancategorieen(java.lang.String)" class="member-name-link">getPlancategorieen</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;planregistratieId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratieGemeente(java.lang.String)" class="member-name-link">getPlanregistratieGemeente</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratiesForGemeentes(java.util.Collection)" class="member-name-link">getPlanregistratiesForGemeentes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratiesForProvincie()" class="member-name-link">getPlanregistratiesForProvincie</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratiesForProvincie(boolean)" class="member-name-link">getPlanregistratiesForProvincie</a><wbr>(boolean&nbsp;withAantallen)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns all planregistraties, with the aantallen if requested.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getProvincieForGemeente(java.lang.String)" class="member-name-link">getProvincieForGemeente</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;gemeente)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.util.List,java.util.List,java.lang.String)" class="member-name-link">insertPlanregistratie</a><wbr>(<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;&nbsp;plancategorieen,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;&nbsp;detailplanningen,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.lang.String)" class="member-name-link">insertPlanregistratie</a><wbr>(<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Inserts a planregistratie or replaces an existing one.</div>
+<div class="block">Inserts a planregistratie or replaces an existing one, including the aantallen.</div>
 </div>
 </div>
 </div>
@@ -193,18 +180,36 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getPlanregistratiesForProvincie()">
+<section class="detail" id="getPlanregistratiesForProvincie(boolean)">
 <h3>getPlanregistratiesForProvincie</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">getPlanregistratiesForProvincie</span>()</div>
+<div class="member-signature"><span class="annotations">@Transactional(readOnly=true,
+               isolation=REPEATABLE_READ)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">getPlanregistratiesForProvincie</span><wbr><span class="parameters">(boolean&nbsp;withAantallen)</span></div>
+<div class="block">Returns all planregistraties, with the aantallen if requested. Uses a repeatable read transaction so the
+aantallen are consistent with the planregistraties.</div>
 </div>
 </section>
 </li>
 <li>
-<section class="detail" id="getPlanregistratiesForGemeentes(java.util.Collection)">
+<section class="detail" id="getPlanregistratiesForGemeentes(java.util.Collection,boolean)">
 <h3>getPlanregistratiesForGemeentes</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">getPlanregistratiesForGemeentes</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</span></div>
+<div class="member-signature"><span class="annotations">@Transactional(readOnly=true,
+               isolation=REPEATABLE_READ)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">getPlanregistratiesForGemeentes</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes,
+ boolean&nbsp;withAantallen)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getPlanregistratie(java.lang.String)">
+<h3>getPlanregistratie</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="annotations">@Transactional(readOnly=true,
+               isolation=REPEATABLE_READ)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</span>&nbsp;<span class="element-name">getPlanregistratie</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</span></div>
+<div class="block">Returns a planregistratie with its aantallen.</div>
 </div>
 </section>
 </li>
@@ -218,19 +223,16 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.util.List,java.util.List,java.lang.String)">
+<section class="detail" id="insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.lang.String)">
 <h3>insertPlanregistratie</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Transactional
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">insertPlanregistratie</span><wbr><span class="parameters">(<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;&nbsp;plancategorieen,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;&nbsp;detailplanningen,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</span>
                            throws <span class="exceptions">org.locationtech.jts.io.ParseException</span></div>
-<div class="block">Inserts a planregistratie or replaces an existing one. The creator, createdAt, editor and editedAt fields of the
-planregistratie are set from the username and the current time, the values from the client are ignored. For an
-existing planregistratie the creator and createdAt are kept. These fields are not stored for plancategorieen and
-detailplanningen.</div>
+<div class="block">Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor
+and editedAt fields of the planregistratie are set from the username and the current time, the values from the
+client are ignored. For an existing planregistratie the creator and createdAt are kept.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code>org.locationtech.jts.io.ParseException</code></dd>
@@ -239,58 +241,18 @@ detailplanningen.</div>
 </section>
 </li>
 <li>
+<section class="detail" id="getProvincieForGemeente(java.lang.String)">
+<h3>getProvincieForGemeente</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getProvincieForGemeente</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;gemeente)</span></div>
+</div>
+</section>
+</li>
+<li>
 <section class="detail" id="getPlanregistratieGemeente(java.lang.String)">
 <h3>getPlanregistratieGemeente</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getPlanregistratieGemeente</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</span></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getPlancategorieen(java.lang.String)">
-<h3>getPlancategorieen</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</span>&nbsp;<span class="element-name">getPlancategorieen</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;planregistratieId)</span></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getAllPlancategorieen()">
-<h3>getAllPlancategorieen</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</span>&nbsp;<span class="element-name">getAllPlancategorieen</span>()</div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getAllPlancategorieenForGemeentes(java.util.Collection)">
-<h3>getAllPlancategorieenForGemeentes</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Plancategorie.html" title="class in nl.b3p.planmonitorwonen.api.model">Plancategorie</a>&gt;</span>&nbsp;<span class="element-name">getAllPlancategorieenForGemeentes</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</span></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getDetailplanningen(java.lang.String)">
-<h3>getDetailplanningen</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</span>&nbsp;<span class="element-name">getDetailplanningen</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;planregistratieId)</span></div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getAllDetailplanningen()">
-<h3>getAllDetailplanningen</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</span>&nbsp;<span class="element-name">getAllDetailplanningen</span>()</div>
-</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getAllDetailplanningenForGemeentes(java.util.Collection)">
-<h3>getAllDetailplanningenForGemeentes</h3>
-<div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="model/Detailplanning.html" title="class in nl.b3p.planmonitorwonen.api.model">Detailplanning</a>&gt;</span>&nbsp;<span class="element-name">getAllDetailplanningenForGemeentes</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;gemeentes)</span></div>
 </div>
 </section>
 </li>
