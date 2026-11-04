@@ -8,6 +8,7 @@ package nl.b3p.planmonitorwonen.api.controller;
 
 import static nl.b3p.planmonitorwonen.api.configuration.ApiVersionConfiguration.MAJOR_VERSION;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
@@ -93,9 +94,13 @@ public class PlanregistratieController {
     return planregistratie;
   }
 
+  /**
+   * Creates or replaces a planregistratie. Returns the saved planregistratie including the fields filled in by the
+   * server, with status 201 when it was created and 200 when it was replaced.
+   */
   @PutMapping(path = "/planregistratie/{id}")
-  public ResponseEntity<?> put(@PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie)
-      throws ParseException {
+  public ResponseEntity<Planregistratie> put(
+      @PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie) throws ParseException {
 
     // Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
@@ -150,6 +155,7 @@ public class PlanregistratieController {
       logRejected(auth, planregistratie, e.getErrors());
       throw e;
     }
+    boolean created = gemeente == null;
     try {
       pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
     } catch (PlanNaamInUseException e) {
@@ -160,7 +166,9 @@ public class PlanregistratieController {
           planregistratie.getPlanNaam());
       throw e;
     }
-    return ResponseEntity.status(OK).build();
+    Planregistratie saved = pmwDb.getPlanregistratie(id.toString())
+        .orElseThrow(() -> new IllegalStateException("Saved planregistratie " + id + " not found"));
+    return ResponseEntity.status(created ? CREATED : OK).body(saved);
   }
 
   @DeleteMapping(path = "/planregistratie/{id}")
