@@ -6,13 +6,10 @@
 
 package nl.b3p.planmonitorwonen.api.configuration;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.RequestPath;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,7 +21,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Versioning of the API. The major version is a path segment after the base path:
  * {@code /api/planmonitor-wonen/v2/planregistraties}. A new major version means backwards-incompatible changes. The
  * full version (major.minor, the minor version is increased for backwards-compatible additions) is in the
- * {@value #VERSION_HEADER} response header and the OpenAPI documentation.
+ * {@value #VERSION_HEADER} response header and the OpenAPI documentation, which also describes this policy (see
+ * {@link OpenApiConfiguration}).
  *
  * <p>The API version is separate from the version of the application. It starts at 2 because version 1 is the
  * unversioned API used by earlier releases.
@@ -75,10 +73,5 @@ public class ApiVersionConfiguration implements WebMvcConfigurer {
           }
         })
         .addPathPatterns(basePath + "/" + MAJOR_VERSION + "/**");
-  }
-
-  @Bean
-  public OpenAPI openAPI() {
-    return new OpenAPI().info(new Info().title("Planmonitor Wonen API").version(VERSION));
   }
 }

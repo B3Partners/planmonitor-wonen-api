@@ -1,0 +1,31 @@
+{
+  "planNaam": "Stationsgebied fase 1",
+  "gemeente": "Middelburg",
+  "plaatsnaam": "Middelburg",
+  "geometrie": "POLYGON ((31400 391900, 31600 391900, 31600 392100, 31400 392100, 31400 391900))",
+  "plantype": "Herstructurering",
+  "statusPlanologisch": "3. In voorbereiding",
+  "statusProject": "Initiatief",
+  "opdrachtgeverType": "Woningbouwcorporatie",
+  "knelpuntenMeerkeuze": ["Stikstof", "Bereikbaarheid"],
+  "sleutelproject": false,
+  "aantallen": {
+    "bruto": { "gepland": 20, "gerealiseerd": 0, "perJaar": { "2027": 10, "2028": 10 } },
+    "sloop": { "gepland": 4, "perJaar": { "2026": 4 } },
+    "woningType": {
+      "Eengezins": { "gepland": 12, "perJaar": { "2027": 6, "2028": 6 } },
+      "Meergezins": { "gepland": 8, "perJaar": { "2027": 4, "2028": 4 } }
+    },
+    "wonenEnZorg": {
+      "Regulier": { "gepland": 14, "perJaar": { "2027": 7, "2028": 7 } },
+      "Nultreden": { "gepland": 6, "perJaar": { "2027": 3, "2028": 3 } }
+    },
+    "flexwoningen": {
+      "Regulier permanent": { "gepland": 20, "perJaar": { "2027": 10, "2028": 10 } }
+    },
+    "betaalbaarheid": {
+      "Sociale huur": { "gepland": 8, "perJaar": { "2027": 4, "2028": 4 } },
+      "Koop betaalbare koop": { "gepland": 12, "perJaar": { "2027": 6, "2028": 6 } }
+    }
+  }
+}
