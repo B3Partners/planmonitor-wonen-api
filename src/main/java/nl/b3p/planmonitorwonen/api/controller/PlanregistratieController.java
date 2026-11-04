@@ -19,6 +19,7 @@ import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import nl.b3p.planmonitorwonen.api.service.PlanregistratieCompletionService;
 import nl.b3p.planmonitorwonen.api.validation.EnumValues;
+import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidationException;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator;
 import nl.b3p.planmonitorwonen.api.validation.ValidationError;
@@ -104,6 +105,7 @@ public class PlanregistratieController {
 
     List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie, enumValues);
     if (!errors.isEmpty()) {
+      logRejected(auth, planregistratie, errors);
       throw new PlanregistratieValidationException(errors);
     }
 
@@ -139,8 +141,22 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    completionService.complete(planregistratie);
-    pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
+    try {
+      completionService.complete(planregistratie);
+    } catch (PlanregistratieValidationException e) {
+      logRejected(auth, planregistratie, e.getErrors());
+      throw e;
+    }
+    try {
+      pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
+    } catch (PlanNaamInUseException e) {
+      logger.info(
+          "User \"{}\" tried to save plan id {} with name \"{}\" already in use by another plan, rejected",
+          auth.authentication().getName(),
+          id,
+          planregistratie.getPlanNaam());
+      throw e;
+    }
     return ResponseEntity.status(OK).build();
   }
 
@@ -175,6 +191,19 @@ public class PlanregistratieController {
 
     pmwDb.deletePlanregistratie(id.toString());
     return ResponseEntity.status(OK).build();
+  }
+
+  private static void logRejected(
+      PlanmonitorAuthenticationService.PlanmonitorAuthentication auth,
+      Planregistratie planregistratie,
+      List<ValidationError> errors) {
+    logger.info(
+        "User \"{}\" tried to save invalid plan id {}, name \"{}\", rejected with {} error(s): {}",
+        auth.authentication().getName(),
+        planregistratie.getId(),
+        planregistratie.getPlanNaam(),
+        errors.size(),
+        errors);
   }
 
   private static boolean isSameUuid(UUID id, String other) {

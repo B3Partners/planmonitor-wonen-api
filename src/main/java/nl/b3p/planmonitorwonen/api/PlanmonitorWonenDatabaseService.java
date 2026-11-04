@@ -25,6 +25,7 @@ import nl.b3p.planmonitorwonen.api.AantallenRows.NewPlancategorie;
 import nl.b3p.planmonitorwonen.api.AantallenRows.PlancategorieRow;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.validation.EnumValues;
+import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import org.jspecify.annotations.NonNull;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -37,6 +38,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SimplePropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -165,11 +167,23 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
    * Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor
    * and editedAt fields of the planregistratie are set from the username and the current time, the values from the
    * client are ignored. For an existing planregistratie the creator and createdAt are kept.
+   *
+   * @throws PlanNaamInUseException when another planregistratie has the same plan name
    */
   @Transactional
   public void insertPlanregistratie(Planregistratie planregistratie, String username) throws ParseException {
     final UUID id = UUID.fromString(planregistratie.getId());
     final OffsetDateTime now = OffsetDateTime.now(ZoneId.of("Europe/Amsterdam"));
+
+    boolean planNaamInUse = this.jdbcClient
+        .sql("select exists(select 1 from planregistratie where plan_naam = ? and id <> ?)")
+        .param(planregistratie.getPlanNaam())
+        .param(id)
+        .query(Boolean.class)
+        .single();
+    if (planNaamInUse) {
+      throw new PlanNaamInUseException(planregistratie.getPlanNaam());
+    }
 
     Optional<Created> existing = this.jdbcClient
         .sql("select creator, created_at from planregistratie where id = ?")
@@ -182,7 +196,15 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
         .setEditor(existing.isPresent() ? username : null)
         .setEditedAt(existing.isPresent() ? now : null);
     this.deletePlanregistratie(planregistratie.getId());
-    insertPlanregistratieRow(planregistratie);
+    try {
+      insertPlanregistratieRow(planregistratie);
+    } catch (DuplicateKeyException e) {
+      // Another planregistratie with the same name was inserted concurrently after the check above
+      if (e.getMessage() != null && e.getMessage().contains("planregistratie_plan_naam_key")) {
+        throw new PlanNaamInUseException(planregistratie.getPlanNaam());
+      }
+      throw e;
+    }
 
     for (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
       UUID plancategorieId = UUID.randomUUID();

@@ -27,6 +27,7 @@ import nl.b3p.planmonitorwonen.api.configuration.JdbcSessionConfiguration;
 import nl.b3p.planmonitorwonen.api.model.Aantal;
 import nl.b3p.planmonitorwonen.api.model.Aantallen;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import nl.b3p.planmonitorwonen.api.validation.TestEnumValues;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,7 @@ import org.springframework.boot.jdbc.autoconfigure.DataSourceTransactionManagerA
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.session.jdbc.JdbcIndexedSessionRepository;
@@ -222,6 +224,21 @@ on conflict do nothing""").update();
         pmwDb.geometryIntersectsGemeente("Middelburg", "POLYGON ((5 5, 6 5, 6 6, 5 6, 5 5))"));
     assertEquals(
         Optional.empty(), pmwDb.geometryIntersectsGemeente("Onbekend", "POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))"));
+  }
+
+  @Test
+  void planNaamOfOtherPlanregistratieIsRejected() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan naam in gebruik"), "gemeente");
+    // Saving the same planregistratie with its own name is allowed
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan naam in gebruik"), "gemeente");
+
+    String otherId = UUID.randomUUID().toString();
+    PlanNaamInUseException e = assertThrows(
+        PlanNaamInUseException.class,
+        () -> pmwDb.insertPlanregistratie(planregistratie(otherId, "Plan naam in gebruik"), "gemeente"));
+    assertEquals(HttpStatus.CONFLICT.value(), e.getStatusCode().value());
+    assertTrue(pmwDb.getPlanregistratie(otherId).isEmpty());
   }
 
   @Test
