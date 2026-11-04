@@ -19,6 +19,8 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -57,6 +59,9 @@ public class OpenApiConfiguration {
 
   public static final String PLANREGISTRATIE_EXAMPLE = "#/components/examples/Planregistratie";
 
+  /** Name of the security scheme for the session cookie of the Tailormap login, required for all endpoints. */
+  static final String SESSION_SECURITY_SCHEME = "session";
+
   public static final String PROBLEM_JSON = "application/problem+json";
 
   static final String DESCRIPTION_RESOURCE = "openapi/description.md";
@@ -83,7 +88,15 @@ public class OpenApiConfiguration {
 
     return new OpenAPI()
         .info(new Info().title("Planmonitor Wonen API").version(VERSION).description(description()))
+        .addSecurityItem(new SecurityRequirement().addList(SESSION_SECURITY_SCHEME))
         .components(new Components()
+            .addSecuritySchemes(
+                SESSION_SECURITY_SCHEME,
+                new SecurityScheme()
+                    .type(SecurityScheme.Type.APIKEY)
+                    .in(SecurityScheme.In.COOKIE)
+                    .name("SESSION")
+                    .description("Sessie-cookie van het inloggen bij Tailormap, zie Inloggen"))
             .schemas(problemDetailSchemas)
             .addResponses(
                 UNAUTHORIZED,

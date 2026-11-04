@@ -106,6 +106,19 @@ class OpenApiConfigurationTest {
   }
 
   @Test
+  void allEndpointsRequireTheSessionCookie() {
+    assertThat(mvc.get().uri(API_DOCS))
+        .bodyJson()
+        .extractingPath("$.security[0]")
+        .asMap()
+        .containsOnlyKeys(OpenApiConfiguration.SESSION_SECURITY_SCHEME);
+    assertThat(mvc.get().uri(API_DOCS))
+        .bodyJson()
+        .extractingPath("$.components.securitySchemes.session.name")
+        .isEqualTo("SESSION");
+  }
+
+  @Test
   void enumValuesFromDatabase() {
     assertThat(mvc.get().uri(API_DOCS))
         .bodyJson()
