@@ -30,7 +30,7 @@ import org.springframework.web.server.ResponseStatusException;
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("integration-test")
 class UserInfoControllerTest {
-  private static final String URL = "/api/planmonitor-wonen/user";
+  private static final String URL = "/api/planmonitor-wonen/v2/user";
 
   @Autowired
   private MockMvcTester mvc;

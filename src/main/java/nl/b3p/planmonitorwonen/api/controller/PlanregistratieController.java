@@ -6,7 +6,9 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
+import static nl.b3p.planmonitorwonen.api.configuration.ApiVersionConfiguration.MAJOR_VERSION;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
@@ -33,11 +35,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequestMapping(path = "${planmonitor-wonen-api.base-path}/{version}", version = MAJOR_VERSION)
 @Profile("!test")
 public class PlanregistratieController {
   private static final Logger logger =
@@ -59,7 +63,7 @@ public class PlanregistratieController {
     this.enumValues = enumValues;
   }
 
-  @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
+  @GetMapping(path = "/planregistraties")
   public List<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.requirePlanmonitorUser();
@@ -70,7 +74,7 @@ public class PlanregistratieController {
     }
   }
 
-  @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
+  @GetMapping(path = "/planregistratie/{id}")
   public Planregistratie planregistratie(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.requirePlanmonitorUser();
@@ -90,9 +94,13 @@ public class PlanregistratieController {
     return planregistratie;
   }
 
-  @PutMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
-  public ResponseEntity<?> put(@PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie)
-      throws ParseException {
+  /**
+   * Creates or replaces a planregistratie. Returns the saved planregistratie including the fields filled in by the
+   * server, with status 201 when it was created and 200 when it was replaced.
+   */
+  @PutMapping(path = "/planregistratie/{id}")
+  public ResponseEntity<Planregistratie> put(
+      @PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie) throws ParseException {
 
     // Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
@@ -147,6 +155,7 @@ public class PlanregistratieController {
       logRejected(auth, planregistratie, e.getErrors());
       throw e;
     }
+    boolean created = gemeente == null;
     try {
       pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
     } catch (PlanNaamInUseException e) {
@@ -157,10 +166,12 @@ public class PlanregistratieController {
           planregistratie.getPlanNaam());
       throw e;
     }
-    return ResponseEntity.status(OK).build();
+    Planregistratie saved = pmwDb.getPlanregistratie(id.toString())
+        .orElseThrow(() -> new IllegalStateException("Saved planregistratie " + id + " not found"));
+    return ResponseEntity.status(created ? CREATED : OK).body(saved);
   }
 
-  @DeleteMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
+  @DeleteMapping(path = "/planregistratie/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.requirePlanmonitorUser();

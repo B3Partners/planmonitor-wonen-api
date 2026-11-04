@@ -6,6 +6,8 @@
 
 package nl.b3p.planmonitorwonen.api.controller;
 
+import static nl.b3p.planmonitorwonen.api.configuration.ApiVersionConfiguration.MAJOR_VERSION;
+
 import java.util.HashMap;
 import java.util.Map;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.tailormap.api.security.TailormapAdditionalProperty;
@@ -25,6 +28,7 @@ import org.tailormap.api.security.TailormapUserDetails;
  * {@link PlanmonitorAuthenticationService#requirePlanmonitorUser()}. Requires a login but no gemeente or provincie.
  */
 @RestController
+@RequestMapping(path = "${planmonitor-wonen-api.base-path}/{version}", version = MAJOR_VERSION)
 @Profile("!test")
 public class UserInfoController {
   private final PlanmonitorAuthenticationService authenticationService;
@@ -33,7 +37,7 @@ public class UserInfoController {
     this.authenticationService = authenticationService;
   }
 
-  @GetMapping(path = "${planmonitor-wonen-api.base-path}/user", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
   public Map<String, Object> user() {
     Authentication authentication = authenticationService.requireAuthenticated();
 

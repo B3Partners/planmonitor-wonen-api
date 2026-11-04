@@ -14,9 +14,11 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
+import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService.PlanmonitorAuthentication;
 import nl.b3p.planmonitorwonen.api.service.PlanregistratieCompletionService;
@@ -45,7 +47,7 @@ import org.springframework.web.server.ResponseStatusException;
 @ActiveProfiles("integration-test")
 class PlanregistratieControllerTest {
   private static final String ID = "0b5c1d0e-3f43-4e4a-9a6e-2f1f6b6d2a10";
-  private static final String URL = "/api/planmonitor-wonen/planregistratie/" + ID;
+  private static final String URL = "/api/planmonitor-wonen/v2/planregistratie/" + ID;
 
   private static final String VALID_PLAN = """
 {
@@ -82,11 +84,37 @@ class PlanregistratieControllerTest {
             new TestingAuthenticationToken("gemeente", null), false, Set.of("Middelburg")));
   }
 
+  private void savedPlanIsReturned() {
+    when(pmwDb.getPlanregistratie(ID))
+        .thenReturn(Optional.of(new Planregistratie()
+            .setId(ID)
+            .setPlanNaam("Plan")
+            .setGemeente("Middelburg")
+            .setProvincie("Zeeland")));
+  }
+
   @Test
-  void savesValidPlan() throws Exception {
+  void createsNewPlan() throws Exception {
     loggedInAsGemeente();
+    savedPlanIsReturned();
     assertThat(mvc.put().uri(URL).contentType(MediaType.APPLICATION_JSON).content(VALID_PLAN))
-        .hasStatusOk();
+        .hasStatus(HttpStatus.CREATED)
+        .bodyJson()
+        .isLenientlyEqualTo("""
+{"id": "%s", "planNaam": "Plan", "provincie": "Zeeland"}""".formatted(ID));
+    verify(pmwDb).insertPlanregistratie(any(), anyString());
+  }
+
+  @Test
+  void replacesExistingPlan() throws Exception {
+    loggedInAsGemeente();
+    savedPlanIsReturned();
+    when(pmwDb.getPlanregistratieGemeente(ID)).thenReturn("Middelburg");
+    assertThat(mvc.put().uri(URL).contentType(MediaType.APPLICATION_JSON).content(VALID_PLAN))
+        .hasStatusOk()
+        .bodyJson()
+        .extractingPath("$.provincie")
+        .isEqualTo("Zeeland");
     verify(pmwDb).insertPlanregistratie(any(), anyString());
   }
 

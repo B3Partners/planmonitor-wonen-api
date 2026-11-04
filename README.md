@@ -4,7 +4,7 @@ Rest API voor Planmonitor Wonen. Planmonitor Wonen is een webapplicatie die inzi
 ## API documentatie
 
 De API is gedocumenteerd met OpenAPI. Open in een browser `/api/planmonitor-wonen/` om de API te bekijken en uit te
-proberen met Swagger UI. De OpenAPI-specificatie zelf is te downloaden via `/api/planmonitor-wonen/v3/api-docs`.
+proberen met Swagger UI. De OpenAPI-specificatie zelf is te downloaden via `/api/planmonitor-wonen/api-docs`.
 
 De API-documentatie en Swagger UI staan standaard aan. Zet in productie de omgevingsvariabele
 `PLANMONITOR_WONEN_API_OPENAPI_ENABLED=false` (of `PMW_OPENAPI_ENABLED=false` in de Docker Compose-configuratie van
