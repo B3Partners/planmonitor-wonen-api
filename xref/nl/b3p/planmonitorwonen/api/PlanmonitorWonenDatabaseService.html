@@ -161,205 +161,211 @@
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">return</strong> planregistraties;
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>   }
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>   @Transactional
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> deletePlanregistratie(String id) {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>     jdbcClient
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         .sql(<span class="jxr_string">"delete from planregistratie where id = ?"</span>)
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         .param(UUID.fromString(id))
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         .update();
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>   }
-<a class="jxr_linenumber" name="L163" href="#L163">163</a> 
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>   <strong class="jxr_keyword">private</strong> record Created(String creator, OffsetDateTime createdAt) {}
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L167" href="#L167">167</a> <em class="jxr_javadoccomment">   * Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor</em>
-<a class="jxr_linenumber" name="L168" href="#L168">168</a> <em class="jxr_javadoccomment">   * and editedAt fields of the planregistratie are set from the username and the current time, the values from the</em>
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> <em class="jxr_javadoccomment">   * client are ignored. For an existing planregistratie the creator and createdAt are kept.</em>
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_javadoccomment">   * @throws PlanNaamInUseException when another planregistratie has the same plan name</em>
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>   @Transactional
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> insertPlanregistratie(<a name="Planregistratie" href="../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie, String username) <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">final</strong> UUID id = UUID.fromString(planregistratie.getId());
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">final</strong> OffsetDateTime now = OffsetDateTime.now(ZoneId.of(<span class="jxr_string">"Europe/Amsterdam"</span>));
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> 
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>     <strong class="jxr_keyword">boolean</strong> planNaamInUse = <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         .sql(<span class="jxr_string">"select exists(select 1 from planregistratie where plan_naam = ? and id &lt;&gt; ?)"</span>)
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         .param(planregistratie.getPlanNaam())
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>         .param(id)
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         .query(Boolean.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         .single();
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">if</strong> (planNaamInUse) {
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="PlanNaamInUseException" href="../../../../nl/b3p/planmonitorwonen/api/validation/PlanNaamInUseException.html#PlanNaamInUseException">PlanNaamInUseException</a>(planregistratie.getPlanNaam());
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>     }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     Optional&lt;Created&gt; existing = <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         .sql(<span class="jxr_string">"select creator, created_at from planregistratie where id = ?"</span>)
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         .param(id)
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         .query(Created.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>         .optional();
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     planregistratie
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         .setCreator(existing.map(Created::creator).orElse(username))
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         .setCreatedAt(existing.map(Created::createdAt).orElse(now))
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         .setEditor(existing.isPresent() ? username : <strong class="jxr_keyword">null</strong>)
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         .setEditedAt(existing.isPresent() ? now : <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">this</strong>.deletePlanregistratie(planregistratie.getId());
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>       insertPlanregistratieRow(planregistratie);
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>     } <strong class="jxr_keyword">catch</strong> (DuplicateKeyException e) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>       <em class="jxr_comment">// Another planregistratie with the same name was inserted concurrently after the check above</em>
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>       <strong class="jxr_keyword">if</strong> (e.getMessage() != <strong class="jxr_keyword">null</strong> &amp;&amp; e.getMessage().contains(<span class="jxr_string">"planregistratie_plan_naam_key"</span>)) {
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="PlanNaamInUseException" href="../../../../nl/b3p/planmonitorwonen/api/validation/PlanNaamInUseException.html#PlanNaamInUseException">PlanNaamInUseException</a>(planregistratie.getPlanNaam());
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>       }
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>       <strong class="jxr_keyword">throw</strong> e;
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>     }
-<a class="jxr_linenumber" name="L208" href="#L208">208</a> 
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>     <strong class="jxr_keyword">for</strong> (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>       UUID plancategorieId = UUID.randomUUID();
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>       <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>           .sql(<span class="jxr_string">""</span><span class="jxr_string">"
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> insert into plancategorie(id, planregistratie_id, %s, totaal_gepland, totaal_gerealiseerd)
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> values (:id, :planregistratieId, :value, :gepland, :gerealiseerd)<span class="jxr_string">""</span><span class="jxr_string">".formatted(p.column()))
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>           .param(<span class="jxr_string">"id"</span>, plancategorieId)
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>           .param(<span class="jxr_string">"planregistratieId"</span>, id)
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>           .param(<span class="jxr_string">"value"</span>, p.value(), Types.OTHER)
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>           .param(<span class="jxr_string">"gepland"</span>, p.aantal().gepland())
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>           .param(<span class="jxr_string">"gerealiseerd"</span>, p.aantal().gerealiseerd())
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>           .update();
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>       <strong class="jxr_keyword">if</strong> (p.aantal().perJaar() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>         <strong class="jxr_keyword">for</strong> (Map.Entry&lt;Integer, Integer&gt; jaar : p.aantal().perJaar().entrySet()) {
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>           <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>               .sql(
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>                   <span class="jxr_string">"insert into detailplanning(plancategorie_id, jaartal, aantal_gepland) values (?, ?, ?)"</span>)
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>               .param(plancategorieId)
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>               .param(jaar.getKey())
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>               .param(jaar.getValue())
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>               .update();
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>         }
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>       }
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>     }
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>   }
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> insertPlanregistratieRow(<a name="Planregistratie" href="../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie) <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         .sql(<span class="jxr_string">""</span><span class="jxr_string">"
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> insert into planregistratie(
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> id,
-<a class="jxr_linenumber" name="L240" href="#L240">240</a> geometrie,
-<a class="jxr_linenumber" name="L241" href="#L241">241</a> creator,
-<a class="jxr_linenumber" name="L242" href="#L242">242</a> created_at,
-<a class="jxr_linenumber" name="L243" href="#L243">243</a> editor,
-<a class="jxr_linenumber" name="L244" href="#L244">244</a> edited_at,
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> plan_naam,
-<a class="jxr_linenumber" name="L246" href="#L246">246</a> provincie,
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> gemeente,
-<a class="jxr_linenumber" name="L248" href="#L248">248</a> regio,
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> plaatsnaam,
-<a class="jxr_linenumber" name="L250" href="#L250">250</a> vertrouwelijkheid,
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> opdrachtgever_type,
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> opdrachtgever_naam,
-<a class="jxr_linenumber" name="L253" href="#L253">253</a> opmerkingen,
-<a class="jxr_linenumber" name="L254" href="#L254">254</a> plantype,
-<a class="jxr_linenumber" name="L255" href="#L255">255</a> bestemmingsplan,
-<a class="jxr_linenumber" name="L256" href="#L256">256</a> status_project,
-<a class="jxr_linenumber" name="L257" href="#L257">257</a> status_planologisch,
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> knelpunten_meerkeuze,
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> beoogd_woonmilieu_abf13,
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> aantal_studentenwoningen,
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> sleutelproject
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> )
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> values (
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> :id,
-<a class="jxr_linenumber" name="L265" href="#L265">265</a> :geometrie,
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> :creator,
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> :createdAt,
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> :editor,
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> :editedAt,
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> :planNaam,
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> :provincie,
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> :gemeente,
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> :regio,
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> :plaatsnaam,
-<a class="jxr_linenumber" name="L275" href="#L275">275</a> :vertrouwelijkheid,
-<a class="jxr_linenumber" name="L276" href="#L276">276</a> :opdrachtgeverType,
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> :opdrachtgeverNaam,
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> :opmerkingen,
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> :plantype,
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> :bestemmingsplan,
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> :statusProject,
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> :statusPlanologisch,
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> <strong class="jxr_keyword">cast</strong>(:knelpuntenMeerkeuze as pmw_knelpunten_meerkeuze[]),
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> :beoogdWoonmilieuAbf13,
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> :aantalStudentenwoningen,
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> :sleutelproject
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> )<span class="jxr_string">""</span><span class="jxr_string">")
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         .param(<span class="jxr_string">"id"</span>, UUID.fromString(planregistratie.getId()))
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         .param(<span class="jxr_string">"geometrie"</span>, wktToWkb(planregistratie.getGeometrie()))
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         .param(<span class="jxr_string">"creator"</span>, planregistratie.getCreator())
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         .param(<span class="jxr_string">"createdAt"</span>, planregistratie.getCreatedAt())
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         .param(<span class="jxr_string">"editor"</span>, planregistratie.getEditor())
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         .param(<span class="jxr_string">"editedAt"</span>, planregistratie.getEditedAt())
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>         .param(<span class="jxr_string">"planNaam"</span>, planregistratie.getPlanNaam())
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>         .param(<span class="jxr_string">"provincie"</span>, planregistratie.getProvincie())
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         .param(<span class="jxr_string">"gemeente"</span>, planregistratie.getGemeente())
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         .param(<span class="jxr_string">"regio"</span>, planregistratie.getRegio())
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         .param(<span class="jxr_string">"plaatsnaam"</span>, planregistratie.getPlaatsnaam())
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         .param(<span class="jxr_string">"vertrouwelijkheid"</span>, planregistratie.getVertrouwelijkheid(), Types.OTHER)
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         .param(<span class="jxr_string">"opdrachtgeverType"</span>, planregistratie.getOpdrachtgeverType(), Types.OTHER)
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         .param(<span class="jxr_string">"opdrachtgeverNaam"</span>, planregistratie.getOpdrachtgeverNaam())
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         .param(<span class="jxr_string">"opmerkingen"</span>, planregistratie.getOpmerkingen())
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>         .param(<span class="jxr_string">"plantype"</span>, planregistratie.getPlantype(), Types.OTHER)
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         .param(<span class="jxr_string">"bestemmingsplan"</span>, planregistratie.getBestemmingsplan())
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         .param(<span class="jxr_string">"statusProject"</span>, planregistratie.getStatusProject(), Types.OTHER)
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>         .param(<span class="jxr_string">"statusPlanologisch"</span>, planregistratie.getStatusPlanologisch(), Types.OTHER)
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>         .param(<span class="jxr_string">"knelpuntenMeerkeuze"</span>, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         .param(<span class="jxr_string">"beoogdWoonmilieuAbf13"</span>, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         .param(<span class="jxr_string">"aantalStudentenwoningen"</span>, planregistratie.getAantalStudentenwoningen())
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         .param(<span class="jxr_string">"sleutelproject"</span>, planregistratie.getSleutelproject())
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>         .update();
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>   }
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>   <em class="jxr_javadoccomment">/** Returns the values of the enum types of the planmonitor wonen schema. */</em>
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>   <strong class="jxr_keyword">public</strong> <a name="EnumValues" href="../../../../nl/b3p/planmonitorwonen/api/validation/EnumValues.html#EnumValues">EnumValues</a> getEnumValues() {
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     record EnumValue(String type, String value) {}
-<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="EnumValues" href="../../../../nl/b3p/planmonitorwonen/api/validation/EnumValues.html#EnumValues">EnumValues</a>(<strong class="jxr_keyword">this</strong>.jdbcClient.sql(<span class="jxr_string">""</span><span class="jxr_string">"
-<a class="jxr_linenumber" name="L318" href="#L318">318</a> select t.typname as type, e.enumlabel as value
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> from pg_type t
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> join pg_enum e on e.enumtypid = t.oid
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> where t.typname like 'pmw&#92;&#92;_%' and pg_type_is_visible(t.oid)
-<a class="jxr_linenumber" name="L322" href="#L322">322</a> order by t.typname, e.enumsortorder<span class="jxr_string">""</span><span class="jxr_string">").query(EnumValue.<strong class="jxr_keyword">class</strong>).stream()
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>         .collect(groupingBy(EnumValue::type, mapping(EnumValue::value, toList()))));
-<a class="jxr_linenumber" name="L324" href="#L324">324</a>   }
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>   <strong class="jxr_keyword">public</strong> Optional&lt;String&gt; getProvincieForGemeente(String gemeente) {
-<a class="jxr_linenumber" name="L327" href="#L327">327</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L328" href="#L328">328</a>         .sql(<span class="jxr_string">"select provincie from gemeente where naam = ?"</span>)
-<a class="jxr_linenumber" name="L329" href="#L329">329</a>         .param(gemeente)
-<a class="jxr_linenumber" name="L330" href="#L330">330</a>         .query(String.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>         .optional();
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>   }
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
-<a class="jxr_linenumber" name="L334" href="#L334">334</a>   <em class="jxr_javadoccomment">/** Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente. */</em>
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>   <strong class="jxr_keyword">public</strong> Optional&lt;Boolean&gt; geometryIntersectsGemeente(String gemeente, String wkt) <strong class="jxr_keyword">throws</strong> ParseException {
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>         .sql(<span class="jxr_string">"select ST_Intersects(geometry, ST_GeomFromWKB(?, 28992)) from gemeente where naam = ?"</span>)
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>         .param(wktToWkb(wkt))
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>         .param(gemeente)
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         .query(Boolean.<strong class="jxr_keyword">class</strong>)
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>         .optional();
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>   }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
-<a class="jxr_linenumber" name="L344" href="#L344">344</a>   <strong class="jxr_keyword">public</strong> String getPlanregistratieGemeente(String id) {
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>     <strong class="jxr_keyword">return</strong> (String) <strong class="jxr_keyword">this</strong>.jdbcClient
-<a class="jxr_linenumber" name="L346" href="#L346">346</a>         .sql(<span class="jxr_string">"select gemeente from planregistratie where id = ?"</span>)
-<a class="jxr_linenumber" name="L347" href="#L347">347</a>         .param(UUID.fromString(id))
-<a class="jxr_linenumber" name="L348" href="#L348">348</a>         .query()
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>         .singleColumn()
-<a class="jxr_linenumber" name="L350" href="#L350">350</a>         .stream()
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>         .findFirst()
-<a class="jxr_linenumber" name="L352" href="#L352">352</a>         .orElse(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L353" href="#L353">353</a>   }
-<a class="jxr_linenumber" name="L354" href="#L354">354</a> }
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">   * Deletes a planregistratie including the aantallen.</em>
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">   * @return the plan name of the deleted planregistratie, for logging, or empty when it did not exist</em>
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>   @Transactional
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>   <strong class="jxr_keyword">public</strong> Optional&lt;String&gt; deletePlanregistratie(String id) {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     <strong class="jxr_keyword">return</strong> jdbcClient
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>         .sql(<span class="jxr_string">"delete from planregistratie where id = ? returning plan_naam"</span>)
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         .param(UUID.fromString(id))
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>         .query(String.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         .optional();
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>   }
+<a class="jxr_linenumber" name="L169" href="#L169">169</a> 
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>   <strong class="jxr_keyword">private</strong> record Created(String creator, OffsetDateTime createdAt) {}
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> 
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_javadoccomment">   * Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">   * and editedAt fields of the planregistratie are set from the username and the current time, the values from the</em>
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">   * client are ignored. For an existing planregistratie the creator and createdAt are kept.</em>
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">   * @throws PlanNaamInUseException when another planregistratie has the same plan name</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>   @Transactional
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> insertPlanregistratie(<a name="Planregistratie" href="../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie, String username) <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     <strong class="jxr_keyword">final</strong> UUID id = UUID.fromString(planregistratie.getId());
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">final</strong> OffsetDateTime now = OffsetDateTime.now(ZoneId.of(<span class="jxr_string">"Europe/Amsterdam"</span>));
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">boolean</strong> planNaamInUse = <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         .sql(<span class="jxr_string">"select exists(select 1 from planregistratie where plan_naam = ? and id &lt;&gt; ?)"</span>)
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         .param(planregistratie.getPlanNaam())
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         .param(id)
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         .query(Boolean.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         .single();
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>     <strong class="jxr_keyword">if</strong> (planNaamInUse) {
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="PlanNaamInUseException" href="../../../../nl/b3p/planmonitorwonen/api/validation/PlanNaamInUseException.html#PlanNaamInUseException">PlanNaamInUseException</a>(planregistratie.getPlanNaam());
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     Optional&lt;Created&gt; existing = <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         .sql(<span class="jxr_string">"select creator, created_at from planregistratie where id = ?"</span>)
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>         .param(id)
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         .query(Created.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         .optional();
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>     planregistratie
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>         .setCreator(existing.map(Created::creator).orElse(username))
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         .setCreatedAt(existing.map(Created::createdAt).orElse(now))
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         .setEditor(existing.isPresent() ? username : <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         .setEditedAt(existing.isPresent() ? now : <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     <strong class="jxr_keyword">this</strong>.deletePlanregistratie(planregistratie.getId());
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>       insertPlanregistratieRow(planregistratie);
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>     } <strong class="jxr_keyword">catch</strong> (DuplicateKeyException e) {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>       <em class="jxr_comment">// Another planregistratie with the same name was inserted concurrently after the check above</em>
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>       <strong class="jxr_keyword">if</strong> (e.getMessage() != <strong class="jxr_keyword">null</strong> &amp;&amp; e.getMessage().contains(<span class="jxr_string">"planregistratie_plan_naam_key"</span>)) {
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="PlanNaamInUseException" href="../../../../nl/b3p/planmonitorwonen/api/validation/PlanNaamInUseException.html#PlanNaamInUseException">PlanNaamInUseException</a>(planregistratie.getPlanNaam());
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>       }
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>       <strong class="jxr_keyword">throw</strong> e;
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>     }
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> 
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">for</strong> (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>       UUID plancategorieId = UUID.randomUUID();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>       <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>           .sql(<span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> insert into plancategorie(id, planregistratie_id, %s, totaal_gepland, totaal_gerealiseerd)
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> values (:id, :planregistratieId, :value, :gepland, :gerealiseerd)<span class="jxr_string">""</span><span class="jxr_string">".formatted(p.column()))
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>           .param(<span class="jxr_string">"id"</span>, plancategorieId)
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>           .param(<span class="jxr_string">"planregistratieId"</span>, id)
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>           .param(<span class="jxr_string">"value"</span>, p.value(), Types.OTHER)
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>           .param(<span class="jxr_string">"gepland"</span>, p.aantal().gepland())
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>           .param(<span class="jxr_string">"gerealiseerd"</span>, p.aantal().gerealiseerd())
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>           .update();
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>       <strong class="jxr_keyword">if</strong> (p.aantal().perJaar() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>         <strong class="jxr_keyword">for</strong> (Map.Entry&lt;Integer, Integer&gt; jaar : p.aantal().perJaar().entrySet()) {
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>           <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>               .sql(
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>                   <span class="jxr_string">"insert into detailplanning(plancategorie_id, jaartal, aantal_gepland) values (?, ?, ?)"</span>)
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>               .param(plancategorieId)
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>               .param(jaar.getKey())
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>               .param(jaar.getValue())
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>               .update();
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>         }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>       }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     }
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>   }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> insertPlanregistratieRow(<a name="Planregistratie" href="../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie) <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         .sql(<span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> insert into planregistratie(
+<a class="jxr_linenumber" name="L245" href="#L245">245</a> id,
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> geometrie,
+<a class="jxr_linenumber" name="L247" href="#L247">247</a> creator,
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> created_at,
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> editor,
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> edited_at,
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> plan_naam,
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> provincie,
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> gemeente,
+<a class="jxr_linenumber" name="L254" href="#L254">254</a> regio,
+<a class="jxr_linenumber" name="L255" href="#L255">255</a> plaatsnaam,
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> vertrouwelijkheid,
+<a class="jxr_linenumber" name="L257" href="#L257">257</a> opdrachtgever_type,
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> opdrachtgever_naam,
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> opmerkingen,
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> plantype,
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> bestemmingsplan,
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> status_project,
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> status_planologisch,
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> knelpunten_meerkeuze,
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> beoogd_woonmilieu_abf13,
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> aantal_studentenwoningen,
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> sleutelproject
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> )
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> values (
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> :id,
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> :geometrie,
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> :creator,
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> :createdAt,
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> :editor,
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> :editedAt,
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> :planNaam,
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> :provincie,
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> :gemeente,
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> :regio,
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> :plaatsnaam,
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> :vertrouwelijkheid,
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> :opdrachtgeverType,
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> :opdrachtgeverNaam,
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> :opmerkingen,
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> :plantype,
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> :bestemmingsplan,
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> :statusProject,
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> :statusPlanologisch,
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <strong class="jxr_keyword">cast</strong>(:knelpuntenMeerkeuze as pmw_knelpunten_meerkeuze[]),
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> :beoogdWoonmilieuAbf13,
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> :aantalStudentenwoningen,
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> :sleutelproject
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> )<span class="jxr_string">""</span><span class="jxr_string">")
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         .param(<span class="jxr_string">"id"</span>, UUID.fromString(planregistratie.getId()))
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>         .param(<span class="jxr_string">"geometrie"</span>, wktToWkb(planregistratie.getGeometrie()))
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         .param(<span class="jxr_string">"creator"</span>, planregistratie.getCreator())
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         .param(<span class="jxr_string">"createdAt"</span>, planregistratie.getCreatedAt())
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         .param(<span class="jxr_string">"editor"</span>, planregistratie.getEditor())
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         .param(<span class="jxr_string">"editedAt"</span>, planregistratie.getEditedAt())
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         .param(<span class="jxr_string">"planNaam"</span>, planregistratie.getPlanNaam())
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         .param(<span class="jxr_string">"provincie"</span>, planregistratie.getProvincie())
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>         .param(<span class="jxr_string">"gemeente"</span>, planregistratie.getGemeente())
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         .param(<span class="jxr_string">"regio"</span>, planregistratie.getRegio())
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         .param(<span class="jxr_string">"plaatsnaam"</span>, planregistratie.getPlaatsnaam())
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         .param(<span class="jxr_string">"vertrouwelijkheid"</span>, planregistratie.getVertrouwelijkheid(), Types.OTHER)
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         .param(<span class="jxr_string">"opdrachtgeverType"</span>, planregistratie.getOpdrachtgeverType(), Types.OTHER)
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>         .param(<span class="jxr_string">"opdrachtgeverNaam"</span>, planregistratie.getOpdrachtgeverNaam())
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         .param(<span class="jxr_string">"opmerkingen"</span>, planregistratie.getOpmerkingen())
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         .param(<span class="jxr_string">"plantype"</span>, planregistratie.getPlantype(), Types.OTHER)
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         .param(<span class="jxr_string">"bestemmingsplan"</span>, planregistratie.getBestemmingsplan())
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         .param(<span class="jxr_string">"statusProject"</span>, planregistratie.getStatusProject(), Types.OTHER)
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         .param(<span class="jxr_string">"statusPlanologisch"</span>, planregistratie.getStatusPlanologisch(), Types.OTHER)
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>         .param(<span class="jxr_string">"knelpuntenMeerkeuze"</span>, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         .param(<span class="jxr_string">"beoogdWoonmilieuAbf13"</span>, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>         .param(<span class="jxr_string">"aantalStudentenwoningen"</span>, planregistratie.getAantalStudentenwoningen())
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>         .param(<span class="jxr_string">"sleutelproject"</span>, planregistratie.getSleutelproject())
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>         .update();
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>   }
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>   <em class="jxr_javadoccomment">/** Returns the values of the enum types of the planmonitor wonen schema. */</em>
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>   <strong class="jxr_keyword">public</strong> <a name="EnumValues" href="../../../../nl/b3p/planmonitorwonen/api/validation/EnumValues.html#EnumValues">EnumValues</a> getEnumValues() {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>     record EnumValue(String type, String value) {}
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="EnumValues" href="../../../../nl/b3p/planmonitorwonen/api/validation/EnumValues.html#EnumValues">EnumValues</a>(<strong class="jxr_keyword">this</strong>.jdbcClient.sql(<span class="jxr_string">""</span><span class="jxr_string">"
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> select t.typname as type, e.enumlabel as value
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> from pg_type t
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> join pg_enum e on e.enumtypid = t.oid
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> where t.typname like 'pmw&#92;&#92;_%' and pg_type_is_visible(t.oid)
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> order by t.typname, e.enumsortorder<span class="jxr_string">""</span><span class="jxr_string">").query(EnumValue.<strong class="jxr_keyword">class</strong>).stream()
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>         .collect(groupingBy(EnumValue::type, mapping(EnumValue::value, toList()))));
+<a class="jxr_linenumber" name="L330" href="#L330">330</a>   }
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 
+<a class="jxr_linenumber" name="L332" href="#L332">332</a>   <strong class="jxr_keyword">public</strong> Optional&lt;String&gt; getProvincieForGemeente(String gemeente) {
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>         .sql(<span class="jxr_string">"select provincie from gemeente where naam = ?"</span>)
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>         .param(gemeente)
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         .query(String.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         .optional();
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>   }
+<a class="jxr_linenumber" name="L339" href="#L339">339</a> 
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>   <em class="jxr_javadoccomment">/** Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente. */</em>
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>   <strong class="jxr_keyword">public</strong> Optional&lt;Boolean&gt; geometryIntersectsGemeente(String gemeente, String wkt) <strong class="jxr_keyword">throws</strong> ParseException {
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         .sql(<span class="jxr_string">"select ST_Intersects(geometry, ST_GeomFromWKB(?, 28992)) from gemeente where naam = ?"</span>)
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         .param(wktToWkb(wkt))
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>         .param(gemeente)
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>         .query(Boolean.<strong class="jxr_keyword">class</strong>)
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>         .optional();
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>   }
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>   <strong class="jxr_keyword">public</strong> String getPlanregistratieGemeente(String id) {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>     <strong class="jxr_keyword">return</strong> (String) <strong class="jxr_keyword">this</strong>.jdbcClient
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>         .sql(<span class="jxr_string">"select gemeente from planregistratie where id = ?"</span>)
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         .param(UUID.fromString(id))
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>         .query()
+<a class="jxr_linenumber" name="L355" href="#L355">355</a>         .singleColumn()
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>         .stream()
+<a class="jxr_linenumber" name="L357" href="#L357">357</a>         .findFirst()
+<a class="jxr_linenumber" name="L358" href="#L358">358</a>         .orElse(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L359" href="#L359">359</a>   }
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>

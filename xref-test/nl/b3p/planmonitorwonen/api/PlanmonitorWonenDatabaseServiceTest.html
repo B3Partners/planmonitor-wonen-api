@@ -279,43 +279,53 @@
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>     assertTrue(updated.getEditedAt().isAfter(CLIENT_TIMESTAMP));
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>   }
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> 
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>   <strong class="jxr_keyword">private</strong> Planregistratie getPlanregistratie(String id) {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>     <strong class="jxr_keyword">return</strong> pmwDb.getPlanregistratie(id).orElseThrow(() -&gt; <strong class="jxr_keyword">new</strong> AssertionError(<span class="jxr_string">"Planregistratie not found"</span>));
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>   }
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Planregistratie planregistratie(String id, String planNaam) {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Planregistratie()
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         .setId(id)
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>         .setGeometrie(<span class="jxr_string">"POLYGON ((30000 390000, 31000 390000, 31000 391000, 30000 391000, 30000 390000))"</span>)
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         <em class="jxr_comment">// Values from the client, must be ignored</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>         .setCreator(<span class="jxr_string">"client"</span>)
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>         .setCreatedAt(CLIENT_TIMESTAMP)
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>         .setEditor(<span class="jxr_string">"client"</span>)
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         .setEditedAt(CLIENT_TIMESTAMP)
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>         .setPlanNaam(planNaam)
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         .setProvincie(<span class="jxr_string">"Zeeland"</span>)
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>         .setGemeente(<span class="jxr_string">"Middelburg"</span>)
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         .setRegio(<span class="jxr_string">"Walcheren"</span>)
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>         .setPlaatsnaam(<span class="jxr_string">"Middelburg"</span>)
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>         .setVertrouwelijkheid(<span class="jxr_string">"Openbaar"</span>)
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         .setOpdrachtgeverType(<span class="jxr_string">"Gemeente"</span>)
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>         .setPlantype(<span class="jxr_string">"Herstructurering"</span>)
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>         .setStatusProject(<span class="jxr_string">"Voorbereiding"</span>)
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         .setStatusPlanologisch(<span class="jxr_string">"3. In voorbereiding"</span>)
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         .setKnelpuntenMeerkeuze(<strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"Bereikbaarheid"</span>, <span class="jxr_string">"Stikstof"</span>})
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum"</span>)
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         .setAantalStudentenwoningen(0)
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         .setSleutelproject(false);
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>   }
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantal aantal(<strong class="jxr_keyword">int</strong> gepland, Map&lt;Integer, Integer&gt; perJaar) {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantal(gepland, 0, <strong class="jxr_keyword">new</strong> TreeMap&lt;&gt;(perJaar));
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>   }
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> 
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantallen aantallen(Aantal bruto, Map&lt;String, Aantal&gt; woningType) {
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantallen(bruto, <strong class="jxr_keyword">null</strong>, woningType, Map.of(), Map.of(), Map.of());
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>   }
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> }
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>   @Test
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>   <strong class="jxr_keyword">void</strong> deleteReturnsPlanNaam() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     String id = UUID.randomUUID().toString();
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>     pmwDb.insertPlanregistratie(planregistratie(id, <span class="jxr_string">"Plan verwijderen"</span>), <span class="jxr_string">"gemeente"</span>);
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>     assertEquals(Optional.of(<span class="jxr_string">"Plan verwijderen"</span>), pmwDb.deletePlanregistratie(id));
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     assertTrue(pmwDb.getPlanregistratie(id).isEmpty());
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     assertEquals(Optional.empty(), pmwDb.deletePlanregistratie(id));
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>   }
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>   <strong class="jxr_keyword">private</strong> Planregistratie getPlanregistratie(String id) {
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>     <strong class="jxr_keyword">return</strong> pmwDb.getPlanregistratie(id).orElseThrow(() -&gt; <strong class="jxr_keyword">new</strong> AssertionError(<span class="jxr_string">"Planregistratie not found"</span>));
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>   }
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> 
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Planregistratie planregistratie(String id, String planNaam) {
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Planregistratie()
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         .setId(id)
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>         .setGeometrie(<span class="jxr_string">"POLYGON ((30000 390000, 31000 390000, 31000 391000, 30000 391000, 30000 390000))"</span>)
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>         <em class="jxr_comment">// Values from the client, must be ignored</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>         .setCreator(<span class="jxr_string">"client"</span>)
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         .setCreatedAt(CLIENT_TIMESTAMP)
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>         .setEditor(<span class="jxr_string">"client"</span>)
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         .setEditedAt(CLIENT_TIMESTAMP)
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         .setPlanNaam(planNaam)
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         .setProvincie(<span class="jxr_string">"Zeeland"</span>)
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         .setGemeente(<span class="jxr_string">"Middelburg"</span>)
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         .setRegio(<span class="jxr_string">"Walcheren"</span>)
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         .setPlaatsnaam(<span class="jxr_string">"Middelburg"</span>)
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>         .setVertrouwelijkheid(<span class="jxr_string">"Openbaar"</span>)
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         .setOpdrachtgeverType(<span class="jxr_string">"Gemeente"</span>)
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         .setPlantype(<span class="jxr_string">"Herstructurering"</span>)
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         .setStatusProject(<span class="jxr_string">"Voorbereiding"</span>)
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         .setStatusPlanologisch(<span class="jxr_string">"3. In voorbereiding"</span>)
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>         .setKnelpuntenMeerkeuze(<strong class="jxr_keyword">new</strong> String[] {<span class="jxr_string">"Bereikbaarheid"</span>, <span class="jxr_string">"Stikstof"</span>})
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         .setBeoogdWoonmilieuAbf13(<span class="jxr_string">"Centrum"</span>)
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         .setAantalStudentenwoningen(0)
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         .setSleutelproject(false);
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>   }
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantal aantal(<strong class="jxr_keyword">int</strong> gepland, Map&lt;Integer, Integer&gt; perJaar) {
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantal(gepland, 0, <strong class="jxr_keyword">new</strong> TreeMap&lt;&gt;(perJaar));
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>   }
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> 
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantallen aantallen(Aantal bruto, Map&lt;String, Aantal&gt; woningType) {
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantallen(bruto, <strong class="jxr_keyword">null</strong>, woningType, Map.of(), Map.of(), Map.of());
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>   }
+<a class="jxr_linenumber" name="L320" href="#L320">320</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
