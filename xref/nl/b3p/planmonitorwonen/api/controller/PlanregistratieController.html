@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>    @GetMapping(path = <span class="jxr_string">"${planmonitor-wonen-api.base-path}/planregistraties"</span>)
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>    <strong class="jxr_keyword">public</strong> List&lt;Planregistratie&gt; planregistraties(@RequestParam(required = false) <strong class="jxr_keyword">boolean</strong> details) {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          authenticationService.requirePlanmonitorUser();
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          authenticationService.getFromSecurityContext();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">if</strong> (auth.isProvincie()) {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>        <strong class="jxr_keyword">return</strong> pmwDb.getPlanregistratiesForProvincie(details);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      } <strong class="jxr_keyword">else</strong> {
@@ -81,7 +81,7 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>    @GetMapping(path = <span class="jxr_string">"${planmonitor-wonen-api.base-path}/planregistratie/{id}"</span>)
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>    <strong class="jxr_keyword">public</strong> <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie(@PathVariable(<span class="jxr_string">"id"</span>) UUID id) {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          authenticationService.requirePlanmonitorUser();
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          authenticationService.getFromSecurityContext();
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      <a name="Planregistratie" href="../../../../../nl/b3p/planmonitorwonen/api/model/Planregistratie.html#Planregistratie">Planregistratie</a> planregistratie =
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          pmwDb.getPlanregistratie(id.toString()).orElseThrow(() -&gt; <strong class="jxr_keyword">new</strong> ResponseStatusException(NOT_FOUND));
@@ -104,7 +104,7 @@
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      <em class="jxr_comment">// Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400</em>
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          authenticationService.requirePlanmonitorUser();
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>          authenticationService.getFromSecurityContext();
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     <strong class="jxr_keyword">if</strong> (planregistratie.getId() != <strong class="jxr_keyword">null</strong> &amp;&amp; !isSameUuid(id, planregistratie.getId())) {
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> ResponseStatusException(BAD_REQUEST, <span class="jxr_string">"Id in de body komt niet overeen met het id in het pad"</span>);
@@ -171,7 +171,7 @@
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>   @DeleteMapping(path = <span class="jxr_string">"${planmonitor-wonen-api.base-path}/planregistratie/{id}"</span>)
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>   <strong class="jxr_keyword">public</strong> ResponseEntity&lt;?&gt; delete(@PathVariable(<span class="jxr_string">"id"</span>) UUID id) {
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         authenticationService.requirePlanmonitorUser();
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>         authenticationService.getFromSecurityContext();
 <a class="jxr_linenumber" name="L167" href="#L167">167</a> 
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">if</strong> (auth.isProvincie()) {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>       logger.warn(

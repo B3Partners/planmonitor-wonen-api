@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>    <strong class="jxr_keyword">private</strong> PlanregistratieCompletionService completionService;
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> loggedInAsGemeente() {
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      when(authenticationService.requirePlanmonitorUser())
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      when(authenticationService.getFromSecurityContext())
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          .thenReturn(<strong class="jxr_keyword">new</strong> PlanmonitorAuthentication(
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              <strong class="jxr_keyword">new</strong> TestingAuthenticationToken(<span class="jxr_string">"gemeente"</span>, <strong class="jxr_keyword">null</strong>), false, Set.of(<span class="jxr_string">"Middelburg"</span>)));
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>    }
@@ -100,7 +100,7 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>    @Test
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>    <strong class="jxr_keyword">void</strong> notLoggedInIsUnauthorizedBeforeValidation() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      when(authenticationService.requirePlanmonitorUser())
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      when(authenticationService.getFromSecurityContext())
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          .thenThrow(<strong class="jxr_keyword">new</strong> ResponseStatusException(HttpStatus.UNAUTHORIZED, <span class="jxr_string">"Niet ingelogd"</span>));
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      assertThat(mvc.put().uri(URL).contentType(MediaType.APPLICATION_JSON).content(<span class="jxr_string">"{}"</span>))
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          .hasStatus(HttpStatus.UNAUTHORIZED);
