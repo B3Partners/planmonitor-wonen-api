@@ -67,6 +67,7 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">nl.b3p.planmonitorwonen.api.validation.<a href="nl/b3p/planmonitorwonen/api/validation/AantallenValidator.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.validation">AantallenValidator</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.security.<a href="nl/b3p/planmonitorwonen/api/security/ApiSecurityConfig.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.security">ApiSecurityConfig</a></li>
+<li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/ApiVersionConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">ApiVersionConfiguration</a> (implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer)</li>
 <li class="circle">org.springframework.security.oauth2.core.user.DefaultOAuth2User (implements org.springframework.security.oauth2.core.user.OAuth2User, java.io.<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
 <ul>
 <li class="circle">org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser (implements org.springframework.security.oauth2.core.oidc.user.OidcUser)
@@ -79,7 +80,6 @@ loadScripts(document, 'script');</script>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/EnumValuesConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">EnumValuesConfiguration</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/GemeentesController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">GemeentesController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/GeoToolsConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">GeoToolsConfiguration</a></li>
-<li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/HelloController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">HelloController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.<a href="nl/b3p/planmonitorwonen/api/ImportGemeentesApplication.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api">ImportGemeentesApplication</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/JdbcSessionConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">JdbcSessionConfiguration</a> (implements org.springframework.beans.factory.BeanClassLoaderAware)</li>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/MonitoringConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">MonitoringConfiguration</a></li>
@@ -93,7 +93,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/PlanregistratieController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">PlanregistratieController</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.validation.<a href="nl/b3p/planmonitorwonen/api/validation/PlanregistratieValidator.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.validation">PlanregistratieValidator</a></li>
 <li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/PopulateTestData.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">PopulateTestData</a></li>
-<li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/SwaggerUiErrorViewResolver.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">SwaggerUiErrorViewResolver</a> (implements org.springframework.boot.webmvc.autoconfigure.error.ErrorViewResolver)</li>
+<li class="circle">nl.b3p.planmonitorwonen.api.configuration.<a href="nl/b3p/planmonitorwonen/api/configuration/SwaggerUiRedirectConfiguration.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.configuration">SwaggerUiRedirectConfiguration</a> (implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer)</li>
 <li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapOidcUserMixin.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapOidcUserMixin</a></li>
 <li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetailsImpl.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapUserDetailsImpl</a> (implements org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetails.html" title="interface in org.tailormap.api.security">TailormapUserDetails</a>)</li>
 <li class="circle">org.tailormap.api.security.<a href="org/tailormap/api/security/TailormapUserDetailsImplMixin.html" class="type-name-link" title="class in org.tailormap.api.security">TailormapUserDetailsImplMixin</a></li>
@@ -119,6 +119,7 @@ loadScripts(document, 'script');</script>
 </li>
 </ul>
 </li>
+<li class="circle">nl.b3p.planmonitorwonen.api.controller.<a href="nl/b3p/planmonitorwonen/api/controller/UserInfoController.html" class="type-name-link" title="class in nl.b3p.planmonitorwonen.api.controller">UserInfoController</a></li>
 </ul>
 </li>
 </ul>
