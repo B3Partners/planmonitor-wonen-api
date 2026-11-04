@@ -18,6 +18,8 @@ import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
 import nl.b3p.planmonitorwonen.api.service.PlanregistratieCompletionService;
+import nl.b3p.planmonitorwonen.api.validation.EnumValues;
+import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidationException;
 import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator;
 import nl.b3p.planmonitorwonen.api.validation.ValidationError;
@@ -44,14 +46,17 @@ public class PlanregistratieController {
   private final PlanmonitorAuthenticationService authenticationService;
   private final PlanmonitorWonenDatabaseService pmwDb;
   private final PlanregistratieCompletionService completionService;
+  private final EnumValues enumValues;
 
   public PlanregistratieController(
       PlanmonitorAuthenticationService authenticationService,
       PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService,
-      PlanregistratieCompletionService completionService) {
+      PlanregistratieCompletionService completionService,
+      EnumValues enumValues) {
     this.authenticationService = authenticationService;
     this.pmwDb = planmonitorWonenDatabaseService;
     this.completionService = completionService;
+    this.enumValues = enumValues;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
@@ -89,18 +94,20 @@ public class PlanregistratieController {
   public ResponseEntity<?> put(@PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie)
       throws ParseException {
 
+    // Authenticate before validating, so a client which is not logged in gets a 401 instead of a 400
+    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
+        authenticationService.getFromSecurityContext();
+
     if (planregistratie.getId() != null && !isSameUuid(id, planregistratie.getId())) {
       throw new ResponseStatusException(BAD_REQUEST, "Id in de body komt niet overeen met het id in het pad");
     }
     planregistratie.setId(id.toString());
 
-    List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie);
+    List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie, enumValues);
     if (!errors.isEmpty()) {
+      logRejected(auth, planregistratie, errors);
       throw new PlanregistratieValidationException(errors);
     }
-
-    PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
-        authenticationService.getFromSecurityContext();
 
     if (auth.isProvincie()) {
       logger.warn(
@@ -134,8 +141,22 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    completionService.complete(planregistratie);
-    pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
+    try {
+      completionService.complete(planregistratie);
+    } catch (PlanregistratieValidationException e) {
+      logRejected(auth, planregistratie, e.getErrors());
+      throw e;
+    }
+    try {
+      pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
+    } catch (PlanNaamInUseException e) {
+      logger.info(
+          "User \"{}\" tried to save plan id {} with name \"{}\" already in use by another plan, rejected",
+          auth.authentication().getName(),
+          id,
+          planregistratie.getPlanNaam());
+      throw e;
+    }
     return ResponseEntity.status(OK).build();
   }
 
@@ -170,6 +191,19 @@ public class PlanregistratieController {
 
     pmwDb.deletePlanregistratie(id.toString());
     return ResponseEntity.status(OK).build();
+  }
+
+  private static void logRejected(
+      PlanmonitorAuthenticationService.PlanmonitorAuthentication auth,
+      Planregistratie planregistratie,
+      List<ValidationError> errors) {
+    logger.info(
+        "User \"{}\" tried to save invalid plan id {}, name \"{}\", rejected with {} error(s): {}",
+        auth.authentication().getName(),
+        planregistratie.getId(),
+        planregistratie.getPlanNaam(),
+        errors.size(),
+        errors);
   }
 
   private static boolean isSameUuid(UUID id, String other) {

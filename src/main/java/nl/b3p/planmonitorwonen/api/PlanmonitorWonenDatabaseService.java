@@ -7,13 +7,14 @@
 package nl.b3p.planmonitorwonen.api;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import nl.b3p.planmonitorwonen.api.AantallenRows.DetailplanningRow;
 import nl.b3p.planmonitorwonen.api.AantallenRows.NewPlancategorie;
 import nl.b3p.planmonitorwonen.api.AantallenRows.PlancategorieRow;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
+import nl.b3p.planmonitorwonen.api.validation.EnumValues;
+import nl.b3p.planmonitorwonen.api.validation.PlanNaamInUseException;
 import org.jspecify.annotations.NonNull;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -35,6 +38,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SimplePropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -89,12 +93,6 @@ public class PlanmonitorWonenDatabaseService {
   private byte[] wktToWkb(String wkt) throws ParseException {
     Geometry geometry = new WKTReader().read(wkt);
     return new WKBWriter().write(geometry);
-  }
-
-  private String sqlQuestionMarks(int count) {
-    String[] qs = new String[count];
-    Arrays.fill(qs, "?");
-    return String.join(", ", qs);
   }
 
   /**
@@ -159,7 +157,7 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
   public void deletePlanregistratie(String id) {
     jdbcClient
         .sql("delete from planregistratie where id = ?")
-        .param(1, id, Types.OTHER)
+        .param(UUID.fromString(id))
         .update();
   }
 
@@ -169,15 +167,27 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
    * Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor
    * and editedAt fields of the planregistratie are set from the username and the current time, the values from the
    * client are ignored. For an existing planregistratie the creator and createdAt are kept.
+   *
+   * @throws PlanNaamInUseException when another planregistratie has the same plan name
    */
   @Transactional
   public void insertPlanregistratie(Planregistratie planregistratie, String username) throws ParseException {
-    final String id = planregistratie.getId();
+    final UUID id = UUID.fromString(planregistratie.getId());
     final OffsetDateTime now = OffsetDateTime.now(ZoneId.of("Europe/Amsterdam"));
+
+    boolean planNaamInUse = this.jdbcClient
+        .sql("select exists(select 1 from planregistratie where plan_naam = ? and id <> ?)")
+        .param(planregistratie.getPlanNaam())
+        .param(id)
+        .query(Boolean.class)
+        .single();
+    if (planNaamInUse) {
+      throw new PlanNaamInUseException(planregistratie.getPlanNaam());
+    }
 
     Optional<Created> existing = this.jdbcClient
         .sql("select creator, created_at from planregistratie where id = ?")
-        .param(1, id, Types.OTHER)
+        .param(id)
         .query(Created.class)
         .optional();
     planregistratie
@@ -185,8 +195,46 @@ order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sl
         .setCreatedAt(existing.map(Created::createdAt).orElse(now))
         .setEditor(existing.isPresent() ? username : null)
         .setEditedAt(existing.isPresent() ? now : null);
-    this.deletePlanregistratie(id);
-    String insertPlanregistratie = """
+    this.deletePlanregistratie(planregistratie.getId());
+    try {
+      insertPlanregistratieRow(planregistratie);
+    } catch (DuplicateKeyException e) {
+      // Another planregistratie with the same name was inserted concurrently after the check above
+      if (e.getMessage() != null && e.getMessage().contains("planregistratie_plan_naam_key")) {
+        throw new PlanNaamInUseException(planregistratie.getPlanNaam());
+      }
+      throw e;
+    }
+
+    for (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
+      UUID plancategorieId = UUID.randomUUID();
+      this.jdbcClient
+          .sql("""
+insert into plancategorie(id, planregistratie_id, %s, totaal_gepland, totaal_gerealiseerd)
+values (:id, :planregistratieId, :value, :gepland, :gerealiseerd)""".formatted(p.column()))
+          .param("id", plancategorieId)
+          .param("planregistratieId", id)
+          .param("value", p.value(), Types.OTHER)
+          .param("gepland", p.aantal().gepland())
+          .param("gerealiseerd", p.aantal().gerealiseerd())
+          .update();
+      if (p.aantal().perJaar() != null) {
+        for (Map.Entry<Integer, Integer> jaar : p.aantal().perJaar().entrySet()) {
+          this.jdbcClient
+              .sql(
+                  "insert into detailplanning(plancategorie_id, jaartal, aantal_gepland) values (?, ?, ?)")
+              .param(plancategorieId)
+              .param(jaar.getKey())
+              .param(jaar.getValue())
+              .update();
+        }
+      }
+    }
+  }
+
+  private void insertPlanregistratieRow(Planregistratie planregistratie) throws ParseException {
+    this.jdbcClient
+        .sql("""
 insert into planregistratie(
 id,
 geometrie,
@@ -212,58 +260,67 @@ beoogd_woonmilieu_abf13,
 aantal_studentenwoningen,
 sleutelproject
 )
-values (%s, ?::pmw_knelpunten_meerkeuze[], %s)""".formatted(sqlQuestionMarks(19), sqlQuestionMarks(3));
-    this.jdbcClient
-        .sql(insertPlanregistratie)
-        .param(1, planregistratie.getId(), Types.OTHER)
-        .param(wktToWkb(planregistratie.getGeometrie()))
-        .param(planregistratie.getCreator())
-        .param(planregistratie.getCreatedAt())
-        .param(planregistratie.getEditor())
-        .param(planregistratie.getEditedAt())
-        .param(planregistratie.getPlanNaam())
-        .param(planregistratie.getProvincie())
-        .param(planregistratie.getGemeente())
-        .param(planregistratie.getRegio())
-        .param(planregistratie.getPlaatsnaam())
-        .param(12, planregistratie.getVertrouwelijkheid(), Types.OTHER)
-        .param(13, planregistratie.getOpdrachtgeverType(), Types.OTHER)
-        .param(planregistratie.getOpdrachtgeverNaam())
-        .param(planregistratie.getOpmerkingen())
-        .param(16, planregistratie.getPlantype(), Types.OTHER)
-        .param(planregistratie.getBestemmingsplan())
-        .param(18, planregistratie.getStatusProject(), Types.OTHER)
-        .param(19, planregistratie.getStatusPlanologisch(), Types.OTHER)
-        .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
-        .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
-        .param(planregistratie.getAantalStudentenwoningen())
-        .param(planregistratie.getSleutelproject())
+values (
+:id,
+:geometrie,
+:creator,
+:createdAt,
+:editor,
+:editedAt,
+:planNaam,
+:provincie,
+:gemeente,
+:regio,
+:plaatsnaam,
+:vertrouwelijkheid,
+:opdrachtgeverType,
+:opdrachtgeverNaam,
+:opmerkingen,
+:plantype,
+:bestemmingsplan,
+:statusProject,
+:statusPlanologisch,
+cast(:knelpuntenMeerkeuze as pmw_knelpunten_meerkeuze[]),
+:beoogdWoonmilieuAbf13,
+:aantalStudentenwoningen,
+:sleutelproject
+)""")
+        .param("id", UUID.fromString(planregistratie.getId()))
+        .param("geometrie", wktToWkb(planregistratie.getGeometrie()))
+        .param("creator", planregistratie.getCreator())
+        .param("createdAt", planregistratie.getCreatedAt())
+        .param("editor", planregistratie.getEditor())
+        .param("editedAt", planregistratie.getEditedAt())
+        .param("planNaam", planregistratie.getPlanNaam())
+        .param("provincie", planregistratie.getProvincie())
+        .param("gemeente", planregistratie.getGemeente())
+        .param("regio", planregistratie.getRegio())
+        .param("plaatsnaam", planregistratie.getPlaatsnaam())
+        .param("vertrouwelijkheid", planregistratie.getVertrouwelijkheid(), Types.OTHER)
+        .param("opdrachtgeverType", planregistratie.getOpdrachtgeverType(), Types.OTHER)
+        .param("opdrachtgeverNaam", planregistratie.getOpdrachtgeverNaam())
+        .param("opmerkingen", planregistratie.getOpmerkingen())
+        .param("plantype", planregistratie.getPlantype(), Types.OTHER)
+        .param("bestemmingsplan", planregistratie.getBestemmingsplan())
+        .param("statusProject", planregistratie.getStatusProject(), Types.OTHER)
+        .param("statusPlanologisch", planregistratie.getStatusPlanologisch(), Types.OTHER)
+        .param("knelpuntenMeerkeuze", planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
+        .param("beoogdWoonmilieuAbf13", planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
+        .param("aantalStudentenwoningen", planregistratie.getAantalStudentenwoningen())
+        .param("sleutelproject", planregistratie.getSleutelproject())
         .update();
+  }
 
-    for (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
-      UUID plancategorieId = UUID.randomUUID();
-      this.jdbcClient
-          .sql("""
-insert into plancategorie(id, planregistratie_id, %s, totaal_gepland, totaal_gerealiseerd)
-values (?, ?, ?::pmw_%s, ?, ?)""".formatted(p.column(), p.column()))
-          .param(1, plancategorieId, Types.OTHER)
-          .param(2, id, Types.OTHER)
-          .param(3, p.value())
-          .param(4, p.aantal().gepland())
-          .param(5, p.aantal().gerealiseerd())
-          .update();
-      if (p.aantal().perJaar() != null) {
-        for (Map.Entry<Integer, Integer> jaar : p.aantal().perJaar().entrySet()) {
-          this.jdbcClient
-              .sql(
-                  "insert into detailplanning(plancategorie_id, jaartal, aantal_gepland) values (?, ?, ?)")
-              .param(1, plancategorieId, Types.OTHER)
-              .param(2, jaar.getKey())
-              .param(3, jaar.getValue())
-              .update();
-        }
-      }
-    }
+  /** Returns the values of the enum types of the planmonitor wonen schema. */
+  public EnumValues getEnumValues() {
+    record EnumValue(String type, String value) {}
+    return new EnumValues(this.jdbcClient.sql("""
+select t.typname as type, e.enumlabel as value
+from pg_type t
+join pg_enum e on e.enumtypid = t.oid
+where t.typname like 'pmw\\_%' and pg_type_is_visible(t.oid)
+order by t.typname, e.enumsortorder""").query(EnumValue.class).stream()
+        .collect(groupingBy(EnumValue::type, mapping(EnumValue::value, toList()))));
   }
 
   public Optional<String> getProvincieForGemeente(String gemeente) {
@@ -274,10 +331,20 @@ values (?, ?, ?::pmw_%s, ?, ?)""".formatted(p.column(), p.column()))
         .optional();
   }
 
+  /** Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente. */
+  public Optional<Boolean> geometryIntersectsGemeente(String gemeente, String wkt) throws ParseException {
+    return this.jdbcClient
+        .sql("select ST_Intersects(geometry, ST_GeomFromWKB(?, 28992)) from gemeente where naam = ?")
+        .param(wktToWkb(wkt))
+        .param(gemeente)
+        .query(Boolean.class)
+        .optional();
+  }
+
   public String getPlanregistratieGemeente(String id) {
     return (String) this.jdbcClient
         .sql("select gemeente from planregistratie where id = ?")
-        .param(1, id, Types.OTHER)
+        .param(UUID.fromString(id))
         .query()
         .singleColumn()
         .stream()

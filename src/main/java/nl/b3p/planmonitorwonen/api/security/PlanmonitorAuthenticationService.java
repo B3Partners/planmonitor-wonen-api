@@ -12,6 +12,7 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,9 @@ public class PlanmonitorAuthenticationService {
 
   public PlanmonitorAuthentication getFromSecurityContext() throws ResponseStatusException {
     final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication == null) {
-      throw new ResponseStatusException(UNAUTHORIZED);
+    // Without a session the authentication is an anonymous authentication instead of null
+    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+      throw new ResponseStatusException(UNAUTHORIZED, "Niet ingelogd");
     }
 
     if (authentication.getPrincipal() instanceof TailormapUserDetails userDetails) {
@@ -44,11 +46,12 @@ public class PlanmonitorAuthenticationService {
       PlanmonitorAuthentication result = new PlanmonitorAuthentication(authentication, isProvincie, gemeentes);
 
       if (!result.isProvincie && result.gemeentes.isEmpty()) {
-        throw new ResponseStatusException(FORBIDDEN);
+        throw new ResponseStatusException(
+            FORBIDDEN, "Gebruiker is niet geautoriseerd voor een gemeente of provincie");
       }
       return result;
     } else {
-      throw new ResponseStatusException(FORBIDDEN);
+      throw new ResponseStatusException(FORBIDDEN, "Gebruiker is niet geautoriseerd voor Planmonitor Wonen");
     }
   }
 }
