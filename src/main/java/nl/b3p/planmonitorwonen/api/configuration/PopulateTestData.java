@@ -9,12 +9,13 @@ package nl.b3p.planmonitorwonen.api.configuration;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 import nl.b3p.planmonitorwonen.api.ImportGemeentesApplication;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
-import nl.b3p.planmonitorwonen.api.model.Detailplanning;
-import nl.b3p.planmonitorwonen.api.model.Plancategorie;
+import nl.b3p.planmonitorwonen.api.model.Aantal;
+import nl.b3p.planmonitorwonen.api.model.Aantallen;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.locationtech.jts.io.ParseException;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class PopulateTestData {
 
   @PostConstruct
   public void init() throws ParseException {
-    if (!pmwDb.getPlanregistratiesForProvincie().isEmpty()) {
+    if (!pmwDb.getPlanregistratiesForProvincie(false).isEmpty()) {
       return;
     }
 
@@ -83,23 +84,9 @@ public class PopulateTestData {
         .setBeoogdWoonmilieuAbf13("Centrum")
         .setAantalStudentenwoningen(70)
         .setSleutelproject(false);
-    List<Plancategorie> plancategorieen = List.of(new Plancategorie(
-        UUID.randomUUID().toString(),
-        planregistratie.getId(),
-        "Nieuwbouw",
-        null,
-        null,
-        null,
-        null,
-        null,
-        20,
-        0));
-    List<Detailplanning> detailplanningen = List.of(
-        new Detailplanning(
-            UUID.randomUUID().toString(), plancategorieen.getFirst().id(), 2025, 10),
-        new Detailplanning(
-            UUID.randomUUID().toString(), plancategorieen.getFirst().id(), 2028, 10));
-    pmwDb.insertPlanregistratie(planregistratie, plancategorieen, detailplanningen, "test");
+    planregistratie.setAantallen(new Aantallen(
+        new Aantal(20, 0, new TreeMap<>(Map.of(2025, 10, 2028, 10))), null, null, null, null, null));
+    pmwDb.insertPlanregistratie(planregistratie, "test");
   }
 
   @Value("${planmonitor-wonen-api.wfs.bestuurlijke-gebieden}")

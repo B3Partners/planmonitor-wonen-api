@@ -6,6 +6,8 @@
 
 package nl.b3p.planmonitorwonen.api;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -14,10 +16,12 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import nl.b3p.planmonitorwonen.api.model.Detailplanning;
-import nl.b3p.planmonitorwonen.api.model.Plancategorie;
+import java.util.UUID;
+import nl.b3p.planmonitorwonen.api.AantallenRows.DetailplanningRow;
+import nl.b3p.planmonitorwonen.api.AantallenRows.NewPlancategorie;
+import nl.b3p.planmonitorwonen.api.AantallenRows.PlancategorieRow;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.jspecify.annotations.NonNull;
 import org.locationtech.jts.geom.Geometry;
@@ -35,6 +39,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SimplePropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -92,19 +97,62 @@ public class PlanmonitorWonenDatabaseService {
     return String.join(", ", qs);
   }
 
-  public Set<Planregistratie> getPlanregistratiesForProvincie() {
-    return jdbcClient
-        .sql("select * from planregistratie")
-        .query(planregistratieRowMapper)
-        .set();
+  /**
+   * Returns all planregistraties, with the aantallen if requested. Uses a repeatable read transaction so the
+   * aantallen are consistent with the planregistraties.
+   */
+  @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+  public List<Planregistratie> getPlanregistratiesForProvincie(boolean withAantallen) {
+    return getPlanregistraties("true", Map.of(), withAantallen);
   }
 
-  public Set<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes) {
-    return jdbcClient
-        .sql("select * from planregistratie where gemeente in (:gemeentes)")
-        .param("gemeentes", gemeentes)
+  @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+  public List<Planregistratie> getPlanregistratiesForGemeentes(Collection<String> gemeentes, boolean withAantallen) {
+    return getPlanregistraties("gemeente in (:gemeentes)", Map.of("gemeentes", gemeentes), withAantallen);
+  }
+
+  /** Returns a planregistratie with its aantallen. */
+  @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+  public Optional<Planregistratie> getPlanregistratie(String id) {
+    return getPlanregistraties("id = :id", Map.of("id", UUID.fromString(id)), true).stream()
+        .findFirst();
+  }
+
+  /**
+   * @param planregistratieFilter SQL condition for the planregistratie table, only use with constant strings and use
+   *     parameters for values
+   */
+  private List<Planregistratie> getPlanregistraties(
+      String planregistratieFilter, Map<String, ?> params, boolean withAantallen) {
+    List<Planregistratie> planregistraties = jdbcClient
+        .sql("select * from planregistratie where %s order by plan_naam".formatted(planregistratieFilter))
+        .params(params)
         .query(planregistratieRowMapper)
-        .set();
+        .list();
+    if (!withAantallen || planregistraties.isEmpty()) {
+      return planregistraties;
+    }
+
+    String planregistratieIds = "select id from planregistratie where " + planregistratieFilter;
+    Map<UUID, List<DetailplanningRow>> detailplanningen =
+        jdbcClient.sql("""
+select d.plancategorie_id, d.jaartal, d.aantal_gepland
+from detailplanning d
+join plancategorie c on c.id = d.plancategorie_id
+where c.planregistratie_id in (%s)""".formatted(planregistratieIds)).params(params).query(DetailplanningRow.class).stream()
+            .collect(groupingBy(DetailplanningRow::plancategorieId));
+
+    // Ordered by the categorie values in enum order
+    Map<UUID, List<PlancategorieRow>> plancategorieen =
+        jdbcClient.sql("""
+select * from plancategorie
+where planregistratie_id in (%s)
+order by nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop""".formatted(planregistratieIds)).params(params).query(PlancategorieRow.class).stream()
+            .collect(groupingBy(PlancategorieRow::planregistratieId));
+
+    planregistraties.forEach(p -> p.setAantallen(AantallenRows.toAantallen(
+        plancategorieen.getOrDefault(UUID.fromString(p.getId()), List.of()), detailplanningen)));
+    return planregistraties;
   }
 
   @Transactional
@@ -118,18 +166,12 @@ public class PlanmonitorWonenDatabaseService {
   private record Created(String creator, OffsetDateTime createdAt) {}
 
   /**
-   * Inserts a planregistratie or replaces an existing one. The creator, createdAt, editor and editedAt fields of the
-   * planregistratie are set from the username and the current time, the values from the client are ignored. For an
-   * existing planregistratie the creator and createdAt are kept. These fields are not stored for plancategorieen and
-   * detailplanningen.
+   * Inserts a planregistratie or replaces an existing one, including the aantallen. The creator, createdAt, editor
+   * and editedAt fields of the planregistratie are set from the username and the current time, the values from the
+   * client are ignored. For an existing planregistratie the creator and createdAt are kept.
    */
   @Transactional
-  public void insertPlanregistratie(
-      Planregistratie planregistratie,
-      List<Plancategorie> plancategorieen,
-      List<Detailplanning> detailplanningen,
-      String username)
-      throws ParseException {
+  public void insertPlanregistratie(Planregistratie planregistratie, String username) throws ParseException {
     final String id = planregistratie.getId();
     final OffsetDateTime now = OffsetDateTime.now(ZoneId.of("Europe/Amsterdam"));
 
@@ -195,37 +237,41 @@ values (%s, ?::pmw_knelpunten_meerkeuze[], %s)""".formatted(sqlQuestionMarks(19)
         .param(20, planregistratie.getKnelpuntenMeerkeuze(), Types.ARRAY)
         .param(21, planregistratie.getBeoogdWoonmilieuAbf13(), Types.OTHER)
         .param(planregistratie.getAantalStudentenwoningen())
-        .param(planregistratie.isSleutelproject())
+        .param(planregistratie.getSleutelproject())
         .update();
 
-    for (Plancategorie p : plancategorieen) {
+    for (NewPlancategorie p : AantallenRows.toPlancategorieen(planregistratie.getAantallen())) {
+      UUID plancategorieId = UUID.randomUUID();
       this.jdbcClient
           .sql("""
-insert into plancategorie(id, planregistratie_id, nieuwbouw, woning_type, wonen_en_zorg, flexwoningen, betaalbaarheid, sloop, totaal_gepland, totaal_gerealiseerd)
-values (%s)""".formatted(sqlQuestionMarks(10)))
-          .param(1, p.id(), Types.OTHER)
-          .param(2, p.planregistratieId(), Types.OTHER)
-          .param(3, p.nieuwbouw(), Types.OTHER)
-          .param(4, p.woningType(), Types.OTHER)
-          .param(5, p.wonenEnZorg(), Types.OTHER)
-          .param(6, p.flexwoningen(), Types.OTHER)
-          .param(7, p.betaalbaarheid(), Types.OTHER)
-          .param(8, p.sloop(), Types.OTHER)
-          .param(p.totaalGepland())
-          .param(p.totaalGerealiseerd())
+insert into plancategorie(id, planregistratie_id, %s, totaal_gepland, totaal_gerealiseerd)
+values (?, ?, ?::pmw_%s, ?, ?)""".formatted(p.column(), p.column()))
+          .param(1, plancategorieId, Types.OTHER)
+          .param(2, id, Types.OTHER)
+          .param(3, p.value())
+          .param(4, p.aantal().gepland())
+          .param(5, p.aantal().gerealiseerd())
           .update();
+      if (p.aantal().perJaar() != null) {
+        for (Map.Entry<Integer, Integer> jaar : p.aantal().perJaar().entrySet()) {
+          this.jdbcClient
+              .sql(
+                  "insert into detailplanning(plancategorie_id, jaartal, aantal_gepland) values (?, ?, ?)")
+              .param(1, plancategorieId, Types.OTHER)
+              .param(2, jaar.getKey())
+              .param(3, jaar.getValue())
+              .update();
+        }
+      }
     }
-    for (Detailplanning d : detailplanningen) {
-      this.jdbcClient
-          .sql("""
-insert into detailplanning(id, plancategorie_id, jaartal, aantal_gepland)
-values (%s)""".formatted(sqlQuestionMarks(4)))
-          .param(1, d.id(), Types.OTHER)
-          .param(2, d.plancategorieId(), Types.OTHER)
-          .param(d.jaartal())
-          .param(d.aantalGepland())
-          .update();
-    }
+  }
+
+  public Optional<String> getProvincieForGemeente(String gemeente) {
+    return this.jdbcClient
+        .sql("select provincie from gemeente where naam = ?")
+        .param(gemeente)
+        .query(String.class)
+        .optional();
   }
 
   public String getPlanregistratieGemeente(String id) {
@@ -237,59 +283,5 @@ values (%s)""".formatted(sqlQuestionMarks(4)))
         .stream()
         .findFirst()
         .orElse(null);
-  }
-
-  public Set<Plancategorie> getPlancategorieen(String planregistratieId) {
-    return this.jdbcClient
-        .sql("select * from plancategorie where planregistratie_id = ?")
-        .param(1, planregistratieId, Types.OTHER)
-        .query(Plancategorie.class)
-        .set();
-  }
-
-  public Set<Plancategorie> getAllPlancategorieen() {
-    return this.jdbcClient
-        .sql("select * from plancategorie")
-        .query(Plancategorie.class)
-        .set();
-  }
-
-  public Set<Plancategorie> getAllPlancategorieenForGemeentes(Collection<String> gemeentes) {
-    return this.jdbcClient
-        .sql(
-            "select * from plancategorie where planregistratie_id in (select id from planregistratie where gemeente in (:gemeentes))")
-        .param("gemeentes", gemeentes)
-        .query(Plancategorie.class)
-        .set();
-  }
-
-  public Set<Detailplanning> getDetailplanningen(String planregistratieId) {
-    return this.jdbcClient
-        .sql("""
-select * from detailplanning
-where plancategorie_id in (select id from plancategorie where planregistratie_id = ?)""")
-        .param(1, planregistratieId, Types.OTHER)
-        .query(Detailplanning.class)
-        .set();
-  }
-
-  public Set<Detailplanning> getAllDetailplanningen() {
-    return this.jdbcClient
-        .sql("select * from detailplanning")
-        .query(Detailplanning.class)
-        .set();
-  }
-
-  public Set<Detailplanning> getAllDetailplanningenForGemeentes(Collection<String> gemeentes) {
-    return this.jdbcClient
-        .sql("""
-select * from detailplanning
-where plancategorie_id in
-(select id from plancategorie
-where planregistratie_id in
-(select id from planregistratie where gemeente in (:gemeentes)))""")
-        .param("gemeentes", gemeentes)
-        .query(Detailplanning.class)
-        .set();
   }
 }

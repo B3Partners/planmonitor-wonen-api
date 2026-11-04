@@ -12,17 +12,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.UUID;
 import nl.b3p.planmonitorwonen.api.PlanmonitorWonenDatabaseService;
-import nl.b3p.planmonitorwonen.api.model.Detailplanning;
-import nl.b3p.planmonitorwonen.api.model.Plancategorie;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
-import nl.b3p.planmonitorwonen.api.model.PlanregistratieComplete;
 import nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
+import nl.b3p.planmonitorwonen.api.service.PlanregistratieCompletionService;
+import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidationException;
+import nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator;
+import nl.b3p.planmonitorwonen.api.validation.ValidationError;
 import org.locationtech.jts.io.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,79 +43,60 @@ public class PlanregistratieController {
 
   private final PlanmonitorAuthenticationService authenticationService;
   private final PlanmonitorWonenDatabaseService pmwDb;
+  private final PlanregistratieCompletionService completionService;
 
   public PlanregistratieController(
       PlanmonitorAuthenticationService authenticationService,
-      PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService) {
+      PlanmonitorWonenDatabaseService planmonitorWonenDatabaseService,
+      PlanregistratieCompletionService completionService) {
     this.authenticationService = authenticationService;
     this.pmwDb = planmonitorWonenDatabaseService;
+    this.completionService = completionService;
   }
 
   @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistraties")
-  public Set<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
+  public List<Planregistratie> planregistraties(@RequestParam(required = false) boolean details) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.getFromSecurityContext();
-    Set<Planregistratie> planregistraties;
     if (auth.isProvincie()) {
-      planregistraties = pmwDb.getPlanregistratiesForProvincie();
+      return pmwDb.getPlanregistratiesForProvincie(details);
     } else {
-      planregistraties = pmwDb.getPlanregistratiesForGemeentes(auth.gemeentes());
+      return pmwDb.getPlanregistratiesForGemeentes(auth.gemeentes(), details);
     }
-    if (details) {
-      Map<String, Planregistratie> planregistratieMap =
-          planregistraties.stream().collect(Collectors.toMap(Planregistratie::getId, Function.identity()));
-      Map<String, Planregistratie> plancategorieToPlanregistratieMap = new HashMap<>();
-      Set<Plancategorie> plancategorieen = auth.isProvincie()
-          ? pmwDb.getAllPlancategorieen()
-          : pmwDb.getAllPlancategorieenForGemeentes(auth.gemeentes());
-      plancategorieen.forEach(plancategorie -> {
-        Planregistratie planregistratie = planregistratieMap.get(plancategorie.planregistratieId());
-        planregistratie.getPlancategorieList().add(plancategorie);
-        plancategorieToPlanregistratieMap.put(plancategorie.id(), planregistratie);
-      });
-      Set<Detailplanning> detailplanningen = auth.isProvincie()
-          ? pmwDb.getAllDetailplanningen()
-          : pmwDb.getAllDetailplanningenForGemeentes(auth.gemeentes());
-      detailplanningen.forEach(detailplanning -> {
-        Planregistratie planregistratie =
-            plancategorieToPlanregistratieMap.get(detailplanning.plancategorieId());
-        planregistratie.getDetailplanningList().add(detailplanning);
-      });
-    }
-    return planregistraties;
   }
 
-  @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}/details")
-  public Map<String, Object> details(@PathVariable("id") String id) {
+  @GetMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
+  public Planregistratie planregistratie(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.getFromSecurityContext();
 
-    String gemeente = pmwDb.getPlanregistratieGemeente(id);
-    if (gemeente == null) {
-      throw new ResponseStatusException(NOT_FOUND);
-    }
+    Planregistratie planregistratie =
+        pmwDb.getPlanregistratie(id.toString()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
 
-    if (!auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
+    if (!auth.isProvincie() && !auth.gemeentes().contains(planregistratie.getGemeente())) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to access plan id {} of gemeente {}, denied",
           auth.authentication().getName(),
           auth.gemeentes(),
           id,
-          gemeente);
+          planregistratie.getGemeente());
       throw new ResponseStatusException(NOT_FOUND);
     }
-
-    return Map.of(
-        "plancategorieen", pmwDb.getPlancategorieen(id), "detailplanningen", pmwDb.getDetailplanningen(id));
+    return planregistratie;
   }
 
   @PutMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
-  public ResponseEntity<?> put(
-      @PathVariable("id") String id, @RequestBody PlanregistratieComplete planregistratieComplete)
+  public ResponseEntity<?> put(@PathVariable("id") UUID id, @RequestBody Planregistratie planregistratie)
       throws ParseException {
 
-    if (id == null || !id.equals(planregistratieComplete.planregistratie().getId())) {
-      throw new ResponseStatusException(BAD_REQUEST);
+    if (planregistratie.getId() != null && !isSameUuid(id, planregistratie.getId())) {
+      throw new ResponseStatusException(BAD_REQUEST, "Id in de body komt niet overeen met het id in het pad");
+    }
+    planregistratie.setId(id.toString());
+
+    List<ValidationError> errors = PlanregistratieValidator.validate(planregistratie);
+    if (!errors.isEmpty()) {
+      throw new PlanregistratieValidationException(errors);
     }
 
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
@@ -131,18 +110,18 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    if (!auth.gemeentes().contains(planregistratieComplete.planregistratie().getGemeente())) {
+    if (!auth.gemeentes().contains(planregistratie.getGemeente())) {
       logger.warn(
           "Gemeente user \"{}\" with authorization for gemeentes {} tried to save plan id {}, name \"{}\" with gemeente value {}, denied",
           auth.authentication().getName(),
           auth.gemeentes(),
           id,
-          planregistratieComplete.planregistratie().getPlanNaam(),
-          planregistratieComplete.planregistratie().getGemeente());
+          planregistratie.getPlanNaam(),
+          planregistratie.getGemeente());
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    String gemeente = pmwDb.getPlanregistratieGemeente(id);
+    String gemeente = pmwDb.getPlanregistratieGemeente(id.toString());
 
     if (gemeente != null && !auth.isProvincie() && !auth.gemeentes().contains(gemeente)) {
       logger.warn(
@@ -150,25 +129,18 @@ public class PlanregistratieController {
           auth.authentication().getName(),
           auth.gemeentes(),
           id,
-          planregistratieComplete.planregistratie().getPlanNaam(),
+          planregistratie.getPlanNaam(),
           gemeente);
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    pmwDb.insertPlanregistratie(
-        planregistratieComplete.planregistratie(),
-        planregistratieComplete.plancategorieen(),
-        planregistratieComplete.detailplanningen(),
-        auth.authentication().getName());
+    completionService.complete(planregistratie);
+    pmwDb.insertPlanregistratie(planregistratie, auth.authentication().getName());
     return ResponseEntity.status(OK).build();
   }
 
   @DeleteMapping(path = "${planmonitor-wonen-api.base-path}/planregistratie/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") String id) {
-    if (id == null) {
-      throw new ResponseStatusException(BAD_REQUEST);
-    }
-
+  public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
     PlanmonitorAuthenticationService.PlanmonitorAuthentication auth =
         authenticationService.getFromSecurityContext();
 
@@ -180,7 +152,7 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    String gemeente = pmwDb.getPlanregistratieGemeente(id);
+    String gemeente = pmwDb.getPlanregistratieGemeente(id.toString());
 
     if (gemeente == null) {
       throw new ResponseStatusException(NOT_FOUND);
@@ -196,7 +168,15 @@ public class PlanregistratieController {
       throw new ResponseStatusException(FORBIDDEN);
     }
 
-    pmwDb.deletePlanregistratie(id);
+    pmwDb.deletePlanregistratie(id.toString());
     return ResponseEntity.status(OK).build();
+  }
+
+  private static boolean isSameUuid(UUID id, String other) {
+    try {
+      return id.equals(UUID.fromString(other));
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

@@ -16,12 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 import javax.sql.DataSource;
 import nl.b3p.planmonitorwonen.api.configuration.JdbcSessionConfiguration;
-import nl.b3p.planmonitorwonen.api.model.Detailplanning;
-import nl.b3p.planmonitorwonen.api.model.Plancategorie;
+import nl.b3p.planmonitorwonen.api.model.Aantal;
+import nl.b3p.planmonitorwonen.api.model.Aantallen;
 import nl.b3p.planmonitorwonen.api.model.Planregistratie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,28 +120,95 @@ on conflict do nothing""").update();
   @Test
   void failedUpdateKeepsExistingPlanregistratie() throws Exception {
     String id = UUID.randomUUID().toString();
-    Planregistratie planregistratie = planregistratie(id, "Plan transactie");
-    Plancategorie nieuwbouw = plancategorie(id, "Nieuwbouw", null);
-    pmwDb.insertPlanregistratie(
-        planregistratie, List.of(nieuwbouw), List.of(detailplanning(nieuwbouw.id(), 2025, 10)), "gemeente");
+    Aantallen aantallen = aantallen(aantal(10, Map.of(2025, 10)), Map.of());
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan transactie").setAantallen(aantallen), "gemeente");
 
-    Planregistratie updated = planregistratie(id, "Plan transactie gewijzigd");
     // Invalid enum value, rejected by the database after the existing plan has been deleted
-    Plancategorie invalid = plancategorie(id, "Nieuwbouw", "Ongeldig");
-    assertThrows(
-        DataAccessException.class,
-        () -> pmwDb.insertPlanregistratie(updated, List.of(invalid), List.of(), "gemeente"));
+    Planregistratie updated = planregistratie(id, "Plan transactie gewijzigd")
+        .setAantallen(aantallen(aantal(10, Map.of()), Map.of("Ongeldig", aantal(10, Map.of()))));
+    assertThrows(DataAccessException.class, () -> pmwDb.insertPlanregistratie(updated, "gemeente"));
 
     Planregistratie stored = getPlanregistratie(id);
     assertEquals("Plan transactie", stored.getPlanNaam());
-    assertEquals(1, pmwDb.getPlancategorieen(id).size());
-    assertEquals(1, pmwDb.getDetailplanningen(id).size());
+    assertEquals(aantallen, stored.getAantallen());
+  }
+
+  @Test
+  void insertAndReadAantallen() throws Exception {
+    String id = UUID.randomUUID().toString();
+    Aantallen aantallen = new Aantallen(
+        aantal(10, Map.of(2025, 4, 2026, 6)),
+        aantal(2, Map.of(2025, 2)),
+        Map.of("Eengezins", aantal(4, Map.of(2025, 4)), "Meergezins", aantal(6, Map.of(2026, 6))),
+        Map.of(),
+        Map.of("Regulier permanent", aantal(10, Map.of(2025, 4, 2026, 6))),
+        Map.of("Sociale huur", aantal(10, Map.of(2025, 4, 2026, 6))));
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan aantallen").setAantallen(aantallen), "gemeente");
+
+    assertEquals(aantallen, getPlanregistratie(id).getAantallen());
+
+    Planregistratie withoutAantallen = pmwDb.getPlanregistratiesForGemeentes(Set.of("Middelburg"), false).stream()
+        .filter(p -> p.getId().equals(id))
+        .findFirst()
+        .orElseThrow();
+    assertNull(withoutAantallen.getAantallen());
+
+    Planregistratie withAantallen = pmwDb.getPlanregistratiesForProvincie(true).stream()
+        .filter(p -> p.getId().equals(id))
+        .findFirst()
+        .orElseThrow();
+    assertEquals(aantallen, withAantallen.getAantallen());
+  }
+
+  @Test
+  void updateReplacesAantallen() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(
+        planregistratie(id, "Plan vervangen")
+            .setAantallen(aantallen(
+                aantal(10, Map.of(2025, 10)), Map.of("Eengezins", aantal(10, Map.of(2025, 10))))),
+        "gemeente");
+
+    Aantallen replacement = aantallen(aantal(10, Map.of(2030, 10)), Map.of());
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan vervangen").setAantallen(replacement), "gemeente");
+
+    assertEquals(replacement, getPlanregistratie(id).getAantallen());
+  }
+
+  @Test
+  void missingAantallenSavesPlanWithoutAantallen() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan zonder aantallen"), "gemeente");
+
+    assertEquals(aantallen(null, Map.of()), getPlanregistratie(id).getAantallen());
+  }
+
+  @Test
+  void databaseRejectsDuplicatePlancategorie() throws Exception {
+    String id = UUID.randomUUID().toString();
+    pmwDb.insertPlanregistratie(
+        planregistratie(id, "Plan dubbel").setAantallen(aantallen(aantal(10, Map.of()), Map.of())), "gemeente");
+
+    assertThrows(DataAccessException.class, () -> jdbcClient
+        .sql("insert into plancategorie(planregistratie_id, nieuwbouw) values (?::uuid, 'Nieuwbouw')")
+        .param(id)
+        .update());
+    assertThrows(DataAccessException.class, () -> jdbcClient
+        .sql("insert into plancategorie(planregistratie_id, nieuwbouw, sloop) values (?::uuid, null, null)")
+        .param(id)
+        .update());
+  }
+
+  @Test
+  void provincieForGemeente() {
+    assertEquals(Optional.of("Zeeland"), pmwDb.getProvincieForGemeente("Middelburg"));
+    assertEquals(Optional.empty(), pmwDb.getProvincieForGemeente("Onbekend"));
   }
 
   @Test
   void insertSetsCreatorAndIgnoresClientValues() throws Exception {
     String id = UUID.randomUUID().toString();
-    pmwDb.insertPlanregistratie(planregistratie(id, "Plan nieuw"), List.of(), List.of(), "gemeente");
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan nieuw"), "gemeente");
 
     Planregistratie stored = getPlanregistratie(id);
     assertEquals("gemeente", stored.getCreator());
@@ -150,10 +220,10 @@ on conflict do nothing""").update();
   @Test
   void updateKeepsCreatorAndSetsEditor() throws Exception {
     String id = UUID.randomUUID().toString();
-    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), List.of(), List.of(), "gemeente");
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), "gemeente");
     Planregistratie inserted = getPlanregistratie(id);
 
-    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), List.of(), List.of(), "andere gebruiker");
+    pmwDb.insertPlanregistratie(planregistratie(id, "Plan bijwerken"), "andere gebruiker");
 
     Planregistratie updated = getPlanregistratie(id);
     assertEquals("gemeente", updated.getCreator());
@@ -164,10 +234,7 @@ on conflict do nothing""").update();
   }
 
   private Planregistratie getPlanregistratie(String id) {
-    return pmwDb.getPlanregistratiesForGemeentes(Set.of("Middelburg")).stream()
-        .filter(p -> p.getId().equals(id))
-        .findFirst()
-        .orElseThrow(() -> new AssertionError("Planregistratie not found"));
+    return pmwDb.getPlanregistratie(id).orElseThrow(() -> new AssertionError("Planregistratie not found"));
   }
 
   private static Planregistratie planregistratie(String id, String planNaam) {
@@ -195,12 +262,11 @@ on conflict do nothing""").update();
         .setSleutelproject(false);
   }
 
-  private static Plancategorie plancategorie(String planregistratieId, String nieuwbouw, String woningType) {
-    return new Plancategorie(
-        UUID.randomUUID().toString(), planregistratieId, nieuwbouw, woningType, null, null, null, null, 10, 0);
+  private static Aantal aantal(int gepland, Map<Integer, Integer> perJaar) {
+    return new Aantal(gepland, 0, new TreeMap<>(perJaar));
   }
 
-  private static Detailplanning detailplanning(String plancategorieId, int jaartal, int aantalGepland) {
-    return new Detailplanning(UUID.randomUUID().toString(), plancategorieId, jaartal, aantalGepland);
+  private static Aantallen aantallen(Aantal bruto, Map<String, Aantal> woningType) {
+    return new Aantallen(bruto, null, woningType, Map.of(), Map.of(), Map.of());
   }
 }
