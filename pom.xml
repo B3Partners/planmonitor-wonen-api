@@ -502,6 +502,7 @@ SPDX-License-Identifier: MIT
                         <publish>${docker.publish}</publish>
                         <env>
                             <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
+                            <BP_HEALTH_CHECKER_ENABLED>true</BP_HEALTH_CHECKER_ENABLED>
                             <BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
                             <!--suppress UnresolvedMavenProperty -->
                             <BP_OCI_REVISION>${git.commit.id.abbrev}</BP_OCI_REVISION>
@@ -512,6 +513,12 @@ SPDX-License-Identifier: MIT
                             <BP_OCI_LICENSES>${project.licenses}</BP_OCI_LICENSES>
                         </env>
                         <pullPolicy>${docker.pull.policy}</pullPolicy>
+                        <!-- health-checker adds /cnb/process/health-check for a container healthcheck, the image has
+                        no shell or curl -->
+                        <buildpacks>
+                            <buildpack>urn:cnb:builder:paketo-buildpacks/java</buildpack>
+                            <buildpack>docker.io/paketobuildpacks/health-checker:2.14.2</buildpack>
+                        </buildpacks>
                     </image>
                     <layers>
                         <enabled>true</enabled>

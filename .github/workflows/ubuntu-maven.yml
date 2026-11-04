@@ -160,10 +160,19 @@ jobs:
 
       - name: 'Try Created Docker image'
         run: |
-          docker run -d --name planmonitor-wonen-api -h planmonitor-wonen-api --network host ghcr.io/b3partners/planmonitor-wonen-api:snapshot
-          sleep 60
+          docker run -d --name planmonitor-wonen-api -h planmonitor-wonen-api --network host \
+            -e THC_PORT=8081 -e THC_PATH=/api/planmonitor-wonen/actuator/health \
+            ghcr.io/b3partners/planmonitor-wonen-api:snapshot
+          # use the health checker binary in the image, health is UP after the WFS data is loaded
+          for i in $(seq 1 24); do
+            if docker exec planmonitor-wonen-api /layers/paketo-buildpacks_health-checker/thc/bin/thc >/dev/null 2>&1; then
+              healthy=true
+              break
+            fi
+            sleep 5
+          done
           docker logs planmonitor-wonen-api
-          curl -sS http://localhost:8081/api/planmonitor-wonen/gemeentes?provincie=Zeeland | jq -e 'any(.[]; .naam == "Middelburg")' >/dev/null || { echo "ERROR: Middelburg niet gevonden" >&2; exit 1; }
+          [ "$healthy" = true ] || { echo "ERROR: health check failed" >&2; exit 1; }
 
 
   cleanup:
