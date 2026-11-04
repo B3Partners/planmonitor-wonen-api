@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>AantallenValidatorTest xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../testapidocs/nl/b3p/planmonitorwonen/api/validation/AantallenValidatorTest.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2026 Provincie Zeeland</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * SPDX-License-Identifier: MIT</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.validation;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.TreeMap;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> nl.b3p.planmonitorwonen.api.model.Aantal;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> nl.b3p.planmonitorwonen.api.model.Aantallen;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">class</strong> <a name="AantallenValidatorTest" href="../../../../../nl/b3p/planmonitorwonen/api/validation/AantallenValidatorTest.html#AantallenValidatorTest">AantallenValidatorTest</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantal aantal(<strong class="jxr_keyword">int</strong> gepland, <strong class="jxr_keyword">int</strong> gerealiseerd, Map&lt;Integer, Integer&gt; perJaar) {
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantal(gepland, gerealiseerd, <strong class="jxr_keyword">new</strong> TreeMap&lt;&gt;(perJaar));
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>    }
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>    <em class="jxr_javadoccomment">/** 20 dwellings, 5 realised, 10 in 2026 and 5 in 2027, divided over all groups. */</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Aantallen valid() {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Aantallen(
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          aantal(20, 5, Map.of(2026, 10, 2027, 5)),
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          aantal(3, 0, Map.of()),
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          Map.of(
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>              <span class="jxr_string">"Eengezins"</span>, aantal(12, 5, Map.of(2026, 7)),
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>              <span class="jxr_string">"Meergezins"</span>, aantal(8, 0, Map.of(2026, 3, 2027, 5)),
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>              <span class="jxr_string">"Onbekend"</span>, aantal(0, 0, Map.of(2026, 0))),
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          Map.of(<span class="jxr_string">"Regulier"</span>, aantal(20, 5, Map.of(2026, 10, 2027, 5))),
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          Map.of(<span class="jxr_string">"Regulier permanent"</span>, aantal(20, 5, Map.of(2026, 10, 2027, 5))),
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          Map.of(
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              <span class="jxr_string">"Sociale huur"</span>, aantal(10, 0, Map.of(2026, 5, 2027, 5)),
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <span class="jxr_string">"Koop dure koop"</span>, aantal(10, 5, Map.of(2026, 5))));
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    }
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;ValidationError&gt; validate(Aantallen aantallen) {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      List&lt;ValidationError&gt; errors = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      AantallenValidator.validate(aantallen, errors);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">return</strong> errors;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>    }
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;String&gt; fields(List&lt;ValidationError&gt; errors) {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">return</strong> errors.stream().map(ValidationError::field).toList();
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>    }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    @Test
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>    <strong class="jxr_keyword">void</strong> validAantallen() {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      assertEquals(List.of(), validate(valid()));
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>    }
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>    @Test
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>    <strong class="jxr_keyword">void</strong> notFilledIn() {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      assertEquals(List.of(), validate(<strong class="jxr_keyword">null</strong>));
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      assertEquals(List.of(), validate(<strong class="jxr_keyword">new</strong> Aantallen(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>)));
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>    }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>    @Test
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>    <strong class="jxr_keyword">void</strong> sloopOnlyDoesNotNeedYears() {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      assertEquals(List.of(), validate(<strong class="jxr_keyword">new</strong> Aantallen(<strong class="jxr_keyword">null</strong>, aantal(5, 0, Map.of()), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>)));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>    }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>    @Test
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>    <strong class="jxr_keyword">void</strong> everyGroupMustAddUpToBruto() {
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      Aantallen brutoOnly = <strong class="jxr_keyword">new</strong> Aantallen(aantal(20, 0, Map.of(2027, 20)), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      assertEquals(
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          List.of(
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>              <span class="jxr_string">"aantallen.woningType"</span>,
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>              <span class="jxr_string">"aantallen.woningType.perJaar.2027"</span>,
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>              <span class="jxr_string">"aantallen.wonenEnZorg"</span>,
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <span class="jxr_string">"aantallen.wonenEnZorg.perJaar.2027"</span>,
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>              <span class="jxr_string">"aantallen.flexwoningen"</span>,
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <span class="jxr_string">"aantallen.flexwoningen.perJaar.2027"</span>,
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <span class="jxr_string">"aantallen.betaalbaarheid"</span>,
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <span class="jxr_string">"aantallen.betaalbaarheid.perJaar.2027"</span>),
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          fields(validate(brutoOnly)));
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      assertEquals(
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          <span class="jxr_string">"Totaal gepland van woningType (0) is niet gelijk aan bruto (20)"</span>,
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          validate(brutoOnly).getFirst().message());
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>    }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>    @Test
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>    <strong class="jxr_keyword">void</strong> groupWithoutBruto() {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      Aantallen aantallen =
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">new</strong> Aantallen(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, Map.of(<span class="jxr_string">"Eengezins"</span>, aantal(5, 0, Map.of(2026, 5))), <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      assertEquals(List.of(<span class="jxr_string">"aantallen.woningType"</span>, <span class="jxr_string">"aantallen.woningType.perJaar.2026"</span>), fields(validate(aantallen)));
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>    }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>    @Test
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>    <strong class="jxr_keyword">void</strong> yearsMustAddUpToRestcapaciteit() {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      Aantallen v = valid();
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      Aantallen aantallen = <strong class="jxr_keyword">new</strong> Aantallen(
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          v.bruto(),
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          v.sloop(),
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          Map.of(
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>              <em class="jxr_comment">// 2027 moved to 2028, so the year totals of woningType do not add up either</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>             <span class="jxr_string">"Eengezins"</span>, aantal(12, 5, Map.of(2026, 7)),
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>             <span class="jxr_string">"Meergezins"</span>, aantal(8, 0, Map.of(2026, 3, 2028, 4))),
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         v.wonenEnZorg(),
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         v.flexwoningen(),
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         v.betaalbaarheid());
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     List&lt;ValidationError&gt; errors = validate(aantallen);
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     assertEquals(
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         List.of(
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>             <span class="jxr_string">"aantallen.woningType.Meergezins.perJaar"</span>,
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>             <span class="jxr_string">"aantallen.woningType.perJaar.2027"</span>,
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>             <span class="jxr_string">"aantallen.woningType.perJaar.2028"</span>),
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         fields(errors));
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     assertEquals(
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <span class="jxr_string">"Totaal per jaar (7) is niet gelijk aan gepland min gerealiseerd (8)"</span>,
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         errors.getFirst().message());
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>   }
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> 
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>   @Test
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   <strong class="jxr_keyword">void</strong> invalidValuesSkipTotals() {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     Aantallen v = valid();
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     Aantallen aantallen = <strong class="jxr_keyword">new</strong> Aantallen(
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         v.bruto(),
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>         aantal(-1, 0, Map.of()),
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         Map.of(
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             <span class="jxr_string">"Tussenwoning"</span>, aantal(12, 5, Map.of(2026, 7)),
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             <span class="jxr_string">"Meergezins"</span>, aantal(8, 9, Map.of(2050, 3, 2027, -5))),
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         v.wonenEnZorg(),
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         v.flexwoningen(),
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         v.betaalbaarheid());
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     List&lt;ValidationError&gt; errors = validate(aantallen);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     assertEquals(
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         List.of(
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>             <span class="jxr_string">"aantallen.sloop.gepland"</span>,
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>             <span class="jxr_string">"aantallen.woningType.Meergezins.gerealiseerd"</span>,
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <span class="jxr_string">"aantallen.woningType.Meergezins.perJaar.2027"</span>,
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>             <span class="jxr_string">"aantallen.woningType.Meergezins.perJaar.2050"</span>,
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>             <span class="jxr_string">"aantallen.woningType.Tussenwoning"</span>),
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         fields(errors).stream().sorted().toList());
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     assertEquals(
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         <span class="jxr_string">"Onbekende categorie \&quot;Tussenwoning\&quot;, mogelijke waarden: Eengezins, Meergezins, Onbekend"</span>,
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         errors.stream()
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>             .filter(e -&gt; e.field().equals(<span class="jxr_string">"aantallen.woningType.Tussenwoning"</span>))
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>             .findFirst()
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>             .orElseThrow()
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>             .message());
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>   }
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> }
+</pre>
+<hr/>
+<div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
+</body>
+</html>
