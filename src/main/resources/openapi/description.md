@@ -69,6 +69,45 @@ curl -s -b $JAR -c $JAR -H "X-XSRF-TOKEN: $XSRF" -X POST $SERVER/api/logout
 `SESSION` cookie mee met de requests van *Try it out*. Een waarde invullen bij *Authorize* werkt niet, een browser
 laat een webpagina geen cookies meesturen.
 
+## Aanleveren door een client
+
+De API werkt per planregistratie. Een client kan een plan aanleveren zodra het in de eigen software wordt aangemaakt,
+gewijzigd of verwijderd, of alle plannen in één keer synchroniseren, bijvoorbeeld op de vaste aanlevermomenten. De API
+kent geen aanlevermomenten of status van een aanlevering, dat gebeurt buiten deze API om.
+
+Alle plannen synchroniseren gaat zo:
+
+1. Log in met het account van de gemeente, zie *Inloggen*.
+2. Haal de bestaande planregistraties op met `GET /planregistraties`. Dit geeft alleen de planregistraties van de
+   gemeentes waarvoor het account autorisatie heeft, maar ook plannen die via de webapplicatie zijn ingevoerd.
+3. Verwijder met `DELETE /planregistratie/{id}` de planregistraties die de client eerder heeft aangeleverd maar die
+   niet meer in de eigen software staan. Een 404 betekent dat de planregistratie al verwijderd is.
+4. Lever elk nieuw of gewijzigd plan aan met `PUT /planregistratie/{id}`, of altijd alle plannen. Er is geen `POST`:
+   de client kiest zelf het id van een nieuwe planregistratie. Het antwoord is 201 voor een nieuwe en 200 voor een
+   vervangen planregistratie.
+
+Een fout bij één plan stopt de andere plannen niet. Verzamel de fouten per plan (bij een 400 of 409 met de fouten per
+veld in `errors`) en toon ze aan de gebruiker, net als technische fouten zoals een ongeldig account of
+netwerkproblemen.
+
+**Id van een planregistratie**: gebruik een UUID versie 5, berekend uit het eigen id van het plan en de gemeentecode
+met een vaste namespace-UUID die de client eenmalig kiest. Dan hoeft de client geen koppeling tussen de eigen ids en de
+UUIDs op te slaan, en hoeft niet op plannaam gezocht te worden, die kan veranderen. Bijvoorbeeld in Python:
+
+```python
+import uuid
+
+NAMESPACE = uuid.UUID("...")  # eenmalig gekozen met uuid.uuid4(), daarna nooit meer wijzigen
+plan_id = uuid.uuid5(NAMESPACE, "GM0687:" + eigen_plan_id)
+```
+
+Bij stap 3 zijn de planregistraties die de client eerder heeft aangeleverd die met `creator` gelijk aan het account
+van de client. Een id dat niet voorkomt bij de ids berekend uit de eigen plannen hoort bij een plan dat verwijderd is.
+
+**Een PUT vervangt de hele planregistratie**: velden die de client niet meestuurt worden leeggemaakt, ook als die in de
+webapplicatie zijn ingevuld. Wijzig een plan van de client daarom niet in de webapplicatie, of haal het eerst op met
+`GET /planregistratie/{id}` en neem de velden die de client niet zelf bijhoudt over.
+
 ## Foutmeldingen
 
 Fouten worden teruggegeven als *problem details* volgens [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) met
