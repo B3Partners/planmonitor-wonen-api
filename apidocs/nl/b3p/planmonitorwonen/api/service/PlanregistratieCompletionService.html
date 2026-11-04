@@ -84,7 +84,8 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">PlanregistratieCompletionService</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Fills in fields of a planregistratie the server can determine: the provincie of the gemeente, a default
-vertrouwelijkheid and the regio and woonmilieu from the geometry when not set by the client.</div>
+vertrouwelijkheid and the regio and woonmilieu from the geometry when not set by the client. Also checks the gemeente
+exists and the geometry lies (partly) within the gemeente.</div>
 </div>
 </section>
 <section class="summary">
@@ -165,6 +166,7 @@ vertrouwelijkheid and the regio and woonmilieu from the geometry when not set by
 <dd><code>planregistratie</code> - a planregistratie which passed
     <a href="../validation/PlanregistratieValidator.html" title="class in nl.b3p.planmonitorwonen.api.validation"><code>PlanregistratieValidator</code></a></dd>
 <dt>Throws:</dt>
+<dd><code><a href="../validation/PlanregistratieValidationException.html" title="class in nl.b3p.planmonitorwonen.api.validation">PlanregistratieValidationException</a></code> - for an unknown gemeente or a geometry outside the gemeente</dd>
 <dd><code>org.locationtech.jts.io.ParseException</code></dd>
 </dl>
 </div>

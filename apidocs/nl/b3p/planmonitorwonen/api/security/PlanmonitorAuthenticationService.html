@@ -64,7 +64,8 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#getFromSecurityContext()" tabindex="0">getFromSecurityContext()</a></li>
+<li><a href="#requireAuthenticated()" tabindex="0">requireAuthenticated()</a></li>
+<li><a href="#requirePlanmonitorUser()" tabindex="0">requirePlanmonitorUser()</a></li>
 </ol>
 </li>
 </ol>
@@ -127,9 +128,18 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="PlanmonitorAuthenticationService.PlanmonitorAuthentication.html" title="class in nl.b3p.planmonitorwonen.api.security">PlanmonitorAuthenticationService.PlanmonitorAuthentication</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFromSecurityContext()" class="member-name-link">getFromSecurityContext</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.core.Authentication</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#requireAuthenticated()" class="member-name-link">requireAuthenticated</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Requires a logged-in Tailormap user, without requiring authorization for a gemeente or provincie (for data a
+Tailormap admin also needs, such as the gemeente choices for the group properties).</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="PlanmonitorAuthenticationService.PlanmonitorAuthentication.html" title="class in nl.b3p.planmonitorwonen.api.security">PlanmonitorAuthenticationService.PlanmonitorAuthentication</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#requirePlanmonitorUser()" class="member-name-link">requirePlanmonitorUser</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Requires a logged-in Tailormap user with a group property typeGebruiker "provincie" or one or more gemeente group
+properties.</div>
+</div>
 </div>
 </div>
 </div>
@@ -164,14 +174,33 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getFromSecurityContext()">
-<h3>getFromSecurityContext</h3>
+<section class="detail" id="requireAuthenticated()">
+<h3>requireAuthenticated</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PlanmonitorAuthenticationService.PlanmonitorAuthentication.html" title="class in nl.b3p.planmonitorwonen.api.security">PlanmonitorAuthenticationService.PlanmonitorAuthentication</a></span>&nbsp;<span class="element-name">getFromSecurityContext</span>()
-                                                                                  throws <span class="exceptions">org.springframework.web.server.ResponseStatusException</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.core.Authentication</span>&nbsp;<span class="element-name">requireAuthenticated</span>()
+                                                                      throws <span class="exceptions">org.springframework.web.server.ResponseStatusException</span></div>
+<div class="block">Requires a logged-in Tailormap user, without requiring authorization for a gemeente or provincie (for data a
+Tailormap admin also needs, such as the gemeente choices for the group properties).</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code>org.springframework.web.server.ResponseStatusException</code></dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="requirePlanmonitorUser()">
+<h3>requirePlanmonitorUser</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PlanmonitorAuthenticationService.PlanmonitorAuthentication.html" title="class in nl.b3p.planmonitorwonen.api.security">PlanmonitorAuthenticationService.PlanmonitorAuthentication</a></span>&nbsp;<span class="element-name">requirePlanmonitorUser</span>()
+                                                                                  throws <span class="exceptions">org.springframework.web.server.ResponseStatusException</span></div>
+<div class="block">Requires a logged-in Tailormap user with a group property typeGebruiker "provincie" or one or more gemeente group
+properties.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the provincie flag and the gemeentes the user is authorized for</dd>
+<dt>Throws:</dt>
+<dd><code>org.springframework.web.server.ResponseStatusException</code> - 401 when not logged in, 403 when not authorized for a gemeente or provincie</dd>
 </dl>
 </div>
 </section>

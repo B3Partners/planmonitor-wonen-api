@@ -68,7 +68,9 @@ loadScripts(document, 'script');</script>
 <li><a href="#getPlanregistratie(java.lang.String)" tabindex="0">getPlanregistratie(String)</a></li>
 <li><a href="#deletePlanregistratie(java.lang.String)" tabindex="0">deletePlanregistratie(String)</a></li>
 <li><a href="#insertPlanregistratie(nl.b3p.planmonitorwonen.api.model.Planregistratie,java.lang.String)" tabindex="0">insertPlanregistratie(Planregistratie, String)</a></li>
+<li><a href="#getEnumValues()" tabindex="0">getEnumValues()</a></li>
 <li><a href="#getProvincieForGemeente(java.lang.String)" tabindex="0">getProvincieForGemeente(String)</a></li>
+<li><a href="#geometryIntersectsGemeente(java.lang.String,java.lang.String)" tabindex="0">geometryIntersectsGemeente(String, String)</a></li>
 <li><a href="#getPlanregistratieGemeente(java.lang.String)" tabindex="0">getPlanregistratieGemeente(String)</a></li>
 </ol>
 </li>
@@ -120,6 +122,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deletePlanregistratie(java.lang.String)" class="member-name-link">deletePlanregistratie</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#geometryIntersectsGemeente(java.lang.String,java.lang.String)" class="member-name-link">geometryIntersectsGemeente</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;gemeente,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;wkt)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="validation/EnumValues.html" title="class in nl.b3p.planmonitorwonen.api.validation">EnumValues</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getEnumValues()" class="member-name-link">getEnumValues</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the values of the enum types of the planmonitor wonen schema.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlanregistratie(java.lang.String)" class="member-name-link">getPlanregistratie</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -235,8 +248,18 @@ and editedAt fields of the planregistratie are set from the username and the cur
 client are ignored. For an existing planregistratie the creator and createdAt are kept.</div>
 <dl class="notes">
 <dt>Throws:</dt>
+<dd><code><a href="validation/PlanNaamInUseException.html" title="class in nl.b3p.planmonitorwonen.api.validation">PlanNaamInUseException</a></code> - when another planregistratie has the same plan name</dd>
 <dd><code>org.locationtech.jts.io.ParseException</code></dd>
 </dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getEnumValues()">
+<h3>getEnumValues</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="validation/EnumValues.html" title="class in nl.b3p.planmonitorwonen.api.validation">EnumValues</a></span>&nbsp;<span class="element-name">getEnumValues</span>()</div>
+<div class="block">Returns the values of the enum types of the planmonitor wonen schema.</div>
 </div>
 </section>
 </li>
@@ -245,6 +268,21 @@ client are ignored. For an existing planregistratie the creator and createdAt ar
 <h3>getProvincieForGemeente</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getProvincieForGemeente</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;gemeente)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="geometryIntersectsGemeente(java.lang.String,java.lang.String)">
+<h3>geometryIntersectsGemeente</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;</span>&nbsp;<span class="element-name">geometryIntersectsGemeente</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;gemeente,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;wkt)</span>
+                                             throws <span class="exceptions">org.locationtech.jts.io.ParseException</span></div>
+<div class="block">Returns whether the geometry intersects the geometry of the gemeente, or empty for an unknown gemeente.</div>
+<dl class="notes">
+<dt>Throws:</dt>
+<dd><code>org.locationtech.jts.io.ParseException</code></dd>
+</dl>
 </div>
 </section>
 </li>

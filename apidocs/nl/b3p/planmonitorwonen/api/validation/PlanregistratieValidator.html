@@ -54,10 +54,16 @@ loadScripts(document, 'script');</script>
 <div class="toc-header">Contents&nbsp;<input type="text" class="filter-input" disabled placeholder="Filter contents (type .)" aria-label="Filter table of contents" autocomplete="off" spellcheck="false"><input type="reset" class="reset-filter" disabled tabindex="-1" value="Reset"></div>
 <ol class="toc-list" tabindex="-1">
 <li><a href="#" tabindex="0">Description</a></li>
+<li><a href="#field-summary" tabindex="0">Field Summary</a></li>
 <li><a href="#method-summary" tabindex="0">Method Summary</a></li>
+<li><a href="#field-detail" tabindex="0">Field Details</a>
+<ol class="toc-list">
+<li><a href="#PLAN_NAAM_MIN_LENGTH" tabindex="0">PLAN_NAAM_MIN_LENGTH</a></li>
+</ol>
+</li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#validate(nl.b3p.planmonitorwonen.api.model.Planregistratie)" tabindex="0">validate(Planregistratie)</a></li>
+<li><a href="#validate(nl.b3p.planmonitorwonen.api.model.Planregistratie,nl.b3p.planmonitorwonen.api.validation.EnumValues)" tabindex="0">validate(Planregistratie, EnumValues)</a></li>
 </ol>
 </li>
 </ol>
@@ -77,11 +83,30 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Validates a planregistratie received from a client. Only the fields of the basisset 2.0 and the fields needed to
 identify and authorize the planregistratie are required, the provincie specific fields are optional because
-planregistraties may be delivered by software of a gemeente.</div>
+planregistraties may be delivered by software of a gemeente. Optional fields left out or null are not filled in, but
+when filled in the value must be valid.
+
+<p>Whether the geometry lies within the gemeente is checked by
+<a href="../service/PlanregistratieCompletionService.html" title="class in nl.b3p.planmonitorwonen.api.service"><code>PlanregistratieCompletionService</code></a> because it needs the database.</div>
 </div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#PLAN_NAAM_MIN_LENGTH" class="member-name-link">PLAN_NAAM_MIN_LENGTH</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -94,8 +119,11 @@ planregistraties may be delivered by software of a gemeente.</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="ValidationError.html" title="class in nl.b3p.planmonitorwonen.api.validation">ValidationError</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#validate(nl.b3p.planmonitorwonen.api.model.Planregistratie)" class="member-name-link">validate</a><wbr>(<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#validate(nl.b3p.planmonitorwonen.api.model.Planregistratie,nl.b3p.planmonitorwonen.api.validation.EnumValues)" class="member-name-link">validate</a><wbr>(<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie,
+ <a href="EnumValues.html" title="class in nl.b3p.planmonitorwonen.api.validation">EnumValues</a>&nbsp;enumValues)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Returns the validation errors of the planregistratie, empty when valid.</div>
+</div>
 </div>
 </div>
 </div>
@@ -108,16 +136,46 @@ planregistraties may be delivered by software of a gemeente.</div>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="PLAN_NAAM_MIN_LENGTH">
+<h3>PLAN_NAAM_MIN_LENGTH</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">PLAN_NAAM_MIN_LENGTH</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="../../../../../constant-values.html#nl.b3p.planmonitorwonen.api.validation.PlanregistratieValidator.PLAN_NAAM_MIN_LENGTH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="validate(nl.b3p.planmonitorwonen.api.model.Planregistratie)">
+<section class="detail" id="validate(nl.b3p.planmonitorwonen.api.model.Planregistratie,nl.b3p.planmonitorwonen.api.validation.EnumValues)">
 <h3>validate</h3>
 <div class="horizontal-scroll">
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ValidationError.html" title="class in nl.b3p.planmonitorwonen.api.validation">ValidationError</a>&gt;</span>&nbsp;<span class="element-name">validate</span><wbr><span class="parameters">(<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ValidationError.html" title="class in nl.b3p.planmonitorwonen.api.validation">ValidationError</a>&gt;</span>&nbsp;<span class="element-name">validate</span><wbr><span class="parameters">(<a href="../model/Planregistratie.html" title="class in nl.b3p.planmonitorwonen.api.model">Planregistratie</a>&nbsp;planregistratie,
+ <a href="EnumValues.html" title="class in nl.b3p.planmonitorwonen.api.validation">EnumValues</a>&nbsp;enumValues)</span></div>
+<div class="block">Returns the validation errors of the planregistratie, empty when valid.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>enumValues</code> - the values of the enum types in the database</dd>
+</dl>
 </div>
 </section>
 </li>

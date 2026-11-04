@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>PlanregistratieAutofillControllerTest xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../testapidocs/nl/b3p/planmonitorwonen/api/controller/PlanregistratieAutofillControllerTest.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2026 Provincie Zeeland</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * SPDX-License-Identifier: MIT</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> nl.b3p.planmonitorwonen.api.controller;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.assertj.core.api.Assertions.assertThat;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.ArgumentMatchers.any;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.never;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.verify;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.verifyNoInteractions;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.when;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> nl.b3p.planmonitorwonen.api.security.PlanmonitorAuthenticationService;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> nl.b3p.planmonitorwonen.api.service.PlanregistratieAutofillService;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.springframework.http.HttpStatus;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.springframework.http.MediaType;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.springframework.jdbc.core.simple.JdbcClient;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.springframework.test.context.ActiveProfiles;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.springframework.test.context.bean.override.mockito.MockitoBean;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.springframework.test.web.servlet.assertj.MockMvcTester;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.server.ResponseStatusException;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  @WebMvcTest(
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      controllers = PlanregistratieAutofillController.<strong class="jxr_keyword">class</strong>,
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      properties = {<span class="jxr_string">"planmonitor-wonen-api.base-path=/api/planmonitor-wonen"</span>, <span class="jxr_string">"spring.mvc.problemdetails.enabled=true"</span>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      })
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  @AutoConfigureMockMvc(addFilters = false)
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  @ActiveProfiles(<span class="jxr_string">"integration-test"</span>)
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">class</strong> PlanregistratieAutofillControllerTest {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    @Autowired
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>    <strong class="jxr_keyword">private</strong> MockMvcTester mvc;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>    @MockitoBean
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>    <strong class="jxr_keyword">private</strong> PlanmonitorAuthenticationService authenticationService;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    @MockitoBean
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>    <strong class="jxr_keyword">private</strong> JdbcClient jdbcClient;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>    @MockitoBean
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">private</strong> PlanregistratieAutofillService autofillService;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>    @Test
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <strong class="jxr_keyword">void</strong> notLoggedInIsUnauthorized() {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      when(authenticationService.requirePlanmonitorUser())
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          .thenThrow(<strong class="jxr_keyword">new</strong> ResponseStatusException(HttpStatus.UNAUTHORIZED, <span class="jxr_string">"Niet ingelogd"</span>));
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      assertThat(mvc.post()
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              .uri(<span class="jxr_string">"/api/planmonitor-wonen/planregistratie/autofill-by-geometry"</span>)
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              .contentType(MediaType.TEXT_PLAIN)
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>              .content(<span class="jxr_string">"POLYGON ((30000 390000, 31000 390000, 31000 391000, 30000 391000, 30000 390000))"</span>))
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          .hasStatus(HttpStatus.UNAUTHORIZED);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      verifyNoInteractions(jdbcClient);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_comment">// The autofill service is also called by its startup event listener, so only check the lookups</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      verify(autofillService, never()).getProvincies(any());
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      verify(autofillService, never()).getRegios(any());
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      verify(autofillService, never()).getWoonmilieus(any());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>    }
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  }
+</pre>
+<hr/>
+<div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
+</body>
+</html>

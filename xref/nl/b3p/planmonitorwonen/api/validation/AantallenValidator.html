@@ -41,149 +41,141 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> LAATSTE_JAAR = 2043;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <em class="jxr_javadoccomment">/** The categorie values per group, the same as the enum types in the database. */</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, List&lt;String&gt;&gt; GROEPEN = Map.of(
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>        <span class="jxr_string">"woningType"</span>, List.of(<span class="jxr_string">"Eengezins"</span>, <span class="jxr_string">"Meergezins"</span>, <span class="jxr_string">"Onbekend"</span>),
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>        <span class="jxr_string">"wonenEnZorg"</span>, List.of(<span class="jxr_string">"Geclusterd"</span>, <span class="jxr_string">"Nultreden"</span>, <span class="jxr_string">"Onbekend"</span>, <span class="jxr_string">"Regulier"</span>, <span class="jxr_string">"Zorggeschikt"</span>),
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>        <span class="jxr_string">"flexwoningen"</span>, List.of(<span class="jxr_string">"Flexwoningen"</span>, <span class="jxr_string">"Regulier permanent"</span>),
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>        <span class="jxr_string">"betaalbaarheid"</span>,
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>            List.of(
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>                <span class="jxr_string">"Sociale huur"</span>,
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>                <span class="jxr_string">"Huur middenhuur"</span>,
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>                <span class="jxr_string">"Huur dure huur"</span>,
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>                <span class="jxr_string">"Huur onbekend"</span>,
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>                <span class="jxr_string">"Koop betaalbare koop"</span>,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>                <span class="jxr_string">"Koop dure koop"</span>,
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>                <span class="jxr_string">"Koop onbekend"</span>,
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>                <span class="jxr_string">"Onbekend koop of huur"</span>));
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String BRUTO_FIELD = <span class="jxr_string">"aantallen.bruto"</span>;
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <strong class="jxr_keyword">private</strong> <a name="AantallenValidator" href="../../../../../nl/b3p/planmonitorwonen/api/validation/AantallenValidator.html#AantallenValidator">AantallenValidator</a>() {}
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> validate(<a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a> aantallen, List&lt;ValidationError&gt; errors) {
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">if</strong> (aantallen == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>        <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> bruto = aantallen.bruto();
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">boolean</strong> valuesValid = validateAantal(BRUTO_FIELD, bruto, <strong class="jxr_keyword">true</strong>, errors);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      valuesValid &amp;= validateAantal(<span class="jxr_string">"aantallen.sloop"</span>, aantallen.sloop(), false, errors);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      Map&lt;String, Map&lt;String, Aantal&gt;&gt; groepen = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      groepen.put(<span class="jxr_string">"woningType"</span>, aantallen.woningType());
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      groepen.put(<span class="jxr_string">"wonenEnZorg"</span>, aantallen.wonenEnZorg());
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      groepen.put(<span class="jxr_string">"flexwoningen"</span>, aantallen.flexwoningen());
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      groepen.put(<span class="jxr_string">"betaalbaarheid"</span>, aantallen.betaalbaarheid());
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Map&lt;String, Aantal&gt;&gt; groep : groepen.entrySet()) {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>        Map&lt;String, Aantal&gt; categorieen = Objects.requireNonNullElse(groep.getValue(), Map.of());
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>        <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Aantal&gt; categorie : categorieen.entrySet()) {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          String field = <span class="jxr_string">"aantallen."</span> + groep.getKey() + <span class="jxr_string">"."</span> + categorie.getKey();
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">if</strong> (!GROEPEN.get(groep.getKey()).contains(categorie.getKey())) {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>            errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                field,
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>                <span class="jxr_string">"Onbekende categorie \&quot;%s\&quot;, mogelijke waarden: %s"</span>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>                    .formatted(categorie.getKey(), String.join(<span class="jxr_string">", "</span>, GROEPEN.get(groep.getKey())))));
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>            valuesValid = false;
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          }
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          valuesValid &amp;= validateAantal(field, categorie.getValue(), <strong class="jxr_keyword">true</strong>, errors);
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>        }
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      }
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">if</strong> (!valuesValid) {
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>        <em class="jxr_comment">// The totals are only compared when the values themselves are valid</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>        <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">int</strong> brutoGepland = bruto == <strong class="jxr_keyword">null</strong> ? 0 : bruto.gepland();
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Map&lt;String, Aantal&gt;&gt; groep : groepen.entrySet()) {
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>        Map&lt;String, Aantal&gt; categorieen = Objects.requireNonNullElse(groep.getValue(), Map.of());
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>        String field = <span class="jxr_string">"aantallen."</span> + groep.getKey();
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>        <strong class="jxr_keyword">int</strong> totaal = categorieen.values().stream()
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>            .filter(Objects::nonNull)
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>            .mapToInt(Aantal::gepland)
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>            .sum();
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>        <strong class="jxr_keyword">if</strong> (totaal != brutoGepland) {
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>          errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>              field,
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>             <span class="jxr_string">"Totaal gepland van %s (%d) is niet gelijk aan bruto (%d)"</span>
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 .formatted(groep.getKey(), totaal, brutoGepland)));
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>       }
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> 
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>       SortedSet&lt;Integer&gt; jaren = <strong class="jxr_keyword">new</strong> TreeSet&lt;&gt;();
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>       <strong class="jxr_keyword">if</strong> (bruto != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         jaren.addAll(bruto.perJaar().keySet());
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>       }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>       categorieen.values().stream()
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>           .filter(Objects::nonNull)
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>           .forEach(a -&gt; jaren.addAll(a.perJaar().keySet()));
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>       <strong class="jxr_keyword">for</strong> (Integer jaar : jaren) {
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">int</strong> brutoJaar = bruto == <strong class="jxr_keyword">null</strong> ? 0 : bruto.perJaar().getOrDefault(jaar, 0);
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">int</strong> jaarTotaal = categorieen.values().stream()
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>             .filter(Objects::nonNull)
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>             .mapToInt(a -&gt; a.perJaar().getOrDefault(jaar, 0))
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>             .sum();
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">if</strong> (jaarTotaal != brutoJaar) {
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>           errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>               field + <span class="jxr_string">".perJaar."</span> + jaar,
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>               <span class="jxr_string">"Totaal van %s in %d (%d) is niet gelijk aan bruto in %d (%d)"</span>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>                   .formatted(groep.getKey(), jaar, jaarTotaal, jaar, brutoJaar)));
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         }
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>       }
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>   }
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">   * Validates the values of an aantal and whether the numbers per year add up.</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a> <em class="jxr_javadoccomment">   *</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">   * @param restcapaciteitCheck whether the numbers per year must add up to gepland minus gerealiseerd</em>
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">   * @return whether the values are valid, so the totals can be compared, regardless of the numbers per year adding up</em>
-<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> validateAantal(
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>       String field, <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> aantal, <strong class="jxr_keyword">boolean</strong> restcapaciteitCheck, List&lt;ValidationError&gt; errors) {
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">if</strong> (aantal == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">int</strong> errorCount = errors.size();
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">if</strong> (aantal.gepland() &lt; 0) {
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".gepland"</span>, <span class="jxr_string">"Gepland mag niet negatief zijn"</span>));
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>     }
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">if</strong> (aantal.gerealiseerd() &lt; 0) {
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".gerealiseerd"</span>, <span class="jxr_string">"Gerealiseerd mag niet negatief zijn"</span>));
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     }
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>     <strong class="jxr_keyword">if</strong> (aantal.gepland() &gt;= 0 &amp;&amp; aantal.gerealiseerd() &gt; aantal.gepland()) {
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>           field + <span class="jxr_string">".gerealiseerd"</span>,
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>           <span class="jxr_string">"Gerealiseerd (%d) mag niet meer zijn dan gepland (%d)"</span>
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>               .formatted(aantal.gerealiseerd(), aantal.gepland())));
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>     }
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     aantal.perJaar().forEach((jaar, aantalGepland) -&gt; {
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>       <strong class="jxr_keyword">if</strong> (jaar &lt; EERSTE_JAAR || jaar &gt; LAATSTE_JAAR) {
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>             field + <span class="jxr_string">".perJaar."</span> + jaar,
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>             <span class="jxr_string">"Jaar %d moet tussen %d en %d liggen"</span>.formatted(jaar, EERSTE_JAAR, LAATSTE_JAAR)));
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>       }
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>       <strong class="jxr_keyword">if</strong> (aantalGepland &lt; 0) {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".perJaar."</span> + jaar, <span class="jxr_string">"Aantal mag niet negatief zijn"</span>));
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>       }
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     });
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">if</strong> (errors.size() &gt; errorCount) {
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>       <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>     }
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">if</strong> (restcapaciteitCheck) {
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>       <strong class="jxr_keyword">int</strong> restcapaciteit = aantal.gepland() - aantal.gerealiseerd();
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>       <strong class="jxr_keyword">int</strong> perJaarTotaal = aantal.perJaar().values().stream()
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>           .mapToInt(Integer::intValue)
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>           .sum();
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>       <strong class="jxr_keyword">if</strong> (perJaarTotaal != restcapaciteit) {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             field + <span class="jxr_string">".perJaar"</span>,
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>             <span class="jxr_string">"Totaal per jaar (%d) is niet gelijk aan gepland min gerealiseerd (%d)"</span>
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>                 .formatted(perJaarTotaal, restcapaciteit)));
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>       }
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     }
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>   }
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>    <em class="jxr_javadoccomment">/** The enum type in the database with the categorie values per group. */</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Map&lt;String, String&gt; GROEP_ENUM_TYPES = Map.of(
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>        <span class="jxr_string">"woningType"</span>, EnumValues.WONING_TYPE,
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>        <span class="jxr_string">"wonenEnZorg"</span>, EnumValues.WONEN_EN_ZORG,
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>        <span class="jxr_string">"flexwoningen"</span>, EnumValues.FLEXWONINGEN,
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>        <span class="jxr_string">"betaalbaarheid"</span>, EnumValues.BETAALBAARHEID);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>    <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String BRUTO_FIELD = <span class="jxr_string">"aantallen.bruto"</span>;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>    <strong class="jxr_keyword">private</strong> <a name="AantallenValidator" href="../../../../../nl/b3p/planmonitorwonen/api/validation/AantallenValidator.html#AantallenValidator">AantallenValidator</a>() {}
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> validate(<a name="Aantallen" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantallen.html#Aantallen">Aantallen</a> aantallen, <a name="EnumValues" href="../../../../../nl/b3p/planmonitorwonen/api/validation/EnumValues.html#EnumValues">EnumValues</a> enumValues, List&lt;ValidationError&gt; errors) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">if</strong> (aantallen == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>        <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> bruto = aantallen.bruto();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">boolean</strong> valuesValid = validateAantal(BRUTO_FIELD, bruto, <strong class="jxr_keyword">true</strong>, errors);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      valuesValid &amp;= validateAantal(<span class="jxr_string">"aantallen.sloop"</span>, aantallen.sloop(), false, errors);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      Map&lt;String, Map&lt;String, Aantal&gt;&gt; groepen = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      groepen.put(<span class="jxr_string">"woningType"</span>, aantallen.woningType());
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      groepen.put(<span class="jxr_string">"wonenEnZorg"</span>, aantallen.wonenEnZorg());
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      groepen.put(<span class="jxr_string">"flexwoningen"</span>, aantallen.flexwoningen());
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      groepen.put(<span class="jxr_string">"betaalbaarheid"</span>, aantallen.betaalbaarheid());
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Map&lt;String, Aantal&gt;&gt; groep : groepen.entrySet()) {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>        Map&lt;String, Aantal&gt; categorieen = Objects.requireNonNullElse(groep.getValue(), Map.of());
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>        List&lt;String&gt; categorieValues = enumValues.get(GROEP_ENUM_TYPES.get(groep.getKey()));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>        <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Aantal&gt; categorie : categorieen.entrySet()) {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          String field = <span class="jxr_string">"aantallen."</span> + groep.getKey() + <span class="jxr_string">"."</span> + categorie.getKey();
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">if</strong> (!categorieValues.contains(categorie.getKey())) {
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>            errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                field,
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>                <span class="jxr_string">"Onbekende categorie \&quot;%s\&quot;, mogelijke waarden: %s"</span>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>                    .formatted(categorie.getKey(), String.join(<span class="jxr_string">", "</span>, categorieValues))));
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>            valuesValid = false;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          }
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          valuesValid &amp;= validateAantal(field, categorie.getValue(), <strong class="jxr_keyword">true</strong>, errors);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>        }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">if</strong> (!valuesValid) {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>        <em class="jxr_comment">// The totals are only compared when the values themselves are valid</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>        <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <strong class="jxr_keyword">int</strong> brutoGepland = bruto == <strong class="jxr_keyword">null</strong> ? 0 : bruto.gepland();
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">for</strong> (Map.Entry&lt;String, Map&lt;String, Aantal&gt;&gt; groep : groepen.entrySet()) {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>        Map&lt;String, Aantal&gt; categorieen = Objects.requireNonNullElse(groep.getValue(), Map.of());
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>        String field = <span class="jxr_string">"aantallen."</span> + groep.getKey();
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>        <strong class="jxr_keyword">int</strong> totaal = categorieen.values().stream()
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>            .filter(Objects::nonNull)
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>            .mapToInt(Aantal::gepland)
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>            .sum();
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>        <strong class="jxr_keyword">if</strong> (totaal != brutoGepland) {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              field,
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>              <span class="jxr_string">"Totaal gepland van %s (%d) is niet gelijk aan bruto (%d)"</span>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  .formatted(groep.getKey(), totaal, brutoGepland)));
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>        }
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>        SortedSet&lt;Integer&gt; jaren = <strong class="jxr_keyword">new</strong> TreeSet&lt;&gt;();
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>        <strong class="jxr_keyword">if</strong> (bruto != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          jaren.addAll(bruto.perJaar().keySet());
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>        }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>       categorieen.values().stream()
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>           .filter(Objects::nonNull)
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>           .forEach(a -&gt; jaren.addAll(a.perJaar().keySet()));
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>       <strong class="jxr_keyword">for</strong> (Integer jaar : jaren) {
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">int</strong> brutoJaar = bruto == <strong class="jxr_keyword">null</strong> ? 0 : bruto.perJaar().getOrDefault(jaar, 0);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">int</strong> jaarTotaal = categorieen.values().stream()
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             .filter(Objects::nonNull)
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>             .mapToInt(a -&gt; a.perJaar().getOrDefault(jaar, 0))
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>             .sum();
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">if</strong> (jaarTotaal != brutoJaar) {
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>           errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>               field + <span class="jxr_string">".perJaar."</span> + jaar,
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>               <span class="jxr_string">"Totaal van %s in %d (%d) is niet gelijk aan bruto in %d (%d)"</span>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>                   .formatted(groep.getKey(), jaar, jaarTotaal, jaar, brutoJaar)));
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         }
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>       }
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     }
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>   }
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">   * Validates the values of an aantal and whether the numbers per year add up.</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a> <em class="jxr_javadoccomment">   *</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> <em class="jxr_javadoccomment">   * @param restcapaciteitCheck whether the numbers per year must add up to gepland minus gerealiseerd</em>
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">   * @return whether the values are valid, so the totals can be compared, regardless of the numbers per year adding up</em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> validateAantal(
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>       String field, <a name="Aantal" href="../../../../../nl/b3p/planmonitorwonen/api/model/Aantal.html#Aantal">Aantal</a> aantal, <strong class="jxr_keyword">boolean</strong> restcapaciteitCheck, List&lt;ValidationError&gt; errors) {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">if</strong> (aantal == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     }
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">int</strong> errorCount = errors.size();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">if</strong> (aantal.gepland() &lt; 0) {
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".gepland"</span>, <span class="jxr_string">"Gepland mag niet negatief zijn"</span>));
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     }
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">if</strong> (aantal.gerealiseerd() &lt; 0) {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".gerealiseerd"</span>, <span class="jxr_string">"Gerealiseerd mag niet negatief zijn"</span>));
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     }
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">if</strong> (aantal.gepland() &gt;= 0 &amp;&amp; aantal.gerealiseerd() &gt; aantal.gepland()) {
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>       errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>           field + <span class="jxr_string">".gerealiseerd"</span>,
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>           <span class="jxr_string">"Gerealiseerd (%d) mag niet meer zijn dan gepland (%d)"</span>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>               .formatted(aantal.gerealiseerd(), aantal.gepland())));
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     }
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>     aantal.perJaar().forEach((jaar, aantalGepland) -&gt; {
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>       <strong class="jxr_keyword">if</strong> (jaar &lt; EERSTE_JAAR || jaar &gt; LAATSTE_JAAR) {
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>             field + <span class="jxr_string">".perJaar."</span> + jaar,
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             <span class="jxr_string">"Jaar %d moet tussen %d en %d liggen"</span>.formatted(jaar, EERSTE_JAAR, LAATSTE_JAAR)));
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>       }
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>       <strong class="jxr_keyword">if</strong> (aantalGepland &lt; 0) {
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(field + <span class="jxr_string">".perJaar."</span> + jaar, <span class="jxr_string">"Aantal mag niet negatief zijn"</span>));
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>       }
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     });
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">if</strong> (errors.size() &gt; errorCount) {
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>       <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>     <strong class="jxr_keyword">if</strong> (restcapaciteitCheck) {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>       <strong class="jxr_keyword">int</strong> restcapaciteit = aantal.gepland() - aantal.gerealiseerd();
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>       <strong class="jxr_keyword">int</strong> perJaarTotaal = aantal.perJaar().values().stream()
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>           .mapToInt(Integer::intValue)
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>           .sum();
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>       <strong class="jxr_keyword">if</strong> (perJaarTotaal != restcapaciteit) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         errors.add(<strong class="jxr_keyword">new</strong> <a name="ValidationError" href="../../../../../nl/b3p/planmonitorwonen/api/validation/ValidationError.html#ValidationError">ValidationError</a>(
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             field + <span class="jxr_string">".perJaar"</span>,
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>             <span class="jxr_string">"Totaal per jaar (%d) is niet gelijk aan gepland min gerealiseerd (%d)"</span>
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 .formatted(perJaarTotaal, restcapaciteit)));
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>       }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     }
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>   }
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> }
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
