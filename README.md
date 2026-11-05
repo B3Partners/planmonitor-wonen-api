@@ -56,7 +56,7 @@ is aangeleverd, kan in de webapplicatie pas worden opgeslagen als de ontbrekende
 
 Verder:
 
-- Een plan kan als vertrouwelijk worden gemarkeerd, ongeacht de planologische status.
+- Een plan kan als vertrouwelijk worden gemarkeerd, ongeacht de planologische status (zie *Dataprotocol LMVW*).
 - Plannen met planologische status "5A. Ambtelijk met locatie" en "5B. Ambtelijk zonder locatie" worden geaccepteerd,
   hoewel deze volgens de basisset niet aan de provincie worden geleverd.
 - Een plannaam mag maar één keer voorkomen, over alle gemeenten heen. Een plan met een naam die al bij een andere
@@ -75,7 +75,37 @@ Verder:
   Wonen hoort te staan, kan met `DELETE /planregistratie/{id}` worden verwijderd.
 - **Fasering.** De basisset gaat uit van een periode die elk jaar opschuift: de eerste 10 jaar per jaar, daarna twee
   perioden van 5 jaar. De API heeft in `perJaar` alleen afzonderlijke jaren, van 2024 tot en met 2043. Ook de jaren van
-  de perioden van 5 jaar worden dus per jaar aangeleverd.
+  de perioden van 5 jaar worden dus per jaar aangeleverd. Vanaf de voorjaarslevering 2026 loopt de periode van 20 jaar
+  voorbij 2043. Die laatste jaren kunnen niet worden aangeleverd.
+
+### Dataprotocol LMVW
+
+Naast de basisset maakt het
+[Dataprotocol LMVW 1.0](https://vng.nl/sites/default/files/2024-09/lbr_24_036_lmvw_dataprotocol_1_0_020924.pdf)
+(vastgesteld in het BO VRO van 4 april 2024) afspraken over het aanleveren van woningbouwplannen. De basisset verwijst
+daarnaar. Voor het aanleveren via deze API betekent dat:
+
+- **Vertrouwelijkheid (artikel 6 tot en met 8).** Volgens het protocol is een plan openbaar of vertrouwelijk. Een
+  gemeente mag alleen een plan met een zachte planstatus (1C, 2C, 3, 4A of 4B) of een vervallen plan als vertrouwelijk
+  aanmerken, en alleen zolang de kenmerken uit de basisset nog niet aan omwonenden zijn gecommuniceerd. De API
+  controleert dit niet. De API kent drie waarden voor `vertrouwelijkheid`: `Openbaar`, `Provincie` en `Gemeente`. Dit
+  is alleen een label voor hoe de provincie het plan mag gebruiken, het beperkt de toegang niet: een provinciegebruiker
+  kan alle plannen bekijken, ook die met `Gemeente`. Dat past bij het protocol, waarin de gemeente ook vertrouwelijke
+  plannen per plan aan de provincie levert. Gebruik `Gemeente` alleen voor plannen die volgens de basisset niet aan de
+  provincie worden geleverd, zoals 5A en 5B. Er is geen veld voor de keuze uit artikel 8 dat de provincie
+  vertrouwelijke plannen samengevoegd doorlevert.
+- **Kleine plannen (artikel 9).** Met akkoord van de provincie mag een gemeente plannen met minder dan 12 bruto
+  toevoegingen optellen tot één plan, met als plangrens een fictieve polygoon op de locatie van het gemeentehuis. Geef
+  dit plan een naam die uniek is over alle gemeenten, bijvoorbeeld "Kleine plannen Middelburg". Als het beoogd
+  woonmilieu ontbreekt, wordt het afgeleid uit de plangrens. Bij deze fictieve plangrens zegt dat niets over de kleine
+  plannen, stuur het daarom zelf mee.
+- **Vervallen plannen (artikel 6).** Volgens de basisset wordt een vervallen plan nog één keer met dat label
+  aangeleverd. De API kan een plan alleen verwijderen, zie *Vervallen* hierboven. Ontstaat er op de locatie van een
+  vervallen plan een nieuw plan, lever dat dan aan als nieuwe planregistratie met een eigen id.
+- **Aanlevermomenten (artikel 10).** Plannen worden twee keer per jaar aan de provincie geleverd: de voorjaarslevering
+  met peildatum 1 januari en extractiemoment 1 april, en de najaarslevering met peildatum 1 juli en extractiemoment
+  1 oktober. Zorg dat de plannen uiterlijk op het extractiemoment met de stand van de peildatum zijn aangeleverd. De API
+  zelf kent geen aanlevermomenten, zie *Aanleveren door een client* in de API-documentatie.
 
 ## Draaien en ontwikkelen
 
