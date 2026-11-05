@@ -9,6 +9,7 @@ voor Zeeland:
 - de provinciespecifieke velden van een planregistratie, zie *Verschillen met de basisset 2.0*;
 - de frontend ([tailormap-planmonitor-wonen](https://github.com/B3Partners/tailormap-planmonitor-wonen)) haalt de
   gemeentes op voor de vaste provincie "Zeeland";
+- de documentatie in de frontend ([deze HTML](url)) noemt ook de provinciespecifieke velden;
 - de WFS waaruit de regio en het beoogde woonmilieu worden afgeleid, is die van Provincie Zeeland
   (`planmonitor-wonen-api.wfs.ruimte` in `application.properties`). De provincie- en gemeentegrenzen komen uit de
   landelijke WFS van PDOK.
@@ -33,6 +34,9 @@ Het gegevensmodel van Planmonitor Wonen is opgezet voor de provincie en komt nie
 staat hoe de API daar nu mee omgaat, ter informatie voor de software van gemeenten die plannen aanlevert.
 
 ### Provinciespecifieke velden
+
+Lees meer over de provinciespecifieke velden op de ingebouwde helppagina, op te roepen in de webapplicatie via het
+blauwe icoon met een omcirkeld vraagteken in het formulier om een plan te bewerken of via [deze HTML](https://github.com/B3Partners/tailormap-planmonitor-wonen/blob/main/projects/planmonitor-wonen/src/lib/planmonitor-help/planmonitor-help.component.html).
 
 Via de API zijn alleen de velden verplicht die in de basisset staan of nodig zijn om een plan te herkennen: plannaam,
 gemeente, plangrens, plantype en planologische status. De overige velden zijn provinciespecifiek. In de webapplicatie
