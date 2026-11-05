@@ -309,10 +309,14 @@ SPDX-License-Identifier: MIT
         </dependency>
     </dependencies>
     <repositories>
+        <!-- Maven Central first, repo.b3p.nl last: repo.b3p.nl has a daily request limit -->
         <repository>
-            <id>B3Partners</id>
-            <name>Releases hosted by B3Partners</name>
-            <url>https://repo.b3p.nl/nexus/repository/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
         </repository>
         <repository>
             <snapshots>
@@ -321,6 +325,11 @@ SPDX-License-Identifier: MIT
             <id>OSGeo</id>
             <name>Releases hosted by OSGeo</name>
             <url>https://repo.osgeo.org/repository/release/</url>
+        </repository>
+        <repository>
+            <id>B3Partners</id>
+            <name>Releases hosted by B3Partners</name>
+            <url>https://repo.b3p.nl/nexus/repository/public/</url>
         </repository>
     </repositories>
     <build>
