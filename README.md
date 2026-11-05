@@ -9,13 +9,13 @@ voor Zeeland:
 - de provinciespecifieke velden van een planregistratie, zie *Verschillen met de basisset 2.0*;
 - de frontend ([tailormap-planmonitor-wonen](https://github.com/B3Partners/tailormap-planmonitor-wonen)) haalt de
   gemeentes op voor de vaste provincie "Zeeland";
-- de WFS-service waaruit de regio en het beoogde woonmilieu worden afgeleid, is die van Provincie Zeeland
+- de WFS waaruit de regio en het beoogde woonmilieu worden afgeleid, is die van Provincie Zeeland
   (`planmonitor-wonen-api.wfs.ruimte` in `application.properties`). De provincie- en gemeentegrenzen komen uit de
-  landelijke WFS-service van PDOK.
+  landelijke WFS van PDOK.
 
 Met een paar kleine aanpassingen kan de applicatie ook door andere provincies worden gebruikt, inclusief deze API voor
-het aanleveren van plannen door gemeenten met software die deze API ondersteunt. Neem daarvoor contact op met Provincie
-Zeeland.
+het aanleveren van plannen door gemeenten met software die deze API ondersteunt. Dit project is Open Source dus kan zo 
+worden gebruikt of geforked -- daarnaast kan ook contact opgenomen worden met Provincie Zeeland over dit project.
 
 ## API documentatie
 
