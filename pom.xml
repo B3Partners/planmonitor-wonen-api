@@ -526,11 +526,11 @@ SPDX-License-Identifier: MIT
                             <BP_OCI_LICENSES>${project.licenses}</BP_OCI_LICENSES>
                         </env>
                         <pullPolicy>${docker.pull.policy}</pullPolicy>
-                        <!-- health-checker adds /cnb/process/health-check for a container healthcheck, the image has
+                        <!-- health-checker adds /layers/paketo-buildpacks_health-checker/thc/bin/thc for a container healthcheck, the image has
                         no shell or curl -->
                         <buildpacks>
                             <buildpack>urn:cnb:builder:paketo-buildpacks/java</buildpack>
-                            <buildpack>docker.io/paketobuildpacks/health-checker:2.14.2</buildpack>
+                            <buildpack>docker.io/paketobuildpacks/health-checker:2</buildpack>
                         </buildpacks>
                     </image>
                     <layers>
