@@ -40,28 +40,40 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>    @Bean
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>    <strong class="jxr_keyword">public</strong> SecurityFilterChain apiFilterChain(HttpSecurity http) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      RequestCache nullRequestCache = <strong class="jxr_keyword">new</strong> NullRequestCache();
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      http.csrf(AbstractHttpConfigurer::disable)
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          .authorizeHttpRequests(authorize -&gt; {
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>            authorize.requestMatchers(actuatorBasePath + <span class="jxr_string">"/health/**"</span>).permitAll();
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>            authorize
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>                .requestMatchers(actuatorBasePath, actuatorBasePath + <span class="jxr_string">"/**"</span>)
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>                .hasAnyAuthority(<span class="jxr_string">"admin"</span>, <span class="jxr_string">"actuator"</span>);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>            <em class="jxr_comment">// API endpoints check authorization themselves with PlanmonitorAuthenticationService</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>            authorize.anyRequest().permitAll();
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          })
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          .sessionManagement(session -&gt; session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          .requestCache((cache) -&gt; cache.requestCache(nullRequestCache))
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          .exceptionHandling(httpSecurityExceptionHandlingConfigurer -&gt;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>              httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>                  (request, response, authException) -&gt; {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>                    logger.debug(<span class="jxr_string">"Unauthorized request: {}"</span>, request, authException);
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>                    response.sendError(
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>                        HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>                  }));
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">return</strong> http.build();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>    }
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  }
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <em class="jxr_comment">/* CSRF protection is disabled on purpose, so API clients only need the SESSION cookie (see</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_comment">    openapi/description.md). Logging in and out is done by Tailormap, which does check the XSRF-TOKEN. A</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_comment">    CSRF attack needs a request that the browser sends cross-origin with the SESSION cookie, without a CORS</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_comment">    preflight. That is not possible here:</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_comment">    - Tailormap sets the SESSION cookie with SameSite=Lax, so browsers do not send it with cross-site</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_comment">    POST/PUT/DELETE requests at all.</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_comment">    - From another origin on the same site SameSite does not apply. But all endpoints that change data use</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_comment">    PUT or DELETE, which need a CORS preflight, and this application has no CORS configuration so the</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_comment">    preflight fails. The only POST endpoint (autofill-by-geometry) is read-only, and a page from another</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_comment">    origin cannot read the response.</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_comment">    CsrfSafetyTest checks that new POST endpoints or a CORS configuration do not change this.</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_comment">    */</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      http.csrf(AbstractHttpConfigurer::disable)
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          .authorizeHttpRequests(authorize -&gt; {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>            authorize.requestMatchers(actuatorBasePath + <span class="jxr_string">"/health/**"</span>).permitAll();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>            authorize
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>                .requestMatchers(actuatorBasePath, actuatorBasePath + <span class="jxr_string">"/**"</span>)
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>                .hasAnyAuthority(<span class="jxr_string">"admin"</span>, <span class="jxr_string">"actuator"</span>);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>            <em class="jxr_comment">// API endpoints check authorization themselves with PlanmonitorAuthenticationService</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>            authorize.anyRequest().permitAll();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          })
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          .sessionManagement(session -&gt; session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          .requestCache((cache) -&gt; cache.requestCache(nullRequestCache))
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          .exceptionHandling(httpSecurityExceptionHandlingConfigurer -&gt;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>              httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>                  (request, response, authException) -&gt; {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>                    logger.debug(<span class="jxr_string">"Unauthorized request: {}"</span>, request, authException);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                    response.sendError(
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>                        HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  }));
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">return</strong> http.build();
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>    }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2024–2026 <a href="https://zeeland.nl/">Provincie Zeeland</a></div>
