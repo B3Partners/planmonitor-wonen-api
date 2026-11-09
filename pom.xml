@@ -102,6 +102,8 @@ SPDX-License-Identifier: MIT
         <geotools.version>35.2</geotools.version>
         <jts.version>1.20.0</jts.version>
         <springdoc.version>3.2.0</springdoc.version>
+        <!-- override the swagger-ui webjar version from springdoc for DOMPurify security fixes; remove when springdoc catches up -->
+        <swagger-ui.version>5.34.1</swagger-ui.version>
         <spring.boot.version>${project.parent.version}</spring.boot.version>
         <!--
         Spring-Boot version overrides. see org.springframework.boot:spring-boot-dependencies
@@ -178,6 +180,11 @@ SPDX-License-Identifier: MIT
                 <groupId>org.gaul</groupId>
                 <artifactId>modernizer-maven-annotations</artifactId>
                 <version>${modernizer-maven-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>swagger-ui</artifactId>
+                <version>${swagger-ui.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
