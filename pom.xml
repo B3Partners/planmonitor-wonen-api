@@ -102,7 +102,8 @@ SPDX-License-Identifier: MIT
         <geotools.version>35.2</geotools.version>
         <jts.version>1.20.0</jts.version>
         <springdoc.version>3.2.0</springdoc.version>
-        <!-- override the swagger-ui webjar version from springdoc for DOMPurify security fixes; remove when springdoc catches up -->
+        <!-- override the swagger-ui webjar version from springdoc for DOMPurify security fixes; remove when springdoc catches up
+             (also remove springdoc.swagger-ui.version from application.properties) -->
         <swagger-ui.version>5.34.1</swagger-ui.version>
         <spring.boot.version>${project.parent.version}</spring.boot.version>
         <!--
