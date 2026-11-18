@@ -524,6 +524,10 @@ SPDX-License-Identifier: MIT
                             Only in the image so running locally doesn't need the directory. Mount a volume on
                             /home/cnb/logs to keep the log when the container is recreated -->
                             <BPE_DEFAULT_LOGGING_FILE_NAME>/home/cnb/logs/planmonitor-wonen-api.log</BPE_DEFAULT_LOGGING_FILE_NAME>
+                            <!-- Disable the Base64 intrinsics as mitigation for CVE-2026-114938 (Java4Shell), memory corruption in
+                            the AVX-512 Base64 decoder on x86-64. Only makes Base64 decoding a bit slower, also fine on arm64.
+                            See https://calif.io/java4shell -->
+                            <BPE_APPEND_JAVA_TOOL_OPTIONS xml:space="preserve"> -XX:-UseBASE64Intrinsics</BPE_APPEND_JAVA_TOOL_OPTIONS>
                             <BP_OCI_SOURCE>${project.scm.url}</BP_OCI_SOURCE>
                             <!--suppress UnresolvedMavenProperty -->
                             <BP_OCI_REVISION>${git.commit.id.abbrev}</BP_OCI_REVISION>
