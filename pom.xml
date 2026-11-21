@@ -101,7 +101,7 @@ SPDX-License-Identifier: MIT
         <project.build.outputTimestamp>2026-11-05T09:32:34Z</project.build.outputTimestamp>
         <geotools.version>35.2</geotools.version>
         <jts.version>1.20.0</jts.version>
-        <springdoc.version>3.2.0</springdoc.version>
+        <springdoc.version>3.2.1</springdoc.version>
         <!-- override the swagger-ui webjar version from springdoc for DOMPurify security fixes; remove when springdoc catches up
              (also remove springdoc.swagger-ui.version from application.properties) -->
         <swagger-ui.version>5.34.1</swagger-ui.version>
